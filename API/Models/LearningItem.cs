@@ -8,4 +8,7 @@ namespace API.Models
         public string SentenceWithGaps {get;set;}
         public string CorrectSentence{get;set;}
     }
+
+
+    
 }
