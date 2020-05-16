@@ -1,4 +1,47 @@
-<mat-card style="margin: 50px;">
-  test
+<mat-card class="m-5" color="primary" >
+
+  <mat-card-header  class="mat-card-header">
+    <mat-card-title>Try to guess correct answer...</mat-card-title>
+  </mat-card-header>
+
+
+  <mat-card-content class="m-5">
+
+
+
+      <div class="row">
+        <mat-label class="h5">Definition: </mat-label>
+      </div>
+      <div class="row" >
+        <mat-label class="h4">"{{Item?.description}}"</mat-label>
+      </div>
+
+      <br>
+
+      <div class="row">
+        <mat-label class="h5">Sentence: </mat-label>
+      </div>
+      <div class="row">
+        <mat-label class="h4">{{Item?.sentenceWithGaps.replace("_",".....").replace("_",".....")}}</mat-label>
+      </div>
+
+      <br>
+
+
+      <button mat-raised-button color="primary" class="float-left" *ngIf="!CorrectVisible" (click)="showCorrect()">Check correct answer</button>
+
+
+    
+      <div class="row" *ngIf="CorrectVisible">
+        <mat-label class="h5" >Sentence: </mat-label>
+      </div>
+      <div class="row"  *ngIf="CorrectVisible">
+        <mat-label class="h4">{{Item?.correctSentence}}</mat-label>
+      </div>
+
+      <button mat-raised-button color="primary" *ngIf="CorrectVisible" class="float-left" (click)="nextQuestion()">Next question</button>
+
+  </mat-card-content>
 
 </mat-card>
+

@@ -1,1 +1,18 @@
+<mat-toolbar color="primary">
+    <span>eLearning app</span>
+  
+    <!-- This fills the remaining space of the current row -->
+    <span class="fill-remaining-space"></span>
+  
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Profile</button>
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Help</button>
+      </mat-menu>
+      
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
+      </button>
+  </mat-toolbar>
+
 <app-Lesson>loading...</app-Lesson>

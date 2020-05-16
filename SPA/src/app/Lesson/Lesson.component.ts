@@ -14,12 +14,36 @@ import { LearningItem } from 'src/models/LearningItem';
 export class LessonComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
+  Item: LearningItem = null;
+  index = 0;
   Items: LearningItem[];
+  CorrectVisible: boolean = false;
   ngOnInit() {
     this.http.get('http://localhost:5000/api/content')
       .subscribe((response: LearningItem[]) => {
         this.Items = response;
+        this.Item = this.Items[0];
       })
+      
+  }
+
+  showCorrect() {
+    this.CorrectVisible = true;
+
+  }
+  nextQuestion() {
+    if(this.index<this.Items.length-1)
+    {
+    this.CorrectVisible = false;
+    this.index++;
+    this.Item = this.Items[this.index];
+    }
+    else
+    {
+      this.CorrectVisible = false;
+      this.index =0;
+      this.Item = this.Items[this.index];
+    }
   }
 
 }
