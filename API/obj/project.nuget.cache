@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "KAb4RGANFTZHxF/av54amfVwbLg3QCU9AZQODh6vGSvAJisxMw9HPWT2SVd8v8aZS8Hv1bXpKnjLKUiF4ZsfJQ==",
+  "dgSpecHash": "Q8EEVrd3931+3+fOyQizfnYNFu8YUSQ0NCsCoj6tclBmYKppkeQ93koem9ol/bN3YWywAWA8MT76mKbRu4PIhw==",
   "success": true,
   "projectFilePath": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Lukas\\.nuget\\packages\\automapper\\9.0.0\\automapper.9.0.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\automapper\\7.0.0\\automapper.7.0.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\3.0.1\\automapper.extensions.microsoft.dependencyinjection.3.0.1.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.4\\microsoft.aspnetcore.authentication.jwtbearer.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.4\\microsoft.aspnetcore.jsonpatch.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.4\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.4.nupkg.sha512",

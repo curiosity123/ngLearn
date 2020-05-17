@@ -5,8 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
-namespace api.Controllers {
+namespace api.Controllers
+{
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ContentController : ControllerBase
@@ -15,14 +19,16 @@ namespace api.Controllers {
         [HttpGet]
         public IEnumerable<LearningItem> Get()
         {
+            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+            //     return Unauthorized();
 
             List<LearningItem> items = new List<LearningItem>();
-            
+
             items.Add(getItems());
 
             return new List<LearningItem>()
             {
-                getItems(),getItems() ,getItems() ,getItems()  
+                getItems(),getItems() ,getItems() ,getItems()
             };
 
 
@@ -43,8 +49,8 @@ namespace api.Controllers {
             int index = r.Next(0, rec.Count() - 1);
 
             string[] record = rec[index].Split('\t');
-            record.ToList().ForEach(x=> x.Replace("\n",""));
-            return new LearningItem() {Id=index, Item = record[0], Description = record[1], SentenceWithGaps = record[2], CorrectSentence = record[3] };
+            record.ToList().ForEach(x => x.Replace("\n", ""));
+            return new LearningItem() { Id = index, Item = record[0], Description = record[1], SentenceWithGaps = record[2], CorrectSentence = record[3] };
         }
     }
 }

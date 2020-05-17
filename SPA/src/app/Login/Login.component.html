@@ -1,0 +1,27 @@
+
+    <mat-card >
+
+      <p>
+        <mat-form-field appearance="legacy">
+          <mat-label>Enter your login</mat-label>
+          <input matInput placeholder="Login" #login >
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <!-- <mat-hint>Login</mat-hint> -->
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Enter your password</mat-label>
+          <input matInput type="password" placeholder="Password" #password>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <!-- <mat-hint>Password</mat-hint> -->
+        </mat-form-field>
+      </p>
+      <p>
+         <button mat-raised-button color="primary" (click)="Login(login.value,password.value)">Login</button>
+
+      </p>
+     
+    </mat-card>
+
+

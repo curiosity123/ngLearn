@@ -42,7 +42,7 @@ namespace api
                        .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
             services.AddCors();
-            //services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
