@@ -44,6 +44,7 @@ namespace api
             services.AddCors();
             //services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
@@ -61,12 +62,16 @@ namespace api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            seeder.SeedLearningSet();
+            seeder.SeedUsers();
+
             app.UseCors(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseAuthentication();
             app.UseDefaultFiles();
@@ -83,5 +88,9 @@ namespace api
                 endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
+
+
+
+
     }
 }
