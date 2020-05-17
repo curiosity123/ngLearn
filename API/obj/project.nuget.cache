@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LEJW/7jHeVdyooCNI9Yemq2zrrFBXYHVlP5yvQZJNzFBuc68l+cAztNLhYbR/2M7H/kr73fdLaUYNkZj5Bsz2A==",
+  "dgSpecHash": "KAb4RGANFTZHxF/av54amfVwbLg3QCU9AZQODh6vGSvAJisxMw9HPWT2SVd8v8aZS8Hv1bXpKnjLKUiF4ZsfJQ==",
   "success": true,
   "projectFilePath": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
   "expectedPackageFiles": [
@@ -16,6 +16,7 @@
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore\\3.1.4\\microsoft.entityframeworkcore.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\3.1.4\\microsoft.entityframeworkcore.abstractions.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\3.1.4\\microsoft.entityframeworkcore.analyzers.3.1.4.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.design\\3.1.4\\microsoft.entityframeworkcore.design.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\3.1.4\\microsoft.entityframeworkcore.relational.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\3.1.4\\microsoft.entityframeworkcore.sqlite.3.1.4.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\3.1.4\\microsoft.entityframeworkcore.sqlite.core.3.1.4.nupkg.sha512",

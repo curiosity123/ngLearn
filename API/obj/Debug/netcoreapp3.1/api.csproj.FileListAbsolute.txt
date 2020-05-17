@@ -74,3 +74,4 @@ C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sq
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.csproj.CopyComplete
+C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll

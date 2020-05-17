@@ -7,6 +7,7 @@ namespace API.Models
         public string Description{get;set;}
         public string SentenceWithGaps {get;set;}
         public string CorrectSentence{get;set;}
+        public LearningSet LearningSetElement{get;set;}
     }
 
 
