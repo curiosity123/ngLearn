@@ -11,6 +11,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { JwtModule } from '@auth0/angular-jwt';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,7 +20,11 @@ import { LessonComponent } from './Lesson/Lesson.component';
 import 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './Login/Login.component';
+import { AuthService } from './auth.service';
 
+export function tokenGetter() {
+   return localStorage.getItem('token');
+ }
 
 @NgModule({
    declarations: [
@@ -40,9 +46,18 @@ import { LoginComponent } from './Login/Login.component';
       MatInputModule,
       MatFormFieldModule,
       MatButtonModule,
-      MatGridListModule
+      MatGridListModule,
+      JwtModule.forRoot({
+         config: {
+           tokenGetter,
+           whitelistedDomains: ['localhost:5000'],
+           blacklistedRoutes: ['localhost:5000']
+         }
+       })
    ],
-   providers: [],
+   providers: [
+      AuthService,
+   ],
    bootstrap: [
       AppComponent
    ]
