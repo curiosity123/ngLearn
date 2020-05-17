@@ -19,13 +19,20 @@ export class LessonComponent implements OnInit {
   Items: LearningItem[];
   CorrectVisible: boolean = false;
   ngOnInit() {
-    this.http.get('http://localhost:5000/api/content')
-      .subscribe((response: LearningItem[]) => {
-        this.Items = response;
-        this.Item = this.Items[0];
-      })
-      
+   
+      this.getLearningItems();
   }
+
+
+  getLearningItems()
+  {
+    this.http.get('http://localhost:5000/api/content')
+    .subscribe((response: LearningItem[]) => {
+      this.Items = response;
+      this.Item = this.Items[0];
+    })
+  }
+
 
   showCorrect() {
     this.CorrectVisible = true;
@@ -42,6 +49,7 @@ export class LessonComponent implements OnInit {
     {
       this.CorrectVisible = false;
       this.index =0;
+      this.getLearningItems();
       this.Item = this.Items[this.index];
     }
   }
