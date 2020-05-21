@@ -79,14 +79,14 @@ namespace api
 
             app.UseMvc();
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "spa",
-                    pattern: "{controller=FallbackController}/{action=Index}");
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllerRoute(
+            //         name: "spa",
+            //         pattern: "{controller=FallbackController}/{action=Index}");
 
-                endpoints.MapFallbackToController("Index", "Fallback");
-            });
+            //     endpoints.MapFallbackToController("Index", "Fallback");
+            // });
         }
 
 

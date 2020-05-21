@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,16 +22,22 @@ import 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './Login/Login.component';
 import { AuthService } from './auth.service';
+import { HomeComponent } from './Home/Home.component';
+import { registerLocaleData } from '@angular/common';
+import { RegisterComponent } from './Register/Register.component';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
+   console.log('got token');
  }
 
 @NgModule({
    declarations: [
       AppComponent,
       LessonComponent,
-      LoginComponent
+      LoginComponent,
+      HomeComponent,
+      RegisterComponent
    ],
    imports: [
       BrowserModule,
@@ -47,6 +54,8 @@ export function tokenGetter() {
       MatFormFieldModule,
       MatButtonModule,
       MatGridListModule,
+      RouterModule,
+      MatDialogModule,
       JwtModule.forRoot({
          config: {
            tokenGetter,

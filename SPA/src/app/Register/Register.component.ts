@@ -1,17 +1,15 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/User';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-Login',
-  templateUrl: './Login.component.html',
-  styleUrls: ['./Login.component.css']
+  selector: 'app-Register',
+  templateUrl: './Register.component.html',
+  styleUrls: ['./Register.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   constructor(private authservice: AuthService) { }
-
 
   ngOnInit() {
   }
@@ -27,4 +25,6 @@ export class LoginComponent implements OnInit {
 
     });
   }
+
+
 }
