@@ -26,6 +26,13 @@ export class RegisterComponent implements OnInit {
 
     this.authservice.register(user).subscribe(next => {
       console.log();
+
+      const user = { UserName: login, Password: pass } as User;
+
+      this.authservice.login(user).subscribe(next => {
+        this.dialog.close(); 
+      });
+
       this.dialog.close();
 
     }, error => { error = true; });

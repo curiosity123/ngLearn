@@ -1,5 +1,5 @@
 
-<div *ngIf="!authService.loggedIn()" class="text-center">
+<div *ngIf="!authService.loggedIn()" class="text-center m-4">
   <br>
   <br>
   <br>
@@ -9,6 +9,7 @@
   <br>
 
   <button mat-raised-button color="primary" class="m-4" selected (click)="openRegisterDialog()" *ngIf="!authService.loggedIn()">Register</button>
-  <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()">Login</button>
+  <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()">Sign in</button>
 </div>
+
 <app-Lesson *ngIf="authService.loggedIn()" >loading...</app-Lesson>
