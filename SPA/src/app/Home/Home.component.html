@@ -1,7 +1,14 @@
-<p>
-  Welcome!
-  <br>Home works!
-  <button mat-menu-item (click)="openDialog()">Register</button>
-  <button mat-menu-item (click)="openDialog()">Login</button>
 
-</p>
+<div *ngIf="!authService.loggedIn()" class="text-center">
+  <br>
+  <br>
+  <br>
+  <h1>Welcome!</h1>
+  <br>
+  <h2>If you want to use my app please register your account or sign-in</h2>
+  <br>
+
+  <button mat-raised-button color="primary" class="m-4" selected (click)="openRegisterDialog()" *ngIf="!authService.loggedIn()">Register</button>
+  <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()">Login</button>
+</div>
+<app-Lesson *ngIf="authService.loggedIn()" >loading...</app-Lesson>

@@ -17,7 +17,7 @@ export class AuthService {
   helper = new JwtHelperService();
   decodedToken: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
   login(model: User) {
@@ -35,8 +35,17 @@ export class AuthService {
     );
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
   register(model: any) {
     return this.http.post(this.baseUrl + 'register', model);
+  }
+
+  ifUserExist(model: any) {
+    return this.http.post(this.baseUrl + 'loginAvailable', model);
   }
 
   loggedIn() {
@@ -45,12 +54,12 @@ export class AuthService {
   }
 
 
-// getLearningItems()
-// {
-//   this.http.push('http://localhost:5000/api/content')
-//   .subscribe((response: LearningItem[]) => {
-//     this.Items = response;
-//     this.Item = this.Items[0];
-//   })
-// }
+  // getLearningItems()
+  // {
+  //   this.http.push('http://localhost:5000/api/content')
+  //   .subscribe((response: LearningItem[]) => {
+  //     this.Items = response;
+  //     this.Item = this.Items[0];
+  //   })
+  // }
 }

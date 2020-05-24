@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,11 @@ import { MatDialog } from '@angular/material/dialog';
 export class AppComponent {
   title = 'SPA';
 
+auth:AuthService;
+  constructor(auth: AuthService) {
+this.auth=auth;
+
+  }
 
 
 }

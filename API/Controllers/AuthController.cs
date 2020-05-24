@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
-  [Route("api/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -79,6 +79,33 @@ namespace API.Controllers
 
             return Ok(new { token = tokenHandler.WriteToken(token), user });
 
+        }
+
+
+
+        [HttpPost("loginAvailable")]
+        public async Task<bool> loginAvailable(UserForLoginDto userForRegisterDto)
+        {
+            if (!await _repository.UserExists(userForRegisterDto.UserName))
+                return true;
+            else
+                return false;
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserForLoginDto userForRegisterDto)
+        {
+            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
+
+            if (await _repository.UserExists(userForRegisterDto.UserName))
+                return BadRequest("Użytkownik o takiej nazwie już istnieje");
+
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
+            var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
+
+
+            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
     }
 }

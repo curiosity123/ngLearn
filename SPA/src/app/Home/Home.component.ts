@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from '../Login/Login.component';
+import { AuthService } from '../auth.service';
+import { RegisterComponent } from '../Register/Register.component';
 
 @Component({
   selector: 'app-Home',
@@ -9,11 +11,18 @@ import { LoginComponent } from '../Login/Login.component';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+
+  authService: AuthService;
+  constructor(public dialog: MatDialog, authService: AuthService) {
+    this.authService = authService;
+  }
 
 
-  openDialog() {
+  openLoginDialog() {
     this.dialog.open(LoginComponent);
+  }
+  openRegisterDialog() {
+    this.dialog.open(RegisterComponent);
   }
 
 

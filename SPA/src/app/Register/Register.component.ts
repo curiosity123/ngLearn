@@ -14,17 +14,31 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+  loginAvailable = false;
 
-  Login(login, pass) {
+  register(login, pass) {
 
-    const user = { UserName: login, Password: pass} as User;
+    const user = { UserName: login, Password: pass } as User;
 
-    this.authservice.login(user).subscribe(next => {
+    this.authservice.register(user).subscribe(next => {
       console.log();
-      ('you are logged in correctly');
+
 
     });
   }
 
+  checkIfExist(login, password) {
+    if (login=="" ) {
+      this.loginAvailable = false;
+      return;
+    }
+
+    const user = { UserName: login, Password: "" } as User;
+    this.authservice.ifUserExist(user).subscribe(next => {
+      console.log(next.valueOf());
+      this.loginAvailable = next.valueOf() as boolean;
+
+    });
+  }
 
 }
