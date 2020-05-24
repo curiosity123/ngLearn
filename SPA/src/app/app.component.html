@@ -6,8 +6,6 @@
 
     <mat-menu #appMenu="matMenu">
         <button mat-menu-item (click)="auth.logout()">Sign out</button>
-        <button mat-menu-item>Profile</button>
-        <button mat-menu-item>Help</button>
     </mat-menu>
 
     <button mat-icon-button *ngIf="auth.loggedIn()" [matMenuTriggerFor]="appMenu">

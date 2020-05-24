@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/User';
 import { AuthService } from '../auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-Register',
@@ -9,11 +10,13 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authservice: AuthService) { }
-
+  constructor(private authservice: AuthService, dialogRef: MatDialogRef<RegisterComponent>) {
+    this.dialog = dialogRef;
+  }
+  dialog: MatDialogRef<RegisterComponent>;
   ngOnInit() {
   }
-
+  error = false;
   loginAvailable = false;
   passwordCorrect = false;
 
@@ -23,9 +26,9 @@ export class RegisterComponent implements OnInit {
 
     this.authservice.register(user).subscribe(next => {
       console.log();
+      this.dialog.close();
 
-
-    });
+    }, error => { error = true; });
   }
 
   checkIfPasswordCorrect(login, password) {

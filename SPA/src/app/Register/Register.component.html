@@ -14,7 +14,8 @@
 <p>
   <mat-form-field appearance="standard">
     <mat-label>Enter your password</mat-label>
-    <input matInput type="password" placeholder="Password" (keyup)="checkIfPasswordCorrect(login.value, password.value)" #password>
+    <input matInput type="password" placeholder="Password" (keyup)="checkIfPasswordCorrect(login.value, password.value)"
+      #password>
     <mat-icon matSuffix>
       <i *ngIf="!passwordCorrect" class="fa fa-times-circle" aria-hidden="true"></i>
       <i *ngIf="passwordCorrect" class="fa fa-check-circle" aria-hidden="true"></i>
@@ -25,7 +26,10 @@
 </p>
 <p class="text-center">
   <button mat-button mat-dialog-close mat-raised-button color="primary" class="mr-4">Cancel</button>
-  <button mat-raised-button mat-dialog-close color="primary" [disabled]="!loginAvailable || password.value=='' || !passwordCorrect"
+  <button mat-raised-button mat-dialog-close color="primary"
+    [disabled]="!loginAvailable || password.value=='' || !passwordCorrect"
     (click)="register(login.value,password.value)">Login</button>
 
+
 </p>
+<p class="text-center" *ngIf="error">Error</p>
