@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   }
 
   loginAvailable = false;
+  passwordCorrect = false;
 
   register(login, pass) {
 
@@ -27,8 +28,17 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  checkIfPasswordCorrect(login, password) {
+    if ((password as string).length > 4) {
+      this.passwordCorrect = true;
+    }
+    else {
+      this.passwordCorrect = false;
+    }
+  }
+
   checkIfExist(login, password) {
-    if (login=="" ) {
+    if (login == "") {
       this.loginAvailable = false;
       return;
     }

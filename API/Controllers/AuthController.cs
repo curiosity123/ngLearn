@@ -100,12 +100,12 @@ namespace API.Controllers
             if (await _repository.UserExists(userForRegisterDto.UserName))
                 return BadRequest("Użytkownik o takiej nazwie już istnieje");
 
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var userToCreate = new User() { UserName = userForRegisterDto.UserName };
             var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
-            var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
+            //var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
 
-
-            return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
+            return Ok();
+            //return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
     }
 }
