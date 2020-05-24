@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       const user = { UserName: login, Password: pass } as User;
 
       this.authservice.login(user).subscribe(next => {
-        this.dialog.close(); 
+        this.dialog.close();
       });
 
       this.dialog.close();
