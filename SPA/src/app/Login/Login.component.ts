@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   Login(login, pass) {
 
-    const user = { UserName: login, Password: pass } as User;
+    const user = { userName: login, Password: pass } as User;
 
     this.authservice.login(user).subscribe(next => {
       this.dialog.close();

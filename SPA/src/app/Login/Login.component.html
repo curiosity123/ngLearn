@@ -3,7 +3,7 @@
       <p>
         <mat-form-field appearance="legacy">
           <mat-label>Enter your login</mat-label>
-          <input matInput placeholder="Login"  #login >
+          <input matInput placeholder="Login"  (keyup.enter)="Login(login.value,password.value)" #login >
           <mat-icon matSuffix><i class="fa fa-user" aria-hidden="true"></i></mat-icon>
           <!-- <mat-hint>Login</mat-hint> -->
         </mat-form-field>
@@ -11,14 +11,15 @@
       <p>
         <mat-form-field appearance="standard">
           <mat-label>Enter your password</mat-label>
-          <input matInput type="password" placeholder="Password"  #password>
+          <input matInput type="password" placeholder="Password"  (keyup.enter)="Login(login.value,password.value)" #password>
           <mat-icon matSuffix><i class="fa fa-lock" aria-hidden="true"></i></mat-icon>
           <!-- <mat-hint>Password</mat-hint> -->
         </mat-form-field>
       </p>
+      
       <p class="text-center">
         <button mat-button mat-dialog-close mat-raised-button  color="primary" class="mr-4">Cancel</button>
-         <button mat-raised-button color="primary" (click)="Login(login.value,password.value)">Sign in</button>
+         <button mat-raised-button color="primary" type="submit"  (click)="Login(login.value,password.value)">Sign in</button>
 
       </p>
       <p class="text-center" *ngIf="loginCorrect" >Incorrect login or password</p>

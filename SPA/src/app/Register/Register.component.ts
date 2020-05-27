@@ -22,20 +22,22 @@ export class RegisterComponent implements OnInit {
 
   register(login, pass) {
 
-    const user = { UserName: login, Password: pass } as User;
+    if (this.loginAvailable && this.passwordCorrect) {
+      const user = { userName: login, Password: pass } as User;
 
-    this.authservice.register(user).subscribe(next => {
-      console.log();
+      this.authservice.register(user).subscribe(next => {
+        console.log();
 
-      const user = { UserName: login, Password: pass } as User;
+        const user = { userName: login, Password: pass } as User;
 
-      this.authservice.login(user).subscribe(next => {
+        this.authservice.login(user).subscribe(next => {
+          this.dialog.close();
+        });
+
         this.dialog.close();
-      });
 
-      this.dialog.close();
-
-    }, error => { error = true; });
+      }, error => { error = true; });
+    }
   }
 
   checkIfPasswordCorrect(login, password) {
@@ -53,7 +55,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const user = { UserName: login, Password: "" } as User;
+    const user = { userName: login, Password: "" } as User;
     this.authservice.ifUserExist(user).subscribe(next => {
       console.log(next.valueOf());
       this.loginAvailable = next.valueOf() as boolean;

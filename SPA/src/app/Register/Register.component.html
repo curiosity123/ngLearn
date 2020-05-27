@@ -2,7 +2,7 @@
 <p>
   <mat-form-field appearance="legacy">
     <mat-label>Enter your login</mat-label>
-    <input matInput placeholder="Login" (keyup)="checkIfExist(login.value, password.value)" #login>
+    <input matInput placeholder="Login" (keyup.enter)="register(login.value,password.value)" (keyup)="checkIfExist(login.value, password.value)" #login>
     <mat-icon matSuffix>
       <i *ngIf="!loginAvailable" class="fa fa-times-circle" aria-hidden="true"></i>
       <i *ngIf="loginAvailable" class="fa fa-check-circle" aria-hidden="true"></i>
@@ -14,7 +14,7 @@
 <p>
   <mat-form-field appearance="standard">
     <mat-label>Enter your password</mat-label>
-    <input matInput type="password" placeholder="Password" (keyup)="checkIfPasswordCorrect(login.value, password.value)"
+    <input matInput type="password" placeholder="Password" (keyup.enter)="register(login.value,password.value)" (keyup)="checkIfPasswordCorrect(login.value, password.value)"
       #password>
     <mat-icon matSuffix>
       <i *ngIf="!passwordCorrect" class="fa fa-times-circle" aria-hidden="true"></i>
