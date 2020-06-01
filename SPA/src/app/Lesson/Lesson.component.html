@@ -1,6 +1,6 @@
-<mat-card class="m-5 background-image" color="primary"  >
+<mat-card class="m-5 background-image" color="primary">
 
-  <mat-card-header  class="mat-card-header">
+  <mat-card-header class="mat-card-header">
     <mat-card-title>Try to guess correct answer...</mat-card-title>
   </mat-card-header>
 
@@ -9,44 +9,52 @@
 
 
 
-      <div class="row">
-        <mat-label class="h5">Definition: </mat-label>
-      </div>
-      <div class="row" >
-        <mat-label class="h4">"{{Item?.description}}"</mat-label>
-      </div>
+    <div class="row">
+      <mat-label class="h5">Definition: </mat-label>
+    </div>
+    <div class="row">
+      <mat-label class="h2" style="color: blue;">"{{Item?.description}}"</mat-label>
+    </div>
 
-      <br>
+    <br>
 
-      <div class="row">
-        <mat-label class="h5">Sentence: </mat-label>
-      </div>
-      <div class="row">
-        <mat-label class="h4">{{Item?.sentenceWithGaps.replace("_",".....").replace("_",".....")}}</mat-label>
-      </div>
+    <div class="row">
+      <mat-label class="h5">Sentence: </mat-label>
+    </div>
+    <div class="row">
+      <mat-label class="h4">{{Item?.sentenceWithGaps.replace("_",".....").replace("_",".....")}}</mat-label>
+    </div>
 
-      <br>
+    <br>
+
+    <div>
+      <ng-container *ngFor="let gap of gaps index as i">
+        <mat-form-field appearance="standard" class="mr-4">
+          <input matInput placeholder="{{gap}}" [(ngModel)]="answers[i]" autocomplete="off" #gap>
+        </mat-form-field>
+      </ng-container>
+    </div>
+
+    <button mat-raised-button color="primary" class="float-left" *ngIf="!CorrectVisible" (click)="checkAnswer()">Check
+      correct answer</button>
 
 
-      <button mat-raised-button color="primary" class="float-left" *ngIf="!CorrectVisible" (click)="showCorrect()">Check correct answer</button>
 
+    <div class="row" *ngIf="CorrectVisible">
+      <mat-label class="h5">Sentence: </mat-label>
+    </div>
+    <div class="row" *ngIf="CorrectVisible">
+      <mat-label class="h4">{{Item?.correctSentence}}</mat-label>
+    </div>
 
-    
-      <div class="row" *ngIf="CorrectVisible">
-        <mat-label class="h5" >Sentence: </mat-label>
-      </div>
-      <div class="row"  *ngIf="CorrectVisible">
-        <mat-label class="h4">{{Item?.correctSentence}}</mat-label>
-      </div>
+    <br>
+    <br>
+    <br>
+    <br>
 
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <button mat-raised-button color="primary" *ngIf="CorrectVisible" class="float-left" (click)="nextQuestion()">Next question</button>
+    <button mat-raised-button color="primary" *ngIf="CorrectVisible" class="float-left" (click)="nextQuestion()">Next
+      question</button>
 
   </mat-card-content>
 
 </mat-card>
-

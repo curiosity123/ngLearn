@@ -26,6 +26,7 @@ import { HomeComponent } from './Home/Home.component';
 import { registerLocaleData } from '@angular/common';
 import { RegisterComponent } from './Register/Register.component';
 import { CreateLearningSetComponent } from './Create-learning-set/Create-learning-set.component';
+import { FormsModule } from '@angular/forms'
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -42,6 +43,7 @@ export function tokenGetter() {
       CreateLearningSetComponent
    ],
    imports: [
+      FormsModule,
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
