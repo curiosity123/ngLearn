@@ -27,6 +27,8 @@ import { registerLocaleData } from '@angular/common';
 import { RegisterComponent } from './Register/Register.component';
 import { CreateLearningSetComponent } from './Create-learning-set/Create-learning-set.component';
 import { FormsModule } from '@angular/forms'
+import {MatStepperModule} from '@angular/material/stepper';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -50,8 +52,10 @@ export function tokenGetter() {
       TooltipModule.forRoot(),
       MatCardModule,
       BrowserAnimationsModule,
+      ReactiveFormsModule,
       MatSidenavModule,
       MatMenuModule,
+      MatStepperModule,
       MatToolbarModule,
       MatIconModule,
       MatInputModule,

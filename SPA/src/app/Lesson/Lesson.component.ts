@@ -47,19 +47,18 @@ export class LessonComponent implements OnInit {
   }
 
   checkAnswer() {
-    this.indexesOfGaps = new Array();
-    this.getIndexesOfGaps();
-    const tab = this.splt(this.separators, this.Item.sentenceWithGaps);
-    const tabCorrect = this.splt(this.separators, this.Item.correctSentence);
-    console.log(this.indexesOfGaps.length);
-    for (let i = 0; i < this.indexesOfGaps.length; i++) {
-      
- 
-      if (this.answers[i] === tabCorrect[this.indexesOfGaps[i]]) {
-
-      }
+    this.getGaps();
+    var compare = this.Item.sentenceWithGaps;
+    for (let g in this.gaps) {
+      compare = compare.replace(this.gaps[g], this.answers[g].replace(" ","").replace(" ","").replace(" ","").replace(" ",""));
     }
-
+    if(compare == this.Item.correctSentence)
+    {
+      console.log("Correct!!!");
+    }
+    else{
+      console.log("DUPA!!!");
+    }
     this.CorrectVisible = true;
   }
   nextQuestion() {
@@ -75,17 +74,7 @@ export class LessonComponent implements OnInit {
       this.showNewItem();
     }
   }
-  getIndexesOfGaps() {
-    const tab = this.splt(this.separators, this.Item.sentenceWithGaps);
-    for (let i = 0; i < tab.length; i++) {
-      this.indexesOfGaps = new Array();
 
-      if (tab[i].includes("_")) {
-        this.indexesOfGaps.push(i);
-      }
-    }
-
-  }
 
   getGaps() {
     this.gaps = this.splt(this.separators, this.Item.sentenceWithGaps).filter(x => x.includes('_'));
