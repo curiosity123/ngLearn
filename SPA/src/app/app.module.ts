@@ -29,6 +29,8 @@ import { CreateLearningSetComponent } from './Create-learning-set/Create-learnin
 import { FormsModule } from '@angular/forms'
 import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -54,7 +56,9 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       ReactiveFormsModule,
       MatSidenavModule,
-      MatMenuModule,
+      MatMenuModule,      
+      MatProgressBarModule,
+      MatSliderModule,
       MatStepperModule,
       MatToolbarModule,
       MatIconModule,

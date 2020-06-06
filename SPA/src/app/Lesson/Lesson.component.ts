@@ -31,6 +31,8 @@ export class LessonComponent implements OnInit {
   }
 
 
+
+
   getLearningItems() {
     this.http.get('http://localhost:5000/api/content')
       .subscribe((response: LearningItem[]) => {
