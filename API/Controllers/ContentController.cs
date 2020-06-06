@@ -28,7 +28,7 @@ namespace api.Controllers
 
             return new List<LearningItem>()
             {
-                getItems(),getItems() ,getItems() ,getItems()
+                getItems(),getItems() ,getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems()
             };
 
 

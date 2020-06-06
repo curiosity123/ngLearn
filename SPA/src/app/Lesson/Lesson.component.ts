@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import 'rxjs/operators';
 import { map, tap } from 'rxjs/operators';
@@ -14,24 +14,26 @@ import { FormsModule } from '@angular/forms'
 })
 export class LessonComponent implements OnInit {
 
-  constructor(private http: HttpClient) { this.answers = [" ", " ", " "]; }
+
+  constructor(private http: HttpClient) {
+
+  }
   Item: LearningItem = null;
   indx = 0;
   Items: LearningItem[];
   CorrectVisible = false;
-  gaps: string[];
-  answers: [" ", " ", " "];
+  answers: string[];
   indexesOfGaps;
+  error;
   separators: string[] = [' ', '/', '?', '!'];
+
+  words: string[];
 
   ngOnInit() {
 
     this.getLearningItems();
-
+    this.showNewItem();
   }
-
-
-
 
   getLearningItems() {
     this.http.get('http://localhost:5000/api/content')
@@ -41,45 +43,29 @@ export class LessonComponent implements OnInit {
       });
   }
 
-
-
   showNewItem() {
+
+
     this.Item = this.Items[this.indx];
-    this.getGaps();
-  }
+    this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
+    this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
 
-  checkAnswer() {
-    this.getGaps();
-    var compare = this.Item.sentenceWithGaps;
-    for (let g in this.gaps) {
-      compare = compare.replace(this.gaps[g], this.answers[g].replace(" ","").replace(" ","").replace(" ","").replace(" ",""));
+    for (let i = 0; i < this.words.length; i++) {
+      if (!this.words[i].includes('_'))
+        this.answers[i] = null;
+      else
+        this.answers[i] = this.answers[i].replace('_', '');
     }
-    if(compare == this.Item.correctSentence)
-    {
-      console.log("Correct!!!");
-    }
-    else{
-      console.log("DUPA!!!");
-    }
-    this.CorrectVisible = true;
-  }
-  nextQuestion() {
-    this.answers = [" ", " ", " "];
-    if (this.indx < this.Items.length - 1) {
-      this.CorrectVisible = false;
+    if (this.indx < 10) {
       this.indx++;
-      this.showNewItem();
-    } else {
-      this.CorrectVisible = false;
-      this.indx = 0;
-      this.getLearningItems();
-      this.showNewItem();
     }
   }
 
 
-  getGaps() {
-    this.gaps = this.splt(this.separators, this.Item.sentenceWithGaps).filter(x => x.includes('_'));
+  nextQuestion() {
+    this.error = false;
+    this.showNewItem();
+    this.CorrectVisible = false;;
   }
 
   splt(signs: string[], sentence: string): string[] {
@@ -89,6 +75,18 @@ export class LessonComponent implements OnInit {
     return sentence.split('#');
   }
 
+  checkAnswer() {
+    this.CorrectVisible = true;
+    this.error = false;
+    const correctWords = this.splt(this.separators, this.Items[this.indx-1].correctSentence);
+    for (let i = 0; i < this.words.length; i++) {
+      if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
+        console.log(correctWords[i] + " " + this.answers[i]);
+        this.error = true;
+      }
+    }
+
+  }
 
 
 }

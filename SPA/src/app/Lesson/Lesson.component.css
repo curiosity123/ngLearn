@@ -2,3 +2,23 @@
     /* background-image: url('./bg.jpg');
     opacity: 0.9; */
 }
+
+.mom
+{
+    display: table;
+
+}
+.baby
+{
+    display: inline-block;
+}
+.container-name div {
+    display: inline-block;
+	
+
+
+	height: auto;
+  }
+  input {
+    font-size: 24px;
+  }
