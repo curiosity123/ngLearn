@@ -1,41 +1,50 @@
-<mat-card class="m-5 background-image" color="primary">
-  <mat-progress-bar mode="determinate" class="row d-flex ml-2 mr-5" [value]="(indx*10)"></mat-progress-bar>
-  <mat-card-header class="mat-card-header row d-flex mt-3">
-    <mat-card-title class="row m-2">
-      <h1>Fill the gaps...</h1>
-    </mat-card-title>
-  </mat-card-header>
+<mat-card class="m-5 background-image text-center" color="primary">
+  <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx*10)"></mat-progress-bar>
 
-
-  <mat-card-content class="ml-4 mt-4">
-
-    <div class="row" *ngIf="!error && CorrectVisible">
-      Pięknie!
-    </div>
-    <div class="row" *ngIf="error && CorrectVisible">
-      Chuj dupa i kamieni kupa!
-    </div>
-
-    <div class="row" *ngIf="CorrectVisible">
-      {{Item?.correctSentence}}
-    </div>
-
-    <div *ngIf="!CorrectVisible">
-      <div class="row">
-        <mat-label class="h6">Clue: </mat-label>
+      <div class="baby text-center mt-3 ">
+        <mat-label class="h3 row" *ngIf="!CorrectVisible">Fill gaps below...</mat-label>
       </div>
-      <div class="row">
-        <mat-label class="h2" style="color: blue;">"{{Item?.description}}"</mat-label>
+
+
+
+  <mat-card-content class="ml-4 mt-4 text-center">
+
+    <div *ngIf="CorrectVisible" class="text-center baby">
+      <div *ngIf="!error">
+
+        <i class="fas fa-smile-o fa-5x" style="color: green;"></i>
+
+      </div>
+      <div *ngIf="error">
+
+        <i class="fas fa-sad-tear fa-5x" style="color: orangered;"></i>
+
+      </div>
+      <br>
+      <mat-label class="h6">Correct answer was... </mat-label>
+      <div class=" m-3" *ngIf="CorrectVisible">
+        <h1 class="h2 text-center"> {{Item?.correctSentence}}</h1>
+      </div>
+      <button mat-raised-button color="primary" class="mb-4 row" *ngIf="CorrectVisible" (click)="nextQuestion()">Next
+        question</button>
+    </div>
+
+    <div *ngIf="!CorrectVisible" class="text-center baby">
+      <div class="baby text-center">
+        <mat-label class="h6 row">Clue: </mat-label>
+      </div>
+      <br>
+      <div class="baby text-center row">
+        <mat-label class="h2 row" style="color: blue;">"{{Item?.description}}"</mat-label>
       </div>
 
       <br>
-
-
-      <mat-label class="h6 row">Sentence: </mat-label>
+      <br>
+<br>
       <ng-container *ngFor="let word of words index as i" class="container-name ">
 
-        <div class="baby">
-          <mat-form-field appearance="standard" class="mr-4" *ngIf="word.includes('_')" style="width: 60px;">
+        <div class="baby text-center">
+          <mat-form-field appearance="standard" class="mr-4" *ngIf="word.includes('_')" style="width: 90px;">
             <input matInput placeholder="{{word}}" [(ngModel)]="answers[i]" autocomplete="off" autofocus #gap>
           </mat-form-field>
           <h1 *ngIf="!words[i].includes('_')">{{word}}&nbsp;</h1>
@@ -44,11 +53,10 @@
       </ng-container>
     </div>
     <br>
-    <div class="row">
-      <button mat-raised-button color="primary" class="mb-4 row" *ngIf="!CorrectVisible"
+    <div class="text-center">
+      <button mat-raised-button color="primary" class="mb-4 text-center" *ngIf="!CorrectVisible"
         (click)="checkAnswer()">Check</button>
-      <button mat-raised-button color="primary" class="mb-4 row" *ngIf="CorrectVisible" (click)="nextQuestion()">Next
-        question</button>
+
     </div>
 
     <br>

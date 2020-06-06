@@ -15,6 +15,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LessonComponent } from './Lesson/Lesson.component';
@@ -31,6 +32,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -67,14 +69,15 @@ export function tokenGetter() {
       MatButtonModule,
       MatGridListModule,
       RouterModule,
-      MatDialogModule,
+      MatDialogModule,     FontAwesomeModule,
       JwtModule.forRoot({
          config: {
            tokenGetter,
            whitelistedDomains: ['localhost:5000'],
            blacklistedRoutes: ['localhost:5000']
          }
-       })
+       }),
+ 
    ],
    providers: [
       AuthService,

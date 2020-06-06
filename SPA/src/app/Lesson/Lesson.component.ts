@@ -25,7 +25,7 @@ export class LessonComponent implements OnInit {
   answers: string[];
   indexesOfGaps;
   error;
-  separators: string[] = [' ', '/', '?', '!'];
+  separators: string[] = [' ', '/', '?', '!', '.', ','];
 
   words: string[];
 
