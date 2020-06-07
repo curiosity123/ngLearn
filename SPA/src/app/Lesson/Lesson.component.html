@@ -1,9 +1,9 @@
 <mat-card class="m-5 background-image text-center" color="primary">
   <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx*10)"></mat-progress-bar>
 
-      <div class="baby text-center mt-3 ">
-        <mat-label class="h3 row" *ngIf="!CorrectVisible">Fill gaps below...</mat-label>
-      </div>
+  <div class="baby text-center mt-3 ">
+    <mat-label class="h3 row" *ngIf="!CorrectVisible">Fill gaps below...</mat-label>
+  </div>
 
 
 
@@ -12,12 +12,12 @@
     <div *ngIf="CorrectVisible" class="text-center baby">
       <div *ngIf="!error">
 
-        <i class="fas fa-smile-o fa-5x" style="color: green;"></i>
+        <i class="fa fa-smile-o fa-5x" aria-hidden="true"></i>
 
       </div>
       <div *ngIf="error">
 
-        <i class="fas fa-sad-tear fa-5x" style="color: orangered;"></i>
+        <i class="fa fa-frown-o fa-5x" aria-hidden="true"></i>
 
       </div>
       <br>
@@ -40,7 +40,7 @@
 
       <br>
       <br>
-<br>
+      <br>
       <ng-container *ngFor="let word of words index as i" class="container-name ">
 
         <div class="baby text-center">

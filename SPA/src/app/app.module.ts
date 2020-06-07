@@ -34,6 +34,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
+
 export function tokenGetter() {
    return localStorage.getItem('token');
    console.log('got token');
@@ -69,14 +70,15 @@ export function tokenGetter() {
       MatButtonModule,
       MatGridListModule,
       RouterModule,
-      MatDialogModule,     FontAwesomeModule,
+      MatDialogModule,     
+      FontAwesomeModule,
       JwtModule.forRoot({
          config: {
            tokenGetter,
            whitelistedDomains: ['localhost:5000'],
            blacklistedRoutes: ['localhost:5000']
          }
-       }),
+       }), 
  
    ],
    providers: [

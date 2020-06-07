@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { User } from 'src/models/User';
 import { environment } from 'src/environments/environment';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,9 @@ export class AppComponent {
 
   auth: AuthService;
   user: User;
+
   constructor(auth: AuthService) {
+
     this.auth = auth;
     this.user = JSON.parse(localStorage.getItem('user'));
 
