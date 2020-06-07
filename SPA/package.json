@@ -31,7 +31,7 @@
     "auth0": "^2.25.1",
     "bootstrap": "^4.5.0",
     "font-awesome": "^4.7.0",
-    "jquery": "^1.12.4",
+    "jquery": "^3.5.0",
     "ngx-bootstrap": "^5.6.1",
     "popper": "^1.0.1",
     "popper.js": "^1.9.1",
