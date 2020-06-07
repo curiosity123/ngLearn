@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms'
 
 
 
+
 @Component({
   selector: 'app-Lesson',
   templateUrl: './Lesson.component.html',
@@ -29,6 +30,7 @@ export class LessonComponent implements OnInit {
 
   words: string[];
 
+  
   ngOnInit() {
 
     this.getLearningItems();
@@ -76,17 +78,21 @@ export class LessonComponent implements OnInit {
   }
 
   checkAnswer() {
+
     this.CorrectVisible = true;
     this.error = false;
-    const correctWords = this.splt(this.separators, this.Items[this.indx-1].correctSentence);
+    const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
     for (let i = 0; i < this.words.length; i++) {
       if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
-        console.log(correctWords[i] + " " + this.answers[i]);
+        console.log(correctWords[i] + ' ' + this.answers[i]);
         this.error = true;
       }
     }
+    
+
 
   }
+
 
 
 }

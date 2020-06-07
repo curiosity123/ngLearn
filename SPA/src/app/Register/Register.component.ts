@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
 
         this.authservice.login(user).subscribe(next => {
           this.dialog.close();
+          window.location.reload();
         });
 
         this.dialog.close();

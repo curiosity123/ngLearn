@@ -21,15 +21,17 @@ export class AuthService {
 
 
   login(model: User) {
-    console.log("test");
+
     return this.http.post(this.baseUrl + 'login', model).pipe(
       map((response: any) => {
         const user = response;
         if (user) {
+
           localStorage.setItem('token', user.token);
           localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.helper.decodeToken(user.token);
           console.log(this.decodedToken);
+
         }
       })
     );

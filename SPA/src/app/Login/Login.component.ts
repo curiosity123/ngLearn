@@ -4,12 +4,13 @@ import { User } from 'src/models/User';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
+
 @Component({
   selector: 'app-Login',
   templateUrl: './Login.component.html',
   styleUrls: ['./Login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit  {
 
 
   dialog: MatDialogRef<LoginComponent>;
@@ -29,9 +30,12 @@ export class LoginComponent implements OnInit {
     this.authservice.login(user).subscribe(next => {
       this.dialog.close();
       this.loginCorrect = false;
+      console.log("cor");
+      window.location.reload();
 
     }, error => {
       this.loginCorrect = true;
+      console.log("errrr");
     });
 
   }
