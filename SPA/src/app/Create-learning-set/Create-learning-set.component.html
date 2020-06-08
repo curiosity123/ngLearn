@@ -1,39 +1,62 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-vertical-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+<mat-selection-list #shoes class="m-5">
+  <mat-list-option *ngFor="let shoe of typesOfShoes">
+    {{shoe}}
+  </mat-list-option>
+</mat-selection-list>
+
+
+<mat-card class="m-5 background-image text-center" color="primary">
+
+  <div class="baby text-center mt-3 ">
+    <mat-label class="h3 row">Create new item</mat-label>
+  </div>
+
+  <mat-card-content class="ml-4 mt-4 text-center">
+
+    <div class="text-center baby">
+
+      <div class="baby text-center">
+
+        <mat-form-field appearance="standard" class="row"  >
+          <mat-label >Missing word</mat-label>
+          <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="standard" class="row"  >
+          <mat-label >Clue: </mat-label>
+          <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+        </mat-form-field>
+
+        <mat-label class="h6 row">Sentence with gap:</mat-label>
+        <mat-form-field appearance="standard" class="row"  >
+          <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+        </mat-form-field>
+
+
+        <mat-label class="h6 row">Full sentence:</mat-label>
+        <mat-form-field appearance="standard" class="row"  >
+          <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+        </mat-form-field>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Fill out your address</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+
+      <br>
+      <div class="baby text-center row">
+        <mat-label class="h2 row" style="color: blue;">"test"</mat-label>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+
+      <br>
+      <br>
+
     </div>
-  </mat-step>
-</mat-vertical-stepper>
+    <br>
+    <div class="text-center">
+      <button mat-raised-button color="primary" class="mb-4 text-center">Save</button>
+    </div>
+
+    <br>
+
+
+  </mat-card-content>
+
+</mat-card>

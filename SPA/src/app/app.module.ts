@@ -31,6 +31,7 @@ import { FormsModule } from '@angular/forms'
 import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -56,6 +57,7 @@ export function tokenGetter() {
       HttpClientModule,
       TooltipModule.forRoot(),
       MatCardModule,
+      MatListModule,
       BrowserAnimationsModule,
       ReactiveFormsModule,
       MatSidenavModule,
