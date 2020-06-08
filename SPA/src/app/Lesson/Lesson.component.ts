@@ -30,7 +30,7 @@ export class LessonComponent implements OnInit {
 
   words: string[];
 
-  
+
   ngOnInit() {
 
     this.getLearningItems();
@@ -78,7 +78,6 @@ export class LessonComponent implements OnInit {
   }
 
   checkAnswer() {
-
     this.CorrectVisible = true;
     this.error = false;
     const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
@@ -88,7 +87,7 @@ export class LessonComponent implements OnInit {
         this.error = true;
       }
     }
-    
+
 
 
   }

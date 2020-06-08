@@ -7,25 +7,30 @@
 
 
 
-  <mat-card-content class="ml-4 mt-4 text-center" >
+  <mat-card-content class="ml-4 mt-4 text-center">
 
     <div *ngIf="CorrectVisible" class="text-center baby">
+      
       <div *ngIf="!error">
 
         <i class="fa fa-smile-o fa-5x" aria-hidden="true" style="color: green;"></i>
-
+        <h1><strong>Contratulations!!! </strong> </h1>
       </div>
       <div *ngIf="error">
 
         <i class="fa fa-frown-o fa-5x" aria-hidden="true" style="color:orangered;"></i>
-
+        <h1><strong>Sorry dude... </strong> </h1>
       </div>
       <br>
       <mat-label class="h6">Correct answer was... </mat-label>
+      <h1><strong>{{Item?.item}}</strong> </h1>
+      <br>
+      <mat-label class="h6">Full sentence:</mat-label>
       <div class=" m-3" *ngIf="CorrectVisible">
         <h1 class="h2 text-center"> {{Item?.correctSentence}}</h1>
       </div>
-      <button mat-raised-button color="primary" class="mb-4 row"  #next *ngIf="CorrectVisible" (keyup.enter)="nextQuestion()" (click)="nextQuestion()">Next
+      <button mat-raised-button color="primary" class="mb-4 row" #next *ngIf="CorrectVisible"
+        (keyup.enter)="nextQuestion()" (click)="nextQuestion()">Next
         question</button>
     </div>
 
@@ -45,7 +50,8 @@
 
         <div class="baby text-center">
           <mat-form-field appearance="standard" class="mr-4" *ngIf="word.includes('_')" style="width: 90px;">
-            <input matInput placeholder="{{word}}" [(ngModel)]="answers[i]" autocomplete="off"  (keyup.enter)="checkAnswer()" autofocus #gap>
+            <input matInput placeholder="{{word}}" [(ngModel)]="answers[i]" autocomplete="off"
+              (keyup.enter)="checkAnswer()" autofocus #gap>
           </mat-form-field>
           <h1 *ngIf="!words[i].includes('_')">{{word}}&nbsp;</h1>
         </div>
