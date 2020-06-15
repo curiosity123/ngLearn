@@ -4,6 +4,8 @@ import 'rxjs/operators';
 import { map, tap } from 'rxjs/operators';
 import { LearningItem } from 'src/models/LearningItem';
 import { FormsModule } from '@angular/forms'
+import { LessonSummaryComponent } from '../lesson-summary/lesson-summary.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -16,7 +18,7 @@ import { FormsModule } from '@angular/forms'
 export class LessonComponent implements OnInit {
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public dialog: MatDialog) {
 
   }
   Item: LearningItem = null;
@@ -27,7 +29,7 @@ export class LessonComponent implements OnInit {
   indexesOfGaps;
   error;
   separators: string[] = [' ', '/', '?', '!', '.', ','];
-
+  finished = false;
   words: string[];
 
 
@@ -47,22 +49,30 @@ export class LessonComponent implements OnInit {
 
   showNewItem() {
 
-
-    this.Item = this.Items[this.indx];
-    this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
-    this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
-
-    for (let i = 0; i < this.words.length; i++) {
-      if (!this.words[i].includes('_'))
-        this.answers[i] = null;
-      else
-        this.answers[i] = this.answers[i].replace('_', '');
-    }
     if (this.indx < 10) {
+      this.Item = this.Items[this.indx];
+      this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
+      this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
+
+      for (let i = 0; i < this.words.length; i++) {
+        if (!this.words[i].includes('_'))
+          this.answers[i] = null;
+        else
+          this.answers[i] = this.answers[i].replace('_', '');
+      }
+
       this.indx++;
+    }
+    else {
+      this.finishLesson();
     }
   }
 
+
+  finishLesson() {
+    console.log("DUPAAAAAA");
+    this.dialog.open(LessonSummaryComponent);
+  }
 
   nextQuestion() {
     this.error = false;

@@ -34,6 +34,7 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LessonSummaryComponent } from './lesson-summary/lesson-summary.component';
 
 
 export function tokenGetter() {
@@ -48,7 +49,9 @@ export function tokenGetter() {
       LoginComponent,
       HomeComponent,
       RegisterComponent,
-      CreateLearningSetComponent
+      CreateLearningSetComponent,
+      LessonSummaryComponent,
+      LessonSummaryComponent
    ],
    imports: [
       FormsModule,
@@ -61,7 +64,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       ReactiveFormsModule,
       MatSidenavModule,
-      MatMenuModule,      
+      MatMenuModule,
       MatProgressBarModule,
       MatSliderModule,
       MatStepperModule,
@@ -72,7 +75,7 @@ export function tokenGetter() {
       MatButtonModule,
       MatGridListModule,
       RouterModule,
-      MatDialogModule,     
+      MatDialogModule,
       FontAwesomeModule,
       JwtModule.forRoot({
          config: {
