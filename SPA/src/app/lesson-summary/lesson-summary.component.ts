@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Directive, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -21,10 +22,12 @@ export class LessonSummaryComponent implements OnInit {
   }
 
   dialog: MatDialogRef<LessonSummaryComponent>;
-  constructor(dialogRef: MatDialogRef<LessonSummaryComponent>) {
+  constructor(dialogRef: MatDialogRef<LessonSummaryComponent>, private route: ActivatedRoute,
+    private router: Router) {
     this.dialog = dialogRef;
   }
   public continue = false;
+
 
 
   ShowSummary() {

@@ -6,6 +6,7 @@ import { LearningItem } from 'src/models/LearningItem';
 import { FormsModule } from '@angular/forms'
 import { LessonSummaryComponent } from '../lesson-summary/lesson-summary.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -18,7 +19,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class LessonComponent implements OnInit {
 
 
-  constructor(private http: HttpClient, public dialog: MatDialog) {
+  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute,
+    private router: Router) {
 
   }
   Item: LearningItem = null;
@@ -61,6 +63,7 @@ export class LessonComponent implements OnInit {
       this.indx++;
     }
     else {
+ 
       this.dialog.open(LessonSummaryComponent);
     }
   }
