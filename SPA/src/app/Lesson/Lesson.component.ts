@@ -64,7 +64,7 @@ export class LessonComponent implements OnInit {
     }
     else {
  
-      this.dialog.open(LessonSummaryComponent);
+      this.dialog.open(LessonSummaryComponent, { disableClose: true });
     }
   }
 
