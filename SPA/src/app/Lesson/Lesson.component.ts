@@ -24,10 +24,10 @@ export class LessonComponent implements OnInit {
   Item: LearningItem = null;
   indx = 0;
   Items: LearningItem[];
-  CorrectVisible = false;
+  AnswerVisibility = false;
   answers: string[];
   indexesOfGaps;
-  error;
+  IsError;
   separators: string[] = [' ', '/', '?', '!', '.', ','];
   finished = false;
   words: string[];
@@ -36,7 +36,6 @@ export class LessonComponent implements OnInit {
   ngOnInit() {
 
     this.getLearningItems();
-    this.showNewItem();
   }
 
   getLearningItems() {
@@ -48,7 +47,6 @@ export class LessonComponent implements OnInit {
   }
 
   showNewItem() {
-
     if (this.indx < 10) {
       this.Item = this.Items[this.indx];
       this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
@@ -60,24 +58,18 @@ export class LessonComponent implements OnInit {
         else
           this.answers[i] = this.answers[i].replace('_', '');
       }
-
       this.indx++;
     }
     else {
-      this.finishLesson();
+      this.dialog.open(LessonSummaryComponent);
     }
   }
 
 
-  finishLesson() {
-    console.log("DUPAAAAAA");
-    this.dialog.open(LessonSummaryComponent);
-  }
-
   nextQuestion() {
-    this.error = false;
+    this.IsError = false;
     this.showNewItem();
-    this.CorrectVisible = false;;
+    this.AnswerVisibility = false;;
   }
 
   splt(signs: string[], sentence: string): string[] {
@@ -88,13 +80,13 @@ export class LessonComponent implements OnInit {
   }
 
   checkAnswer() {
-    this.CorrectVisible = true;
-    this.error = false;
+    this.AnswerVisibility = true;
+    this.IsError = false;
     const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
     for (let i = 0; i < this.words.length; i++) {
       if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
         console.log(correctWords[i] + ' ' + this.answers[i]);
-        this.error = true;
+        this.IsError = true;
       }
     }
 

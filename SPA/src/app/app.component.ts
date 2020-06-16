@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { User } from 'src/models/User';
 import { environment } from 'src/environments/environment';
 import { timer } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -18,28 +19,45 @@ export class AppComponent implements OnInit {
   user: User;
   username = "unknown";
 
-  constructor(auth: AuthService) {
+  constructor(auth: AuthService, private route: ActivatedRoute,
+    private router: Router) {
 
     this.auth = auth;
-
+    if (!this.auth.loggedIn()) {
+      this.router.navigate(['/home-component']);
+    }
+    else {
+      this.router.navigate(['/stats-component']);
+    }
 
   }
   ngOnInit(): void {
 
-      this.user = JSON.parse(localStorage.getItem('user'));
-      if (this.user != null && this.user.userName!=null) {
-        this.username = this.user.userName;
-      }
-
+    this.user = JSON.parse(localStorage.getItem('user'));
+    if (this.user != null && this.user.userName != null) {
+      this.username = this.user.userName;
+    }
   }
 
+help()
+{
+  this.router.navigate(['/help-component']);
+}
 
-
+settings()
+{
+  this.router.navigate(['/settings-component']);
+}
 
   login() {
-
-    var rslt = this.auth.loggedIn();
- 
+    const rslt = this.auth.loggedIn();
     return rslt;
   }
+
+  logout() {
+
+    this.auth.logout();
+    this.router.navigate(['/home-component']);
+  }
+
 }

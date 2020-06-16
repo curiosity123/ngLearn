@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Directive, ElementRef } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+
+
 
 @Component({
   selector: 'app-lesson-summary',
@@ -8,25 +11,24 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class LessonSummaryComponent implements OnInit {
 
+  @ViewChild('btn_focus') firstNameElement: ElementRef;
 
+  ngAfterViewInit(){
+    this.firstNameElement.nativeElement.focus();
+  }
   ngOnInit() {
+    document.getElementById('button').focus();
   }
 
   dialog: MatDialogRef<LessonSummaryComponent>;
   constructor(dialogRef: MatDialogRef<LessonSummaryComponent>) {
     this.dialog = dialogRef;
   }
-  loginCorrect = false;
-
+  public continue = false;
 
 
   ShowSummary() {
-
-   
-      this.dialog.close();
-      
-      window.location.reload();
-
-
+    this.dialog.close();
+    window.location.reload();
   }
 }

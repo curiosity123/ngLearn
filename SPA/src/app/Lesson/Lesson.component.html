@@ -2,21 +2,21 @@
   <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx*10)"></mat-progress-bar>
 
   <div class="baby text-center mt-3 ">
-    <mat-label class="h3 row" *ngIf="!CorrectVisible">Fill gaps below...</mat-label>
+    <mat-label class="h3 row" *ngIf="!AnswerVisibility">Fill gaps below...</mat-label>
   </div>
 
 
 
   <mat-card-content class="ml-4 mt-4 text-center">
 
-    <div *ngIf="CorrectVisible" class="text-center baby">
+    <div *ngIf="AnswerVisibility" class="text-center baby">
 
-      <div *ngIf="!error">
+      <div *ngIf="!IsError">
 
         <i class="fa fa-smile-o fa-5x" aria-hidden="true" style="color: green;"></i>
         <h1><strong>Contratulations!!! </strong> </h1>
       </div>
-      <div *ngIf="error">
+      <div *ngIf="IsError">
 
         <i class="fa fa-frown-o fa-5x" aria-hidden="true" style="color:orangered;"></i>
         <h1><strong>Sorry dude... </strong> </h1>
@@ -26,15 +26,16 @@
       <h1><strong>{{Item?.item}}</strong> </h1>
       <br>
       <mat-label class="h6">Full sentence:</mat-label>
-      <div class=" m-3" *ngIf="CorrectVisible">
+      <div class=" m-3" *ngIf="AnswerVisibility">
         <h1 class="h2 text-center"> {{Item?.correctSentence}}</h1>
       </div>
-      <button mat-raised-button color="primary" class="mb-4 row" #next *ngIf="CorrectVisible"
+      <button mat-raised-button color="primary" class="mb-4 row" #next *ngIf="AnswerVisibility"
         (keyup.enter)="nextQuestion()" (click)="nextQuestion()">Next
         question</button>
     </div>
 
-    <div *ngIf="!CorrectVisible" class="text-center baby">
+
+    <div *ngIf="!AnswerVisibility" class="text-center baby">
       <div class="baby text-center">
         <mat-label class="h6 row">Clue: </mat-label>
       </div>
@@ -42,7 +43,6 @@
       <div class="baby text-center row">
         <mat-label class="h2 row" style="color: blue;">"{{Item?.description}}"</mat-label>
       </div>
-
       <br>
       <br>
       <br>
@@ -55,17 +55,16 @@
           </mat-form-field>
           <h1 *ngIf="!words[i].includes('_')">{{word}}&nbsp;</h1>
         </div>
-
       </ng-container>
-    </div>
-    <br>
-    <div class="text-center">
-      <button mat-raised-button color="primary" class="mb-4 text-center" *ngIf="!CorrectVisible"
-        (click)="checkAnswer()">Check</button>
+      <br>
+      <div class="text-center">
+        <button mat-raised-button color="primary" class="mb-4 text-center" *ngIf="!AnswerVisibility"
+          (click)="checkAnswer()">Check</button>
+      </div>
 
+      <br>
     </div>
 
-    <br>
 
 
   </mat-card-content>

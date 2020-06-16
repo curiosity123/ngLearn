@@ -35,8 +35,10 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LessonSummaryComponent } from './lesson-summary/lesson-summary.component';
-
-
+import { StatsComponent } from './Stats/Stats.component';
+import { SettingsComponent } from './Settings/Settings.component';
+import {HelpComponent} from './Help/Help.component';
+ 
 export function tokenGetter() {
    return localStorage.getItem('token');
    console.log('got token');
@@ -45,13 +47,15 @@ export function tokenGetter() {
 @NgModule({
    declarations: [
       AppComponent,
+      HelpComponent,
+      SettingsComponent,
       LessonComponent,
       LoginComponent,
       HomeComponent,
       RegisterComponent,
       CreateLearningSetComponent,
       LessonSummaryComponent,
-      LessonSummaryComponent
+      StatsComponent
    ],
    imports: [
       FormsModule,
