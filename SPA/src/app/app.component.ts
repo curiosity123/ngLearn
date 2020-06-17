@@ -54,6 +54,10 @@ settings()
     return rslt;
   }
 
+  stats()
+  {
+    this.router.navigate(['/stats-component']);
+  }
   logout() {
 
     this.auth.logout();

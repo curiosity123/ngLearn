@@ -4,7 +4,33 @@
 
 </p>
 
-<h1 class="text-center">Your stats here, some charts etc.</h1>
-<div class="text-center">
-  <button mat-raised-button color="primary"  routerLink="/lesson-component" routerLinkActive="active">Start new lesson</button>
+<h1 class="text-center">Twoje rozpoczęte kursy</h1>
+
+<div class="m-5">
+
+
+  <mat-accordion class="example-headers-align ">
+
+    <div *ngFor="let set of learningSets; let i = index"> 
+      <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{set.name}}
+          </mat-panel-title>
+          <mat-panel-description>
+          Your progress: 83%
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        Jakiś opis tego zestawu uczacego {{set.desc}}, może szczegóły data rozpoczęcia
+
+
+        <mat-action-row>
+          <button mat-button color="warn" >Clear progress</button>
+          <button mat-button color="primary" (click)="startLearning(set)">Continue learning</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
 </div>
+

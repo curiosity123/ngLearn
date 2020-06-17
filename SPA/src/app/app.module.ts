@@ -14,6 +14,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +60,7 @@ export function tokenGetter() {
    ],
    imports: [
       FormsModule,
+      MatExpansionModule,
       BrowserModule,
       AppRoutingModule,
       HttpClientModule,
