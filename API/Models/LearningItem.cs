@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace API.Models
 {
     public class LearningItem
@@ -7,7 +9,9 @@ namespace API.Models
         public string Description{get;set;}
         public string SentenceWithGaps {get;set;}
         public string CorrectSentence{get;set;}
-        public LearningSet LearningSetElement{get;set;}
+        public LearningSet LearningSet{get;set;}
+        public ICollection<LearningProgress> LearningProgresses { get; set; }
+
     }
 
 
