@@ -31,10 +31,8 @@ namespace api.Controllers
                 getItems(),getItems() ,getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems()
             };
 
-
-
-
         }
+
 
 
         private LearningItem getItems()

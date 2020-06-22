@@ -14,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'SPA';
+  opened: boolean;
+
 
   auth: AuthService;
   user: User;
@@ -39,29 +41,34 @@ export class AppComponent implements OnInit {
     }
   }
 
-help()
-{
-  this.router.navigate(['/help-component']);
-}
+  NavBar() {
+    this.opened = !this.opened;
+  }
 
-settings()
-{
-  this.router.navigate(['/settings-component']);
-}
+  help() {
+    this.router.navigate(['/help-component']);
+    this.NavBar();
+  }
+
+  settings() {
+    this.router.navigate(['/settings-component']);
+    this.NavBar();
+  }
 
   login() {
     const rslt = this.auth.loggedIn();
     return rslt;
   }
 
-  stats()
-  {
+  stats() {
     this.router.navigate(['/stats-component']);
+    this.NavBar();
   }
   logout() {
 
     this.auth.logout();
     this.router.navigate(['/home-component']);
+    this.NavBar();
   }
 
 }

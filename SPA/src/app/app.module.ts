@@ -15,6 +15,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { RouterModule } from '@angular/router';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -74,6 +75,7 @@ export function tokenGetter() {
       MatProgressBarModule,
       MatSliderModule,
       MatStepperModule,
+      MatCheckboxModule,
       MatToolbarModule,
       MatIconModule,
       MatInputModule,
