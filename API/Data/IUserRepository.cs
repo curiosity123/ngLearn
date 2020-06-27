@@ -5,8 +5,8 @@ namespace API.Data
 {
  public interface IUserRepository : IGenericRepository
     {
-       
-        Task<User> GetUser(int Id);
+       Task<User> GetUser(long Id);
+
 
       
     }
