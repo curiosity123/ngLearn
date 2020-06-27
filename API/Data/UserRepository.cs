@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,10 +17,11 @@ public class UserRepository : GenericRepository, IUserRepository
 
 
        
-        public async Task<User> GetUser(int Id)
+        public async Task<User> GetUser(long Id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == Id);
             return user;
+
         }
 
 

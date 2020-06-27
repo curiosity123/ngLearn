@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms'
 import { LessonSummaryComponent } from '../lesson-summary/lesson-summary.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { userInfo } from 'os';
+import { User } from 'src/models/User';
 
 
 
@@ -33,7 +35,7 @@ export class LessonComponent implements OnInit {
   separators: string[] = [' ', '/', '?', '!', '.', ','];
   finished = false;
   words: string[];
-
+  user: User;
 
   ngOnInit() {
 
@@ -41,7 +43,9 @@ export class LessonComponent implements OnInit {
   }
 
   getLearningItems() {
-    this.http.get('http://localhost:5000/api/content')
+    this.user = JSON.parse(localStorage.getItem('user'));
+
+    this.http.get('http://localhost:5000/api/' + this.user.id + '/content')
       .subscribe((response: LearningItem[]) => {
         this.Items = response;
         this.showNewItem();
@@ -63,7 +67,7 @@ export class LessonComponent implements OnInit {
       this.indx++;
     }
     else {
- 
+
       this.dialog.open(LessonSummaryComponent, { disableClose: true });
     }
   }

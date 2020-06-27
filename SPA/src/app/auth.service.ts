@@ -28,7 +28,7 @@ export class AuthService {
         if (user) {
 
           localStorage.setItem('token', user.token);
-          localStorage.setItem('user', JSON.stringify(user.user));
+          localStorage.setItem('user', JSON.stringify(user.user)); 
           this.decodedToken = this.helper.decodeToken(user.token);
           console.log(this.decodedToken);
 
@@ -40,6 +40,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+
   }
 
   register(model: any) {
