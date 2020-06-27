@@ -7,30 +7,52 @@ using Microsoft.Extensions.Logging;
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using API.Data;
+using AutoMapper.Configuration;
+using AutoMapper;
 
 namespace api.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/{userId}/[controller]")]
     public class ContentController : ControllerBase
     {
+        //private readonly IMapper _mapper;
+        // private readonly IConfiguration _config;
+        private readonly IContentRepository _repository;
+
+        public ContentController(IContentRepository repository)
+        {
+            //_mapper = mapper;
+            //  _config = config;
+            _repository = repository;
+        }
+
 
         [HttpGet]
-        public IEnumerable<LearningItem> Get()
+        public async Task<IEnumerable<LearningItem>> Get(long userId)
         {
-            // if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            //     return Unauthorized();
+            var result = await _repository.GetNewLessonItems(userId, 1);
 
-            List<LearningItem> items = new List<LearningItem>();
+            if (result != null)
+                return result;
+            else
+                return null;
+        }
 
-            items.Add(getItems());
 
-            return new List<LearningItem>()
-            {
-                getItems(),getItems() ,getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems(),getItems() ,getItems()
-            };
+    
+    [HttpGet("GetMyCourses")]
 
+        public async Task<IEnumerable<LearningSet>> GetMyCourses(long userId)
+        {
+            var result = await _repository.GetUserLearningSets(userId);
+
+            if (result != null)
+                return result;
+            else
+                return null;
         }
 
 
