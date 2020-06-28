@@ -50,6 +50,11 @@ export class AppComponent implements OnInit {
     this.NavBar();
   }
 
+  search() {
+    this.router.navigate(['/searchingModule-component']);
+    this.NavBar();
+  }
+
   settings() {
     this.router.navigate(['/settings-component']);
     this.NavBar();

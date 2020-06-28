@@ -26,8 +26,8 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" position="end" [(opened)]="opened" style="min-height: 500px; background-color: whitesmoke;">
         <mat-selection-list  [multiple]="false" role="list">
-            <mat-list-option role="listitem" (click)="stats()"> <div> <mat-icon><i class="fa fa-bar-chart" aria-hidden="true"></i></mat-icon> Your courses</div></mat-list-option>
-            <mat-list-option role="listitem" (click)="stats()"><div> <mat-icon><i class="fa fa-search" aria-hidden="true"></i></mat-icon>Library</div></mat-list-option>
+            <mat-list-option role="listitem" (click)="stats()"> <div> <mat-icon><i class="fa fa-bar-chart" aria-hidden="true"></i></mat-icon>Your courses</div></mat-list-option>
+            <mat-list-option role="listitem" (click)="search()"><div> <mat-icon><i class="fa fa-search" aria-hidden="true"></i></mat-icon>Courses library</div></mat-list-option>
             <mat-list-option role="listitem" (click)="settings()"><div> <mat-icon><i class="fa fa-wrench" aria-hidden="true"></i></mat-icon>Settings</div></mat-list-option>
             <mat-list-option role="listitem" (click)="logout()"><div> <mat-icon><i class="fa fa-sign-out" aria-hidden="true"></i></mat-icon>Sign-out</div></mat-list-option>
             <mat-list-option role="listitem" (click)="help()"><div> <mat-icon><i class="fa fa-ambulance" aria-hidden="true"></i></mat-icon>Help</div></mat-list-option>

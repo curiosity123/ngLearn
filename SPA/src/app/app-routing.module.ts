@@ -6,6 +6,7 @@ import { SettingsComponent } from './Settings/Settings.component';
 import { HelpComponent } from './Help/Help.component';
 import { LessonSummaryComponent } from './lesson-summary/lesson-summary.component';
 import { LessonComponent } from './Lesson/Lesson.component';
+import { SearchingModuleComponent } from './searching-module/searching-module.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'settings-component', component: SettingsComponent },
   { path: 'help-component', component: HelpComponent },
   { path: 'lesson-component', component: LessonComponent },
+  { path: 'searchingModule-component', component: SearchingModuleComponent },
 ];
 
 @NgModule({

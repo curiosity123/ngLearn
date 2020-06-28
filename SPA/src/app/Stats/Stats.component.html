@@ -1,6 +1,6 @@
 <br>
 
-<h1 class="text-center">Twoje rozpoczęte kursy</h1>
+<h1 class="text-center">Your courses</h1>
 
 <div class="m-5">
 
@@ -10,23 +10,30 @@
     <div *ngFor="let set of learningSets; let i = index"> 
       <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
         <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{set.name}}
+          <mat-panel-title class="mt-4">
+           <strong><h2>{{set.name}}</h2></strong> 
           </mat-panel-title>
-          <mat-panel-description>
-          Your progress: 83%
+          <mat-panel-description  class="mt-4">
+            <strong><h2>Progress:83%</h2></strong>
           </mat-panel-description>
         </mat-expansion-panel-header>
-
-        Jakiś opis tego zestawu uczacego {{set.id}}, może szczegóły data rozpoczęcia
+<br>
+        <h4>{{set.description}}</h4>
+        <br>
+       <strong>Author:root</strong> 
 
 
         <mat-action-row>
-          <button mat-button color="warn" >Clear progress</button>
-          <button mat-button color="primary" (click)="startLearning(set)">Continue learning</button>
+          <button  mat-raised-button color="warn"  (click)="deleteThisCourse(set.id)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+          <button  mat-raised-button color="accent" disabled >Clear progress</button>
+          <button  mat-raised-button color="primary" (click)="startLearning(set)">Start lesson</button>
         </mat-action-row>
       </mat-expansion-panel>
     </div>
   </mat-accordion>
 </div>
+<br>
+<br>
+<br>
+<br>
 

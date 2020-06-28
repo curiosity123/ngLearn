@@ -5,6 +5,7 @@ import { CreateLearningSetComponent } from '../Create-learning-set/Create-learni
 import { LearningItem } from 'src/models/LearningItem';
 import { LearningSet } from 'src/models/LearningSet';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-stats',
@@ -17,7 +18,7 @@ export class StatsComponent implements OnInit {
   user: User;
   learningSets: LearningSet[];
 
-  constructor( private http: HttpClient, private route: ActivatedRoute,
+  constructor(private http: HttpClient, private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class StatsComponent implements OnInit {
     // ];
   }
 
-  step = 0;
+ 
   // learningSets: { name: string, desc: string }[] = [
   //   { "name": "200commonphrasals ", "desc": "some desc2" },
   //   { "name": "300commonphrasals ", "desc": "some desc3" },
@@ -37,7 +38,7 @@ export class StatsComponent implements OnInit {
   // ];
 
 
-
+ step = 0;
   setStep(index: number) {
     this.step = index;
   }
@@ -47,6 +48,16 @@ export class StatsComponent implements OnInit {
     this.router.navigate(['/lesson-component']);
   }
 
+  deleteThisCourse(id: number) {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(id);
+    this.http.delete('http://localhost:5000/api/' + this.user.id + '/content/' + id + '/RemoveCourseFromMyBoard', {}).subscribe((
+      response: string) => {
+     console.log(response);
+     this.getLearningItems();
+    });
+
+  }
 
   getLearningItems() {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -55,6 +66,6 @@ export class StatsComponent implements OnInit {
       .subscribe((response: LearningSet[]) => {
         this.learningSets = response;
       });
-  } 
+  }
 }
 

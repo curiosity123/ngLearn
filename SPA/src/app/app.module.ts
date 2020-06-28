@@ -40,6 +40,7 @@ import { LessonSummaryComponent } from './lesson-summary/lesson-summary.componen
 import { StatsComponent } from './Stats/Stats.component';
 import { SettingsComponent } from './Settings/Settings.component';
 import {HelpComponent} from './Help/Help.component';
+import { SearchingModuleComponent } from './searching-module/searching-module.component';
  
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -57,7 +58,8 @@ export function tokenGetter() {
       RegisterComponent,
       CreateLearningSetComponent,
       LessonSummaryComponent,
-      StatsComponent
+      StatsComponent,
+      SearchingModuleComponent
    ],
    imports: [
       FormsModule,
@@ -91,7 +93,7 @@ export function tokenGetter() {
            whitelistedDomains: ['localhost:5000'],
            blacklistedRoutes: ['localhost:5000']
          }
-       }), 
+}), 
  
    ],
    providers: [

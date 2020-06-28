@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -42,8 +43,8 @@ namespace api.Controllers
         }
 
 
-    
-    [HttpGet("GetMyCourses")]
+
+        [HttpGet("GetMyCourses")]
 
         public async Task<IEnumerable<LearningSet>> GetMyCourses(long userId)
         {
@@ -56,6 +57,41 @@ namespace api.Controllers
         }
 
 
+
+        [HttpGet("GetAllCourses")]
+
+        public async Task<IEnumerable<LearningSet>> GetAllCourses(long userId)
+        {
+            var result = await _repository.GetOtherLearningSets(userId);
+
+            if (result != null)
+                return result;
+            else
+                return null;
+        }
+
+
+        [HttpDelete("{courseId}/RemoveCourseFromMyBoard")]
+
+        public async Task<IActionResult> RemoveCourseFromMyBoard(long userId, long courseId)
+        {
+            var result = await _repository.RemoveLearningSetToUser(userId, courseId);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
+
+        [HttpPost("{LearningSetId}/AddCourseToBoard")]
+        public async Task<IActionResult> AddCourseToBoard(long userId, long LearningSetId)
+        {
+            var result = await _repository.AddLearningSetToUser(userId, LearningSetId);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
 
         private LearningItem getItems()
         {

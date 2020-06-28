@@ -49,8 +49,8 @@ namespace API.Data
 
         public async Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId)
         {
-            List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId != UserId).Select(x => x.LearningSetId).ToListAsync();
-            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => usersSetsIds.Contains(x.Id)).ToListAsync();
+            List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
+            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => !usersSetsIds.Contains(x.Id)).ToListAsync();
             return usersSets;
         }
 
