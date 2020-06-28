@@ -61,12 +61,24 @@ namespace API.Data
             return usersSets;
         }
 
-        public Task<Summary> GetSummaryForLearningSets(long LearningSetId)
+        public async Task<Summary> GetProgress(long UserId, long LearningSetId)
         {
-            throw new System.NotImplementedException();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
+            if (user != null && learningSet != null)
+            {
+                var prog = await _context.LearningProgresses.Where(p => p.Owner == user && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel).ToListAsync();
+                return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = (double)((double)prog.Count / (double)learningSet.LearningItems.Count) };
+            }
+            return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = 0 };
         }
 
 
+
+        public  async Task<bool> UpdateProgress(Summary summary)
+        {
+            return false;
+        }
 
         public async Task<bool> RemoveLearningSetToUser(long UserId, long LearningSetId)
         {

@@ -8,7 +8,7 @@ namespace API.Models
         public User Owner { get; set; }
 
         public bool MemorizedLevel { get; set; }
-
+        
         public LearningItem LearningItem { get; set; }
 
     }

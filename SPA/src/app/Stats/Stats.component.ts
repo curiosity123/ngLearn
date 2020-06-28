@@ -6,6 +6,8 @@ import { LearningItem } from 'src/models/LearningItem';
 import { LearningSet } from 'src/models/LearningSet';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Summary } from '@angular/compiler';
+import { Progress } from 'src/models/Progress';
 
 @Component({
   selector: 'app-stats',
@@ -17,12 +19,13 @@ export class StatsComponent implements OnInit {
 
   user: User;
   learningSets: LearningSet[];
+  summaries: Progress;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
-    this.getLearningItems();
+    this.getCourses();
     // this.learningSets = [
     //   { "name": "200commonphrasals ", "desc": "some desc2" },
     //   { "name": "300commonphrasals ", "desc": "some desc3" },
@@ -30,7 +33,7 @@ export class StatsComponent implements OnInit {
     // ];
   }
 
- 
+
   // learningSets: { name: string, desc: string }[] = [
   //   { "name": "200commonphrasals ", "desc": "some desc2" },
   //   { "name": "300commonphrasals ", "desc": "some desc3" },
@@ -38,7 +41,7 @@ export class StatsComponent implements OnInit {
   // ];
 
 
- step = 0;
+  step = 0;
   setStep(index: number) {
     this.step = index;
   }
@@ -53,18 +56,31 @@ export class StatsComponent implements OnInit {
     console.log(id);
     this.http.delete('http://localhost:5000/api/' + this.user.id + '/content/' + id + '/RemoveCourseFromMyBoard', {}).subscribe((
       response: string) => {
-     console.log(response);
-     this.getLearningItems();
+      console.log(response);
+      this.getCourses();
     });
 
   }
 
-  getLearningItems() {
+  getCourses() {
     this.user = JSON.parse(localStorage.getItem('user'));
 
     this.http.get('http://localhost:5000/api/' + this.user.id + '/content/GetMyCourses')
       .subscribe((response: LearningSet[]) => {
         this.learningSets = response;
+this.learningSets.forEach(x=>
+  {
+    this.getProgress(x.id.toString());
+  })
+      });
+  }
+
+  getProgress(courseId: string) {
+    this.user = JSON.parse(localStorage.getItem('user'));
+
+    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + courseId + '/getProgress')
+      .subscribe((response: Progress) => {
+        this.summaries = response;
       });
   }
 }

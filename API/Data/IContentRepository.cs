@@ -11,7 +11,9 @@ namespace API.Data
 
         Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId);
 
-        Task<Summary> GetSummaryForLearningSets(long LearningSetId);
+        Task<Summary> GetProgress(long UserId, long LearningSetId);
+
+        Task<bool> UpdateProgress(Summary summary);
 
         Task<bool> AddLearningSetToUser(long UserId, long LearningSetId);
 
