@@ -1,0 +1,9 @@
+ .full-height {
+    height:93vh;
+  }
+  .cut-text { 
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: auto; 
+    white-space: nowrap;
+  }

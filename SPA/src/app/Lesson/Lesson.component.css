@@ -22,3 +22,6 @@
   input {
     font-size: 24px;
   }
+  .full-height {
+    height:93vh;
+  }
