@@ -13,7 +13,9 @@ namespace API.Data
 
         Task<Summary> GetProgress(long UserId, long LearningSetId);
 
-        Task<bool> UpdateProgress(Summary summary);
+        Task<bool> UpdateProgress(LearningProgressDto[] progresses);
+
+        Task<bool> ResetProgress(long UserId, long LearningItemId);
 
         Task<bool> AddLearningSetToUser(long UserId, long LearningSetId);
 

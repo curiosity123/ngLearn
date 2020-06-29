@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/models/User';
 import { CreateLearningSetComponent } from '../Create-learning-set/Create-learning-set.component';
@@ -19,26 +21,16 @@ export class StatsComponent implements OnInit {
 
   user: User;
   learningSets: LearningSet[];
-  summaries: Progress;
+  summaries: Array<Progress>;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit() {
     this.getCourses();
-    // this.learningSets = [
-    //   { "name": "200commonphrasals ", "desc": "some desc2" },
-    //   { "name": "300commonphrasals ", "desc": "some desc3" },
-    //   { "name": "400commonphrasals ", "desc": "some desc4" },
-    // ];
   }
 
 
-  // learningSets: { name: string, desc: string }[] = [
-  //   { "name": "200commonphrasals ", "desc": "some desc2" },
-  //   { "name": "300commonphrasals ", "desc": "some desc3" },
-  //   { "name": "400commonphrasals ", "desc": "some desc4" },
-  // ];
 
 
   step = 0;
@@ -67,21 +59,41 @@ export class StatsComponent implements OnInit {
 
     this.http.get('http://localhost:5000/api/' + this.user.id + '/content/GetMyCourses')
       .subscribe((response: LearningSet[]) => {
+        ///
         this.learningSets = response;
-this.learningSets.forEach(x=>
-  {
-    this.getProgress(x.id.toString());
-  })
+        this.summaries = new Array<Progress>();
+        for (let i = 0; i < this.learningSets.length; i++) {
+          this.getProgress(this.learningSets[i].id.toString()).subscribe((res: Progress) => {
+            this.summaries.push(res);
+
+          });
+
+        }
+        ///
       });
   }
+
+resetProgress(setId:number)
+{
+
+  this.user = JSON.parse(localStorage.getItem('user'));
+
+  this.http.post('http://localhost:5000/api/' + this.user.id + '/content/' + setId.toString() + '/resetProgress' , {}) .subscribe(
+    x => {
+      console.log(x);
+      this.getCourses();
+    },
+    error => console.log(error)
+  );
+//{LearningItemId}/ResetProgress
+}
+  
 
   getProgress(courseId: string) {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + courseId + '/getProgress')
-      .subscribe((response: Progress) => {
-        this.summaries = response;
-      });
+    return this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + courseId + '/getProgress');
+
   }
 }
 

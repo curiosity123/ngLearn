@@ -61,7 +61,7 @@ namespace api.Controllers
 
         public async Task<Summary> GetProgress(long userId, long learningSetId)
         {
-            var result = await _repository.GetProgress(userId,learningSetId);
+            var result = await _repository.GetProgress(userId, learningSetId);
 
             if (result != null)
                 return result;
@@ -105,6 +105,25 @@ namespace api.Controllers
                 return NoContent();
         }
 
+        [HttpPost("UpdateProgress")]
+        public async Task<IActionResult> UpdateProgress(LearningProgressDto[] progresses)
+        {
+            var result = await _repository.UpdateProgress(progresses);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
+        [HttpPost("{LearningSetId}/ResetProgress")]
+        public async Task<IActionResult> ResetProgress(long userId, long LearningSetId)
+        {
+            var result = await _repository.ResetProgress(userId, LearningSetId);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
         private LearningItem getItems()
         {
 

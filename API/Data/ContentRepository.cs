@@ -72,12 +72,49 @@ namespace API.Data
             }
             return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = 0 };
         }
-
-
-
-        public  async Task<bool> UpdateProgress(Summary summary)
+        public async Task<bool> ResetProgress(long UserId, long LearningSetId)
         {
+            var items = await _context.LearningProgresses.Where(u => u.Owner.Id == UserId && u.LearningItem.LearningSet.Id == LearningSetId).ToListAsync();
+            if (items != null)
+            {
+                items.ForEach(x =>
+                {
+                    _context.LearningProgresses.Remove(x);
+
+                });
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
             return false;
+        }
+
+        public async Task<bool> UpdateProgress(LearningProgressDto[] progresses)
+        {
+            if (progresses.Length == 0)
+                return false;
+
+            foreach (var progress in progresses)
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == progress.OwnerId);
+                var learningItem = await _context.LearningItems.FirstOrDefaultAsync(u => u.Id == progress.LearningItemId);
+                if (user != null && learningItem != null)
+                {
+                    var prog = await _context.LearningProgresses.Where(p => p.Owner.Id == user.Id && p.LearningItem.Id == progress.LearningItemId).FirstOrDefaultAsync();
+                    if (prog != null)
+                    {
+                        prog.MemorizedLevel = progress.MemorizedLevel;
+                        _context.LearningProgresses.Update(prog);
+                    }
+                    else
+                        await _context.LearningProgresses.AddAsync(new LearningProgress() { Owner = user, LearningItem = learningItem, MemorizedLevel = progress.MemorizedLevel });
+
+                }
+            }
+            await _context.SaveChangesAsync();
+            return true;
+
+
         }
 
         public async Task<bool> RemoveLearningSetToUser(long UserId, long LearningSetId)

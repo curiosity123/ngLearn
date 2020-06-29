@@ -13,11 +13,13 @@
     <div *ngFor="let set of learningSets; let i = index"> 
       <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
         <mat-expansion-panel-header>
-          <mat-panel-title >
+          <mat-panel-title style="width: 100%;">
            <h2  class="cut-text mt-3">{{set.name}}</h2>
+         
+           
           </mat-panel-title>
-          <mat-panel-description>
-           <h2 class="mt-3 ">{{summaries.progressInPercentage}}%</h2>
+          <mat-panel-description  >
+           <h2 class="mt-3" >{{summaries[i]?.progressInPercentage | number:'1.0-2'}}%</h2>
           </mat-panel-description>
         </mat-expansion-panel-header>
 <br>
@@ -29,7 +31,7 @@
 
         <mat-action-row>
           <button  mat-raised-button color="warn"  (click)="deleteThisCourse(set.id)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
-          <button  mat-raised-button color="accent" disabled >Clear progress</button>
+          <button  mat-raised-button color="accent"  (click)="resetProgress(set.id)" >Clear progress</button>
           <button  mat-raised-button color="primary" (click)="startLearning(set)">Start lesson</button>
         </mat-action-row>
       </mat-expansion-panel>

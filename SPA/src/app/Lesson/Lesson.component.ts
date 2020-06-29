@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userInfo } from 'os';
 import { User } from 'src/models/User';
+import { LearningProgress } from 'src/models/LearningProgress';
 
 
 
@@ -69,6 +70,26 @@ export class LessonComponent implements OnInit {
     else {
 
       this.dialog.open(LessonSummaryComponent, { disableClose: true });
+
+      this.user = JSON.parse(localStorage.getItem('user'));
+
+      let learningProgress= new Array<LearningProgress>();
+
+
+      for (let i = 0; i < this.answers.length; i++) {
+        const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: true } as LearningProgress;
+        learningProgress.push(lp);
+      }
+      console.log(learningProgress);
+      this.http.post('http://localhost:5000/api/' + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
+        x => {
+          console.log(x);
+
+        },
+        error => console.log(error)
+      );
+
+
     }
   }
 
