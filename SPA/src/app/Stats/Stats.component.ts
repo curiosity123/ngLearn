@@ -85,7 +85,7 @@ resetProgress(setId:number)
     },
     error => console.log(error)
   );
-//{LearningItemId}/ResetProgress
+
 }
   
 

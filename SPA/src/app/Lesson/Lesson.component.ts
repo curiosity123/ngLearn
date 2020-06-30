@@ -37,6 +37,7 @@ export class LessonComponent implements OnInit {
   finished = false;
   words: string[];
   user: User;
+  results: boolean[];
 
   ngOnInit() {
 
@@ -45,7 +46,7 @@ export class LessonComponent implements OnInit {
 
   getLearningItems() {
     this.user = JSON.parse(localStorage.getItem('user'));
-
+    this.results = new Array();
     this.http.get('http://localhost:5000/api/' + this.user.id + '/content')
       .subscribe((response: LearningItem[]) => {
         this.Items = response;
@@ -73,14 +74,14 @@ export class LessonComponent implements OnInit {
 
       this.user = JSON.parse(localStorage.getItem('user'));
 
-      let learningProgress= new Array<LearningProgress>();
+      let learningProgress = new Array<LearningProgress>();
+      console.log(this.results);
 
-
-      for (let i = 0; i < this.answers.length; i++) {
-        const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: true } as LearningProgress;
+      for (let i = 0; i < this.Items.length; i++) {
+        const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: this.results[i] } as LearningProgress;
         learningProgress.push(lp);
       }
-      console.log(learningProgress);
+      console.log("Progressy:"+learningProgress);
       this.http.post('http://localhost:5000/api/' + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
         x => {
           console.log(x);
@@ -113,10 +114,11 @@ export class LessonComponent implements OnInit {
     const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
     for (let i = 0; i < this.words.length; i++) {
       if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
-        console.log(correctWords[i] + ' ' + this.answers[i]);
         this.IsError = true;
       }
+      
     }
+    this.results.push(!this.IsError);
 
 
 

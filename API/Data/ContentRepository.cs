@@ -41,8 +41,13 @@ namespace API.Data
             if (ls != null)
             {
                 var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
+                
                 if (learningSet != null)
-                    return learningSet.LearningItems.Take(10).ToList();
+                {
+                    var memorizedIds = await _context.LearningProgresses.Where(p => p.Owner.Id == UserId && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel == true).Select(x=>x.LearningItem.Id).ToListAsync();
+
+                    return learningSet.LearningItems.Where(l=>!memorizedIds.Contains(l.Id)).Take(10).ToList();
+                }
             }
             return null;
         }
