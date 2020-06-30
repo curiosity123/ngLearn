@@ -40,7 +40,7 @@ export class StatsComponent implements OnInit {
 
   startLearning(set: any) {
     console.log(set.name);
-    this.router.navigate(['/lesson-component']);
+    this.router.navigate(['/lesson-component', set.id]); 
   }
 
   deleteThisCourse(id: number) {

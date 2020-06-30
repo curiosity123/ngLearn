@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5qstNIkSuj6a1jcfbyjWhsAC2bVYh2VnbFiWH7anKsGGh/je6WOpdi8E2maXu/HoeG2HqjNjwK6rN/s6fmi3kg==",
+  "dgSpecHash": "Q8EEVrd3931+3+fOyQizfnYNFu8YUSQ0NCsCoj6tclBmYKppkeQ93koem9ol/bN3YWywAWA8MT76mKbRu4PIhw==",
   "success": true,
-  "projectFilePath": "C:\\NGProjects\\NgLearn\\API\\api.csproj",
+  "projectFilePath": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lukas\\.nuget\\packages\\automapper\\7.0.0\\automapper.7.0.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\3.0.1\\automapper.extensions.microsoft.dependencyinjection.3.0.1.nupkg.sha512",

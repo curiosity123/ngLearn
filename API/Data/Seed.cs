@@ -34,7 +34,30 @@ namespace API.Data
                 items.Add(new LearningItem() { Item = record[0], Description = record[1], SentenceWithGaps = record[2], CorrectSentence = record[3] });
             }
 
-            var set = new LearningSet() { Name = "200 common PhrasalVerbs", LearningItems = items };
+            var set = new LearningSet() { Name = "200 common PhrasalVerbs", Description = "Most useful 200 phrasal verbs. This course will help you to improve your english really fast, it's free so add it to your learning board and practice every day!", LearningItems = items };
+            _context.LearningSets.Add(set);
+            _context.SaveChanges();
+
+            items = new List<LearningItem>();
+            for (int i = 0; i < rec.Count - 1; i++)
+            {
+                string[] record = rec[i].Split('\t');
+                record.ToList().ForEach(x => x.Replace("\n", ""));
+                items.Add(new LearningItem() { Item = record[0], Description = record[1], SentenceWithGaps = record[2], CorrectSentence = record[3] });
+            }
+
+            set = new LearningSet() { Name = "150 common PhrasalVerbs", Description = "Some usefull phrasals", LearningItems = items };
+            _context.LearningSets.Add(set);
+            _context.SaveChanges();
+
+            items = new List<LearningItem>();
+            for (int i = 0; i < rec.Count - 1; i++)
+            {
+                string[] record = rec[i].Split('\t');
+                record.ToList().ForEach(x => x.Replace("\n", ""));
+                items.Add(new LearningItem() { Item = record[0], Description = record[1], SentenceWithGaps = record[2], CorrectSentence = record[3] });
+            }
+            set = new LearningSet() { Name = "150 fake  PhrasalVerbs", Description = "For tests only", LearningItems = items };
             _context.LearningSets.Add(set);
             _context.SaveChanges();
         }
@@ -43,7 +66,7 @@ namespace API.Data
         {
             if (!_context.Users.Any())
             {
-                var user = new User(){ UserName="root"};
+                var user = new User() { UserName = "root" };
                 {
                     byte[] passwordHash, passwordSalt;
                     CreatePasswordHashSalt("pass", out passwordHash, out passwordSalt);

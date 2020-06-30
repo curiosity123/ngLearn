@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'home-component', component: HomeComponent },
   { path: 'settings-component', component: SettingsComponent },
   { path: 'help-component', component: HelpComponent },
-  { path: 'lesson-component', component: LessonComponent },
+  { path: 'lesson-component/:id', component: LessonComponent },
   { path: 'searchingModule-component', component: SearchingModuleComponent },
 ];
 

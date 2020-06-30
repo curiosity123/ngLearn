@@ -5,7 +5,7 @@
   <mat-accordion class="example-headers-align " *ngIf="learningSets.length!=0">
 
     <div *ngFor="let item of learningSets; let i = index">
-      <mat-expansion-panel [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+      <mat-expansion-panel class="mt-2" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title >
             <h2  class="cut-text mt-3">{{item.name}}</h2>
