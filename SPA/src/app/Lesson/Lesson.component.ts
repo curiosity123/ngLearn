@@ -23,6 +23,8 @@ import { Console } from 'console';
 export class LessonComponent implements OnInit {
 
 
+
+
   constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute,
     private router: Router) {
 
@@ -43,12 +45,18 @@ export class LessonComponent implements OnInit {
   ngOnInit() {
 
     var sub = this.route.params.subscribe(params => {
-      //this.id = +params['id'];
+
       console.log(params['id']);
       this.getLearningItems(params['id']);
     });
       
     }
+
+
+
+
+
+
 
   getLearningItems(learningSetId: number) {
       this.user = JSON.parse(localStorage.getItem('user'));

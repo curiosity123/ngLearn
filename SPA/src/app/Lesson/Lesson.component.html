@@ -30,8 +30,8 @@
       <div class=" m-3" *ngIf="AnswerVisibility">
         <h1 class="h2 text-center"> {{Item?.correctSentence}}</h1>
       </div>
-      <button mat-raised-button color="primary" class="mb-4 row" #next *ngIf="AnswerVisibility"
-        (keyup.enter)="nextQuestion()" (click)="nextQuestion()">Next
+      <button mat-raised-button color="primary" class="mb-4 row"  *ngIf="AnswerVisibility"
+         #nextBtn autofocus  (click)="nextQuestion()">Next
         question</button>
     </div>
 
@@ -58,14 +58,27 @@
         </div>
       </ng-container>
       <br>
-      <div class="text-center">
-        <button mat-raised-button color="primary" class="mb-4 text-center" *ngIf="!AnswerVisibility"
+
+      <div class="ml-0">
+        <div class="row">
+          <div class="col">
+
+          </div>
+          <div class="col-6">
+            <button mat-raised-button color="primary" class="mb-4 text-center" *ngIf="!AnswerVisibility"
           (click)="checkAnswer()">Check</button>
+          </div>
+          <div class="col">
+
+          </div>
+        </div>
       </div>
+
+
+
 
       <br>
     </div>
-
 
 
   </mat-card-content>

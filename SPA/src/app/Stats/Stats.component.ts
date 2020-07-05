@@ -40,7 +40,7 @@ export class StatsComponent implements OnInit {
 
   startLearning(set: any) {
     console.log(set.name);
-    this.router.navigate(['/lesson-component', set.id]); 
+    this.router.navigate(['/lesson-component', set.id]);
   }
 
   deleteThisCourse(id: number) {
@@ -73,25 +73,23 @@ export class StatsComponent implements OnInit {
       });
   }
 
-resetProgress(setId:number)
-{
+  resetProgress(setId: number) {
 
-  this.user = JSON.parse(localStorage.getItem('user'));
+    this.user = JSON.parse(localStorage.getItem('user'));
 
-  this.http.post('http://localhost:5000/api/' + this.user.id + '/content/' + setId.toString() + '/resetProgress' , {}) .subscribe(
-    x => {
-      console.log(x);
-      this.getCourses();
-    },
-    error => console.log(error)
-  );
+    this.http.post('http://localhost:5000/api/' + this.user.id + '/content/' + setId.toString() + '/resetProgress', {}).subscribe(
+      x => {
+        console.log(x);
+        this.getCourses();
+      },
+      error => console.log(error)
+    );
 
-}
-  
+  }
+
 
   getProgress(courseId: string) {
     this.user = JSON.parse(localStorage.getItem('user'));
-
     return this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + courseId + '/getProgress');
 
   }

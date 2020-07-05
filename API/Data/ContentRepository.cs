@@ -73,7 +73,7 @@ namespace API.Data
             if (user != null && learningSet != null)
             {
                 var prog = await _context.LearningProgresses.Where(p => p.Owner == user && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel).ToListAsync();
-                double percentage = (double)((double)prog.Count / (double)learningSet.LearningItems.Count);
+                double percentage = (double)(((double)prog.Count / (double)learningSet.LearningItems.Count))*100;
                 if(double.IsNaN(percentage))
                 percentage = 0;
                 return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = percentage };
