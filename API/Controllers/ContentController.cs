@@ -19,23 +19,14 @@ namespace api.Controllers
     [Route("api/{userId}/[controller]")]
     public class ContentController : ControllerBase
     {
-        //private readonly IMapper _mapper;
-        // private readonly IConfiguration _config;
         private readonly IContentRepository _repository;
 
         public ContentController(IContentRepository repository)
         {
-            //_mapper = mapper;
-            //  _config = config;
             _repository = repository;
         }
 
 
-        // [HttpGet]
-        // public Task<IEnumerable<LearningItem>> Get(long userId)
-        // {
-        //     return null;
-        // }
 
         [HttpGet("{learningSetId}/GetItems")]
         public async Task<IEnumerable<LearningItem>> GetItems(long userId, long learningSetId)

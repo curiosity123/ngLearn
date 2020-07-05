@@ -49,8 +49,8 @@ export class LessonComponent implements OnInit {
       console.log(params['id']);
       this.getLearningItems(params['id']);
     });
-      
-    }
+
+  }
 
 
 
@@ -59,84 +59,74 @@ export class LessonComponent implements OnInit {
 
 
   getLearningItems(learningSetId: number) {
-      this.user = JSON.parse(localStorage.getItem('user'));
-      this.results = new Array();
-      this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + learningSetId.toString() + '/GetItems')
-        .subscribe((response: LearningItem[]) => {
-          this.Items = response;
-          this.showNewItem();
-        });
-    }
+    this.user = JSON.parse(localStorage.getItem('user'));
+    this.results = new Array();
+    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + learningSetId.toString() + '/GetItems')
+      .subscribe((response: LearningItem[]) => {
+        this.Items = response;
+        this.showNewItem();
+      });
+  }
 
   showNewItem() {
-      if(this.indx < 10) {
-        this.Item = this.Items[this.indx];
-    this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
-    this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
+    if (this.indx < 10) {
+      this.Item = this.Items[this.indx];
+      this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
+      this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
 
-    for (let i = 0; i < this.words.length; i++) {
-      if (!this.words[i].includes('_'))
-        this.answers[i] = null;
-      else
-        this.answers[i] = this.answers[i].replace('_', '');
+      for (let i = 0; i < this.words.length; i++) {
+        if (!this.words[i].includes('_'))
+          this.answers[i] = null;
+        else
+          this.answers[i] = this.answers[i].replace('_', '');
+      }
+      this.indx++;
     }
-    this.indx++;
-  }
     else {
 
-  this.dialog.open(LessonSummaryComponent, { disableClose: true });
+      this.dialog.open(LessonSummaryComponent, { disableClose: true });
 
-  this.user = JSON.parse(localStorage.getItem('user'));
+      this.user = JSON.parse(localStorage.getItem('user'));
 
-  let learningProgress = new Array<LearningProgress>();
-  console.log(this.results);
+      let learningProgress = new Array<LearningProgress>();
+      console.log(this.results);
 
-  for (let i = 0; i < this.Items.length; i++) {
-    const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: this.results[i] } as LearningProgress;
-    learningProgress.push(lp);
-  }
-  console.log("Progressy:" + learningProgress);
-  this.http.post('http://localhost:5000/api/' + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
-    x => {
-      console.log(x);
-
-    },
-    error => console.log(error)
-  );
-
-
-}
-  }
-
-
-nextQuestion() {
-  this.IsError = false;
-  this.showNewItem();
-  this.AnswerVisibility = false;;
-}
-
-splt(signs: string[], sentence: string): string[] {
-  for (let s in signs) {
-    sentence = sentence.split(signs[s]).join('#');
-  }
-  return sentence.split('#');
-}
-
-checkAnswer() {
-  this.AnswerVisibility = true;
-  this.IsError = false;
-  const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
-  for (let i = 0; i < this.words.length; i++) {
-    if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
-      this.IsError = true;
+      for (let i = 0; i < this.Items.length; i++) {
+        const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: this.results[i] } as LearningProgress;
+        learningProgress.push(lp);
+      }
     }
+  }
+
+
+  nextQuestion() {
+    this.IsError = false;
+    this.showNewItem();
+    this.AnswerVisibility = false;;
+  }
+
+  splt(signs: string[], sentence: string): string[] {
+    for (let s in signs) {
+      sentence = sentence.split(signs[s]).join('#');
+    }
+    return sentence.split('#');
+  }
+
+  checkAnswer() {
+    this.AnswerVisibility = true;
+    this.IsError = false;
+    const correctWords = this.splt(this.separators, this.Items[this.indx - 1].correctSentence);
+    for (let i = 0; i < this.words.length; i++) {
+      if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
+        this.IsError = true;
+      }
+
+    }
+    this.results.push(!this.IsError);
+
+
 
   }
-  this.results.push(!this.IsError);
-
-
-
-}
 
 
 
