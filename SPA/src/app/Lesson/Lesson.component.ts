@@ -95,6 +95,15 @@ export class LessonComponent implements OnInit {
         const lp = { ownerId: Number.parseInt(this.user.id), learningItemId: this.Items[i].id, memorizedLevel: this.results[i] } as LearningProgress;
         learningProgress.push(lp);
       }
+
+      console.log("Progressy:" + learningProgress);
+      this.http.post('http://localhost:5000/api/' + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
+        x => {
+          console.log(x);
+    
+        },
+        error => console.log(error)
+      );
     }
   }
 
