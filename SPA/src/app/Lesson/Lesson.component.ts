@@ -69,7 +69,8 @@ export class LessonComponent implements OnInit {
   }
 
   showNewItem() {
-    if (this.indx < 10) {
+    console.log(this.Items.length);
+    if (this.indx < this.Items.length) {
       this.Item = this.Items[this.indx];
       this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
       this.answers = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);

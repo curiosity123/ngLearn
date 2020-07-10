@@ -1,11 +1,12 @@
 <div class="full-height">
-<h1 class="text-center mt-5">Courses library</h1>
+  <br>
+<h1 class="text-center ">Courses library</h1>
 <div class="m-5">
 
   <mat-accordion class="example-headers-align " *ngIf="learningSets.length!=0">
 
     <div *ngFor="let item of learningSets; let i = index">
-      <mat-expansion-panel class="mt-2" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+      <mat-expansion-panel class="mt-2 glassy" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title >
             <h2  class="cut-text mt-3">{{item.name}}</h2>
@@ -25,7 +26,7 @@
 
 
         </mat-action-row>
-      </mat-expansion-panel>
+      </mat-expansion-panel> 
     </div>
   </mat-accordion>
 </div>

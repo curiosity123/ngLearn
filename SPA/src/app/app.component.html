@@ -13,7 +13,7 @@
        
     </mat-menu> -->
 
-    <button mat-icon-button *ngIf="login()" (click)="NavBar()">
+    <button mat-icon-button *ngIf="login()" (click)="NavBar()" >
         <mat-icon><i class="fa fa-bars" aria-hidden="true"></i></mat-icon>
     </button>
 
@@ -29,6 +29,7 @@
         <mat-selection-list  [multiple]="false" role="list">
             <mat-list-option role="listitem" (click)="stats()"> <div> <mat-icon><i class="fa fa-bar-chart" aria-hidden="true"></i></mat-icon>Your courses</div></mat-list-option>
             <mat-list-option role="listitem" (click)="search()"><div> <mat-icon><i class="fa fa-search" aria-hidden="true"></i></mat-icon>Courses library</div></mat-list-option>
+            <mat-list-option role="listitem" (click)="create()" ><div> <mat-icon><i class="fa fa-plus-circle" aria-hidden="true"></i></mat-icon>Create own course</div></mat-list-option>
             <mat-list-option role="listitem" (click)="settings()" ><div> <mat-icon><i class="fa fa-wrench" aria-hidden="true"></i></mat-icon>Settings</div></mat-list-option>
             <mat-list-option role="listitem" (click)="logout()"><div> <mat-icon><i class="fa fa-sign-out" aria-hidden="true"></i></mat-icon>Sign-out</div></mat-list-option>
             <mat-list-option role="listitem" (click)="help()" ><div> <mat-icon><i class="fa fa-ambulance" aria-hidden="true"></i></mat-icon>Help</div></mat-list-option>
@@ -39,8 +40,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content  >
-        <div class="full-height">
-        <router-outlet></router-outlet>
-    </div>
+        <div class="full-height" style="background: url('/assets/bg5.jpg') no-repeat center; background-color: rgba(255, 255, 255, 0.3);
+        background-blend-mode: lighten;">
+        <router-outlet ></router-outlet>
+    </div> 
+
     </mat-sidenav-content>
 </mat-sidenav-container>

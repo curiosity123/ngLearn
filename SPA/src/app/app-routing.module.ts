@@ -7,6 +7,7 @@ import { HelpComponent } from './Help/Help.component';
 import { LessonSummaryComponent } from './lesson-summary/lesson-summary.component';
 import { LessonComponent } from './Lesson/Lesson.component';
 import { SearchingModuleComponent } from './searching-module/searching-module.component';
+import { CreateLearningSetComponent } from './Create-learning-set/Create-learning-set.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'help-component', component: HelpComponent },
   { path: 'lesson-component/:id', component: LessonComponent },
   { path: 'searchingModule-component', component: SearchingModuleComponent },
+  { path: 'create-learning-set-component', component: CreateLearningSetComponent },
 ];
 
 @NgModule({

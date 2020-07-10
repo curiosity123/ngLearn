@@ -1,17 +1,19 @@
-<div  class="full-height"> 
+<div  class="full-height"  > 
 
 
 <br>
 
-<h1 class="text-center">Your courses</h1>
+<h1 class="text-center " >Your courses</h1>
 
 <div class="m-5">
 
 
-  <mat-accordion class="example-headers-align ">
+  <mat-accordion class="example-headers-align " >
 
     <div *ngFor="let set of learningSets; let i = index"> 
-      <mat-expansion-panel class="mt-2" [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+
+      <mat-expansion-panel class="mt-2 glassy " [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+
         <mat-expansion-panel-header>
           <mat-panel-title style="width: 100%;">
            <h2  class="cut-text mt-3">{{set.name}}</h2>
@@ -34,8 +36,9 @@
           <button  mat-raised-button color="accent"  (click)="resetProgress(set.id)" >Clear progress</button>
           <button  mat-raised-button color="primary" (click)="startLearning(set)">Start lesson</button>
         </mat-action-row>
-      </mat-expansion-panel>
-    </div>
+   
+      </mat-expansion-panel>   </div>
+
   </mat-accordion>
 </div>
 <br>

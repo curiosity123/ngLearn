@@ -1,15 +1,15 @@
 
-<div *ngIf="!authService.loggedIn()" class="text-center m-4">
+<div *ngIf="!authService.loggedIn()" class="text-center ">
   <br>
   <br>
   <br>
   <h1>Welcome!</h1>
   <br>
-  <h2>If you want to use my app please register your account or sign-in</h2>
+  <h2 class="m-4">If you want to use my app please register your account or sign-in...</h2>
   <br>
 
-  <button mat-raised-button color="primary" class="m-4" selected (click)="openRegisterDialog()" *ngIf="!authService.loggedIn()">Register</button>
-  <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()">Sign in</button>
+  <button mat-raised-button color="primary" class="m-4" selected (click)="openRegisterDialog()" *ngIf="!authService.loggedIn()" style="background-color: seagreen; width : 10em; height: 3em;" >Register</button>
+  <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()"  style="background-color: seagreen; width : 10em; height: 3em;">Sign in</button>
 </div>
 
 

@@ -25,3 +25,24 @@
   .full-height {
     height:93vh;
   }
+
+
+  .glassy {
+    background: url('/assets/vbg9.jpg') no-repeat center; 
+    background-color: rgba(255,255,255,0.75);
+    background-blend-mode: lighten;
+  }
+
+  .error {
+    background: url('/assets/error.jpg') no-repeat center; 
+    background-color: rgba(238, 157, 157, 0.75);
+    background-blend-mode: lighten;
+    background-size: cover;
+  }
+
+  .correct {
+    background: url('/assets/correct.jpg') no-repeat center; 
+    background-color: rgba(146, 243, 154, 0.75);
+    background-blend-mode: lighten;
+    background-size: cover;
+  }

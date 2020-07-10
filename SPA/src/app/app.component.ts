@@ -76,4 +76,10 @@ export class AppComponent implements OnInit {
     this.NavBar();
   }
 
+  create() {
+
+      this.router.navigate(['/create-learning-set-component']);
+    this.NavBar();
+  }
+
 }

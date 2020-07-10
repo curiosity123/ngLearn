@@ -9,7 +9,7 @@ namespace API.Data
 {
     public class ContentRepository : GenericRepository, IContentRepository
     {
-
+        private const int maxItemPerLesson = 10;
         private readonly DataContext _context;
         public ContentRepository(DataContext context) : base(context)
         {
@@ -49,12 +49,14 @@ namespace API.Data
 
                     var available = learningSet.LearningItems.Where(l => !memorizedIds.Contains(l.Id)).ToList();
                     List<LearningItem> rand = new List<LearningItem>();
-                    while (available.Count > 0 || rand.Count < 10)
+                    while (available.Count > 0 )
                     {
                         Random r = new Random();
                         int index = r.Next(0, available.Count - 1);
                         rand.Add(available[index]);
                         available.RemoveAt(index);
+                        if(rand.Count> maxItemPerLesson - 1)
+                        break;
                     }
                     return rand;
                 }
