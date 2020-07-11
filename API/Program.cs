@@ -13,6 +13,8 @@ namespace api
     {
         public static void Main(string[] args)
         {
+
+            //dotnetEnvironment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Production");
             CreateHostBuilder(args).Build().Run();
         }
 

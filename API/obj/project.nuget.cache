@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q8EEVrd3931+3+fOyQizfnYNFu8YUSQ0NCsCoj6tclBmYKppkeQ93koem9ol/bN3YWywAWA8MT76mKbRu4PIhw==",
+  "dgSpecHash": "bYy6FLI4nfX92wZ0H+i0pM1SXGsPMSJhNNKaFQx5tFPiN0/jRxDMXdNGUcnI5CiMCY1ID5plo9Q+OBn4zL91AA==",
   "success": true,
   "projectFilePath": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
   "expectedPackageFiles": [
@@ -40,8 +40,11 @@
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.identitymodel.tokens\\5.5.0\\microsoft.identitymodel.tokens.5.5.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\mysqlconnector\\0.61.0\\mysqlconnector.0.61.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\3.1.1\\pomelo.entityframeworkcore.mysql.3.1.1.nupkg.sha512",
+    "C:\\Users\\Lukas\\.nuget\\packages\\pomelo.jsonobject\\2.2.1\\pomelo.jsonobject.2.2.1.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\sqlite\\3.13.0\\sqlite.3.13.0.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.0.2\\sqlitepclraw.bundle_e_sqlite3.2.0.2.nupkg.sha512",
     "C:\\Users\\Lukas\\.nuget\\packages\\sqlitepclraw.core\\2.0.2\\sqlitepclraw.core.2.0.2.nupkg.sha512",

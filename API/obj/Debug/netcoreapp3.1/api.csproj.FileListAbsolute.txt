@@ -76,3 +76,6 @@ C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqli
 C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.csproj.CopyComplete
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\MySqlConnector.dll
+C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\Pomelo.EntityFrameworkCore.MySql.dll
+C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\Pomelo.JsonObject.dll
