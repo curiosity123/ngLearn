@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/models/User';
 import { LearningSet } from 'src/models/LearningSet';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-searching-module',
@@ -25,12 +26,12 @@ export class SearchingModuleComponent implements OnInit {
   setStep(index: number) {
     this.step = index;
   }
-
+  baseUrl = environment.apiUrl;
 
   getLearningSets() {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/GetAllCourses')
+    this.http.get(this.baseUrl + this.user.id + '/content/GetAllCourses')
       .subscribe((response: LearningSet[]) => {
         this.learningSets = response;
       });
@@ -41,7 +42,7 @@ export class SearchingModuleComponent implements OnInit {
     console.log(id);
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.post('http://localhost:5000/api/' + this.user.id + '/content/' + id + '/AddCourseToBoard' , {}) .subscribe(
+    this.http.post(this.baseUrl + this.user.id + '/content/' + id + '/AddCourseToBoard' , {}) .subscribe(
       x => {
         console.log(x);
         this.getLearningSets();

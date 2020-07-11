@@ -6,11 +6,17 @@
 .mom
 {
     display: table;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
 
 }
 .baby
 {
     display: inline-block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
 }
 .container-name div {
     display: inline-block;
@@ -20,12 +26,19 @@
 	height: auto;
   }
   input {
-    font-size: 24px;
+    font-size: 20px;
   }
   .full-height {
     height:93vh;
   }
 
+
+  input.mat-input-element {
+    height:25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+  }
 
   .glassy {
     background: url('/assets/vbg9.jpg') no-repeat center; 

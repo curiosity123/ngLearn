@@ -1,49 +1,49 @@
-<div  class="full-height"  > 
+<div class="full-height">
 
 
-<br>
+  <br>
 
-<h1 class="text-center " >Your courses</h1>
+  <h1 class="text-center ">Your courses</h1>
 
-<div class="m-5">
+  <div class=" m-4">
 
 
-  <mat-accordion class="example-headers-align " >
+    <mat-accordion class="example-headers-align">
 
-    <div *ngFor="let set of learningSets; let i = index"> 
+      <div *ngFor="let set of learningSets; let i = index">
 
-      <mat-expansion-panel class="mt-2 glassy " [expanded]="step === i" (opened)="setStep(i)" hideToggle>
+        <mat-expansion-panel class="mt-2 glassy " [expanded]="step === i" (opened)="setStep(i)" hideToggle>
 
-        <mat-expansion-panel-header>
-          <mat-panel-title style="width: 100%;">
-           <h2  class="cut-text mt-3">{{set.name}}</h2>
-         
-           
-          </mat-panel-title>
-          <mat-panel-description  >
-           <h2 class="mt-3" >{{summaries[i]?.progressInPercentage | number:'1.0-2'}}%</h2>
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-<br>
-        <h4>{{set.description}}</h4>
-        <br>
-        <h2 class="mt-3 ">Author: root</h2>
+          <mat-expansion-panel-header>
+            <mat-panel-title style="width: 100%;">
+              <h2 class="cut-text mt-3 col-8 text-left">{{set.name}} fsfasfasdfsfasfsadf </h2>
+              <h2 class="mt-3 col-4 text-right">{{summaries[i]?.progressInPercentage | number:'1.0-2'}}%</h2>
+
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <br>
+          <h4 class=" ml-3 text-left">{{set.description}}</h4>
+          <br>
+          <h2 class="mt-3 ml-3 ">Author: root</h2>
 
 
 
-        <mat-action-row>
-          <button  mat-raised-button color="warn"  (click)="deleteThisCourse(set.id)"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
-          <button  mat-raised-button color="accent"  (click)="resetProgress(set.id)" >Clear progress</button>
-          <button  mat-raised-button color="primary" (click)="startLearning(set)">Start lesson</button>
-        </mat-action-row>
-   
-      </mat-expansion-panel>   </div>
+          <mat-action-row>
+            <button mat-raised-button color="warn" (click)="deleteThisCourse(set.id)"><i class="fa fa-trash fa-2x"
+                aria-hidden="true"></i></button>
+            <button mat-raised-button color="accent" (click)="resetProgress(set.id)">Reset</button>
+            <button mat-raised-button color="primary" (click)="startLearning(set)">Start lesson</button>
+          </mat-action-row>
 
-  </mat-accordion>
-</div>
-<br>
-<br>
-<br>
-<br>
+        </mat-expansion-panel>
+      </div>
+
+    </mat-accordion>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
 
 </div>

@@ -11,6 +11,7 @@ import { userInfo } from 'os';
 import { User } from 'src/models/User';
 import { LearningProgress } from 'src/models/LearningProgress';
 import { Console } from 'console';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -53,7 +54,7 @@ export class LessonComponent implements OnInit {
   }
 
 
-
+  baseUrl = environment.apiUrl
 
 
 
@@ -61,7 +62,7 @@ export class LessonComponent implements OnInit {
   getLearningItems(learningSetId: number) {
     this.user = JSON.parse(localStorage.getItem('user'));
     this.results = new Array();
-    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + learningSetId.toString() + '/GetItems')
+    this.http.get(this.baseUrl + this.user.id + '/content/' + learningSetId.toString() + '/GetItems')
       .subscribe((response: LearningItem[]) => {
         this.Items = response;
         this.showNewItem();
@@ -98,7 +99,7 @@ export class LessonComponent implements OnInit {
       }
 
       console.log("Progressy:" + learningProgress);
-      this.http.post('http://localhost:5000/api/' + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
+      this.http.post(this.baseUrl + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
         x => {
           console.log(x);
     

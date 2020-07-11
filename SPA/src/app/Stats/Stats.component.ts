@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Summary } from '@angular/compiler';
 import { Progress } from 'src/models/Progress';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-stats',
@@ -42,11 +43,11 @@ export class StatsComponent implements OnInit {
     console.log(set.name);
     this.router.navigate(['/lesson-component', set.id]);
   }
-
+  baseUrl = environment.apiUrl
   deleteThisCourse(id: number) {
     this.user = JSON.parse(localStorage.getItem('user'));
     console.log(id);
-    this.http.delete('http://localhost:5000/api/' + this.user.id + '/content/' + id + '/RemoveCourseFromMyBoard', {}).subscribe((
+    this.http.delete(this.baseUrl + this.user.id + '/content/' + id + '/RemoveCourseFromMyBoard', {}).subscribe((
       response: string) => {
       console.log(response);
       this.getCourses();
@@ -57,7 +58,7 @@ export class StatsComponent implements OnInit {
   getCourses() {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.get('http://localhost:5000/api/' + this.user.id + '/content/GetMyCourses')
+    this.http.get(this.baseUrl + this.user.id + '/content/GetMyCourses')
       .subscribe((response: LearningSet[]) => {
         ///
         this.learningSets = response;
@@ -77,7 +78,7 @@ export class StatsComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.post('http://localhost:5000/api/' + this.user.id + '/content/' + setId.toString() + '/resetProgress', {}).subscribe(
+    this.http.post(this.baseUrl + this.user.id + '/content/' + setId.toString() + '/resetProgress', {}).subscribe(
       x => {
         console.log(x);
         this.getCourses();
@@ -90,7 +91,7 @@ export class StatsComponent implements OnInit {
 
   getProgress(courseId: string) {
     this.user = JSON.parse(localStorage.getItem('user'));
-    return this.http.get('http://localhost:5000/api/' + this.user.id + '/content/' + courseId + '/getProgress');
+    return this.http.get(this.baseUrl + this.user.id + '/content/' + courseId + '/getProgress');
 
   }
 }
