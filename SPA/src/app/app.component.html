@@ -34,12 +34,9 @@
             <mat-list-option role="listitem" (click)="logout()"><div> <mat-icon><i class="fa fa-sign-out" aria-hidden="true"></i></mat-icon>Sign-out</div></mat-list-option>
             <mat-list-option role="listitem" (click)="help()" ><div> <mat-icon><i class="fa fa-ambulance" aria-hidden="true"></i></mat-icon>Help</div></mat-list-option>
         </mat-selection-list>
-
-
-
     </mat-sidenav>
    
-    <mat-sidenav-content  >
+    <mat-sidenav-content >
         <div class="full-height" style="background: url('/assets/bg5.jpg') no-repeat center  top fixed; background-color: rgba(255, 255, 255, 0.3);
         background-blend-mode: lighten;">
         <router-outlet ></router-outlet>

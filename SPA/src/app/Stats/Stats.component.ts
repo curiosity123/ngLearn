@@ -11,6 +11,7 @@ import { map } from 'rxjs/operators';
 import { Summary } from '@angular/compiler';
 import { Progress } from 'src/models/Progress';
 import { environment } from 'src/environments/environment';
+import { ContentService } from '../content.service';
 
 @Component({
   selector: 'app-stats',
@@ -24,8 +25,9 @@ export class StatsComponent implements OnInit {
   learningSets: LearningSet[];
   summaries: Array<Progress>;
 
+
   constructor(private http: HttpClient, private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router, private contentService: ContentService) { }
 
   ngOnInit() {
     this.getCourses();
@@ -43,11 +45,11 @@ export class StatsComponent implements OnInit {
     console.log(set.name);
     this.router.navigate(['/lesson-component', set.id]);
   }
-  baseUrl = environment.apiUrl
-  deleteThisCourse(id: number) {
+
+  deleteThisCourse(CourseId: number) {
     this.user = JSON.parse(localStorage.getItem('user'));
-    console.log(id);
-    this.http.delete(this.baseUrl + this.user.id + '/content/' + id + '/RemoveCourseFromMyBoard', {}).subscribe((
+
+    this.contentService.DeleteCourseFromBoard(this.user.id, CourseId.toString()).subscribe((
       response: string) => {
       console.log(response);
       this.getCourses();
@@ -58,7 +60,7 @@ export class StatsComponent implements OnInit {
   getCourses() {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.get(this.baseUrl + this.user.id + '/content/GetMyCourses')
+    this.contentService.GetCoursesForUser(this.user.id)
       .subscribe((response: LearningSet[]) => {
         ///
         this.learningSets = response;
@@ -78,7 +80,7 @@ export class StatsComponent implements OnInit {
 
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.http.post(this.baseUrl + this.user.id + '/content/' + setId.toString() + '/resetProgress', {}).subscribe(
+    this.contentService.ResetProgress(this.user.id, setId.toString()).subscribe(
       x => {
         console.log(x);
         this.getCourses();
@@ -91,8 +93,7 @@ export class StatsComponent implements OnInit {
 
   getProgress(courseId: string) {
     this.user = JSON.parse(localStorage.getItem('user'));
-    return this.http.get(this.baseUrl + this.user.id + '/content/' + courseId + '/getProgress');
-
+    return this.contentService.GetProgress(this.user.id, courseId);
   }
 }
 
