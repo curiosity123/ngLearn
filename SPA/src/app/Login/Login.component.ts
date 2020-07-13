@@ -24,13 +24,11 @@ export class LoginComponent implements OnInit  {
 
 
   Login(login, pass) {
-
     const user = { userName: login, Password: pass } as User;
 
     this.authservice.login(user).subscribe(next => {
       this.dialog.close();
       this.loginCorrect = false;
-      console.log("cor");
       window.location.reload();
 
     }, error => {

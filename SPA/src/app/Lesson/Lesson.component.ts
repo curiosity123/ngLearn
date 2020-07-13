@@ -1,17 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import 'rxjs/operators';
-import { map, tap } from 'rxjs/operators';
 import { LearningItem } from 'src/models/LearningItem';
-import { FormsModule } from '@angular/forms'
 import { LessonSummaryComponent } from '../lesson-summary/lesson-summary.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { userInfo } from 'os';
+import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/models/User';
 import { LearningProgress } from 'src/models/LearningProgress';
-import { Console } from 'console';
-import { environment } from 'src/environments/environment';
+import { LessonService } from '../lesson.service';
 
 
 
@@ -26,10 +22,7 @@ export class LessonComponent implements OnInit {
 
 
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute,
-    private router: Router) {
-
-  }
+  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute, private lessonService: LessonService) { }
   Item: LearningItem = null;
   indx = 0;
   Items: LearningItem[];
@@ -44,33 +37,24 @@ export class LessonComponent implements OnInit {
   results: boolean[];
 
   ngOnInit() {
-
-    var sub = this.route.params.subscribe(params => {
-
-      console.log(params['id']);
-      this.getLearningItems(params['id']);
+    const sub = this.route.params.subscribe(params => {
+      this.getLearningItems(params.id);
     });
 
   }
 
 
-  baseUrl = environment.apiUrl
+  getLearningItems(courseId: number) {
 
-
-
-
-  getLearningItems(learningSetId: number) {
-    this.user = JSON.parse(localStorage.getItem('user'));
     this.results = new Array();
-    this.http.get(this.baseUrl + this.user.id + '/content/' + learningSetId.toString() + '/GetItems')
-      .subscribe((response: LearningItem[]) => {
-        this.Items = response;
-        this.showNewItem();
-      });
+    this.lessonService.GetLessonItems(courseId.toString()).subscribe((response: LearningItem[]) => {
+      this.Items = response;
+      this.showNewItem();
+    });
   }
 
   showNewItem() {
-    console.log(this.Items.length);
+
     if (this.indx < this.Items.length) {
       this.Item = this.Items[this.indx];
       this.words = this.splt(this.separators, this.Items[this.indx].sentenceWithGaps);
@@ -98,12 +82,9 @@ export class LessonComponent implements OnInit {
         learningProgress.push(lp);
       }
 
-      console.log("Progressy:" + learningProgress);
-      this.http.post(this.baseUrl + this.user.id + '/content/UpdateProgress', learningProgress).subscribe(
-        x => {
-          console.log(x);
-    
-        },
+      console.log('Progressy:' + learningProgress);
+      this.lessonService.PushProgressToServer(learningProgress).subscribe(
+        x => { },
         error => console.log(error)
       );
     }

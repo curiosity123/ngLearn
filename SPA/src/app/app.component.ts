@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from './auth.service';
 import { User } from 'src/models/User';
-import { environment } from 'src/environments/environment';
-import { timer } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,16 +16,14 @@ export class AppComponent implements OnInit {
 
   auth: AuthService;
   user: User;
-  username = "unknown";
+  username = 'unknown';
 
-  constructor(auth: AuthService, private route: ActivatedRoute,
-    private router: Router) {
+  constructor(auth: AuthService, private router: Router) {
 
     this.auth = auth;
     if (!this.auth.loggedIn()) {
       this.router.navigate(['/home-component']);
-    }
-    else {
+    } else {
       this.router.navigate(['/stats-component']);
     }
 
@@ -70,15 +65,13 @@ export class AppComponent implements OnInit {
     this.NavBar();
   }
   logout() {
-
     this.auth.logout();
     this.router.navigate(['/home-component']);
     this.NavBar();
   }
 
   create() {
-
-      this.router.navigate(['/create-learning-set-component']);
+    this.router.navigate(['/create-learning-set-component']);
     this.NavBar();
   }
 

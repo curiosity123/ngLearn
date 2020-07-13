@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/models/User';
 import { CreateLearningSetComponent } from '../Create-learning-set/Create-learning-set.component';
 import { LearningItem } from 'src/models/LearningItem';
-import { LearningSet } from 'src/models/LearningSet';
+import { CoursesCollection } from 'src/models/CoursesCollection';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Summary } from '@angular/compiler';
@@ -21,69 +21,50 @@ import { ContentService } from '../content.service';
 export class StatsComponent implements OnInit {
 
 
-  user: User;
-  learningSets: LearningSet[];
-  summaries: Array<Progress>;
-
+  CoursesList: CoursesCollection[];
+  Summaries: Array<Progress>;
+  step = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-    private router: Router, private contentService: ContentService) { }
+              private router: Router, private contentService: ContentService) { }
 
   ngOnInit() {
-    this.getCourses();
+    this.GetCourses();
   }
 
 
-
-
-  step = 0;
-  setStep(index: number) {
+  SetStep(index: number) {
     this.step = index;
   }
 
-  startLearning(set: any) {
-    console.log(set.name);
+  RunLearningModule(set: any) {
     this.router.navigate(['/lesson-component', set.id]);
   }
 
-  deleteThisCourse(CourseId: number) {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.contentService.DeleteCourseFromBoard(this.user.id, CourseId.toString()).subscribe((
+  DeleteThisCourse(CourseId: number) {
+    this.contentService.RemoveFromUsersCollection(CourseId.toString()).subscribe((
       response: string) => {
-      console.log(response);
-      this.getCourses();
+      this.GetCourses();
     });
 
   }
 
-  getCourses() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.contentService.GetCoursesForUser(this.user.id)
-      .subscribe((response: LearningSet[]) => {
-        ///
-        this.learningSets = response;
-        this.summaries = new Array<Progress>();
-        for (let i = 0; i < this.learningSets.length; i++) {
-          this.getProgress(this.learningSets[i].id.toString()).subscribe((res: Progress) => {
-            this.summaries.push(res);
-
-          });
-
-        }
-        ///
-      });
+  GetCourses() {
+    this.contentService.GetUsersCourses()
+      .subscribe((response: CoursesCollection[]) => {
+        this.CoursesList = response;
+        this.Summaries = this.contentService.UpdateProgress(this.CoursesList);
+      })
+    
   }
 
-  resetProgress(setId: number) {
+  
 
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.contentService.ResetProgress(this.user.id, setId.toString()).subscribe(
+  ResetProgress(setId: number) {
+    this.contentService.ResetCourseProgress(setId.toString()).subscribe(
       x => {
         console.log(x);
-        this.getCourses();
+        this.GetCourses();
       },
       error => console.log(error)
     );
@@ -91,9 +72,6 @@ export class StatsComponent implements OnInit {
   }
 
 
-  getProgress(courseId: string) {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    return this.contentService.GetProgress(this.user.id, courseId);
-  }
+
 }
 

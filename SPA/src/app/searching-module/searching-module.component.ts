@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/models/User';
-import { LearningSet } from 'src/models/LearningSet';
+import { CoursesCollection as CoursessCollection } from 'src/models/CoursesCollection';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ContentService } from '../content.service';
 
 @Component({
   selector: 'app-searching-module',
@@ -13,39 +14,30 @@ import { environment } from 'src/environments/environment';
 })
 export class SearchingModuleComponent implements OnInit {
 
-  user: User;
-  learningSets: LearningSet[];
+  CoursesCollection: CoursessCollection[];
+  step = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-    private router: Router) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private contentService: ContentService) { }
 
   ngOnInit() {
-    this.getLearningSets();
+    this.GetAllCourses();
   }
-  step = 0;
+
   setStep(index: number) {
     this.step = index;
   }
-  baseUrl = environment.apiUrl;
 
-  getLearningSets() {
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.http.get(this.baseUrl + this.user.id + '/content/GetAllCourses')
-      .subscribe((response: LearningSet[]) => {
-        this.learningSets = response;
-      });
-    }
+  GetAllCourses() {
+    this.contentService.GetAllCourses().subscribe((response: CoursessCollection[]) => {
+      this.CoursesCollection = response;
+    });
+  }
 
 
-  AddToMyBoard(id: string) {
-    console.log(id);
-    this.user = JSON.parse(localStorage.getItem('user'));
-
-    this.http.post(this.baseUrl + this.user.id + '/content/' + id + '/AddCourseToBoard' , {}) .subscribe(
+  AddToUsersCollection(courseId: string) {
+    this.contentService.AddToUsersCollection(courseId).subscribe(
       x => {
-        console.log(x);
-        this.getLearningSets();
+        this.GetAllCourses();
       },
       error => console.log(error)
     );

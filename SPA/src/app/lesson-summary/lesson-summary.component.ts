@@ -14,7 +14,7 @@ export class LessonSummaryComponent implements OnInit {
 
   @ViewChild('btn_focus') firstNameElement: ElementRef;
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.firstNameElement.nativeElement.focus();
   }
   ngOnInit() {

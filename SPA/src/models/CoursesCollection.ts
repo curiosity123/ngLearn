@@ -1,4 +1,4 @@
-export interface LearningSet {
+export interface CoursesCollection {
 
     id: number;
     name: string;
