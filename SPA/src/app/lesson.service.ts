@@ -12,6 +12,7 @@ export class LessonService {
 
   loggedUser: User;
   baseUrl: string;
+  Separators: string[] = [' ', '/', '?', '!', '.', ','];
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
 
@@ -20,11 +21,19 @@ export class LessonService {
   }
 
 
+
   PushProgressToServer(learningProgress: LearningProgress[]) {
     return this.http.post(this.baseUrl + this.loggedUser.id + '/content/UpdateProgress', learningProgress);
   }
   GetLessonItems(courseId: string) {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItems');
+  }
+
+  SplitSentence(signs: string[], sentence: string): string[] {
+    for (let s in signs) {
+      sentence = sentence.split(signs[s]).join('#');
+    }
+    return sentence.split('#');
   }
 
 }
