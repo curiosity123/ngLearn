@@ -43,7 +43,7 @@ export class StatsComponent implements OnInit {
 
   DeleteThisCourse(CourseId: number) {
     this.contentService.RemoveFromUsersCollection(CourseId.toString()).subscribe((
-      response: string) => {
+      response: string) => {     
       this.GetCourses();
     });
 
