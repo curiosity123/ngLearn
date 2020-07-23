@@ -67,7 +67,6 @@ C:\NGProjects\NgLearn\API\bin\Release\netcoreapp3.1\runtimes\win-arm\native\e_sq
 C:\NGProjects\NgLearn\API\bin\Release\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\NGProjects\NgLearn\API\bin\Release\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\NGProjects\NgLearn\API\bin\Release\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
-C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.csprojAssemblyReference.cache
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.csproj.CoreCompileInputs.cache
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.MvcApplicationPartsAssemblyInfo.cache
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.AssemblyInfoInputs.cache

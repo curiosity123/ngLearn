@@ -84,11 +84,21 @@ namespace api.Controllers
 
         public async Task<IActionResult> RemoveCourseFromMyBoard(long userId, long courseId)
         {
-            var result = await _repository.RemoveLearningSetToUser(userId, courseId);
-            if (result)
-                return Ok();
-            else
-                return NoContent();
+
+            try
+            {
+
+                var result = await _repository.RemoveLearningSetToUser(userId, courseId);
+
+                if (result)
+                    return Ok();
+                else
+                    return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
         }
 
 

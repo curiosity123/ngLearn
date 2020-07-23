@@ -7,7 +7,6 @@ C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\api.runtimeconfig.json
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\api.runtimeconfig.dev.json
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\api.dll
 C:\NGProjects\NgLearn\api\bin\Debug\netcoreapp3.1\api.pdb
-C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.csprojAssemblyReference.cache
 C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.csproj.CoreCompileInputs.cache
 C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.MvcApplicationPartsAssemblyInfo.cache
 C:\NGProjects\NgLearn\api\obj\Debug\netcoreapp3.1\api.AssemblyInfoInputs.cache

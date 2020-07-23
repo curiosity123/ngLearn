@@ -48,11 +48,11 @@ export class ContentService {
   }
 
   RemoveFromUsersCollection(courseId: string) {
-    return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + courseId + '/RemoveCourseFromMyBoard', {})
+    return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + courseId + '/removeCourseFromMyBoard', {});
   }
 
   AddToUsersCollection(CourseId: string) {
-    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/AddCourseToBoard', {})
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/AddCourseToBoard', {});
   }
 
   GetAllCourses() {
