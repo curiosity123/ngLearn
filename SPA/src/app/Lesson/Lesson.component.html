@@ -1,26 +1,23 @@
 <div class="full-height">
   <br>
   <br>
-<mat-card class=" mr-4 ml-4 mt-4  background-image text-center"  color="primary" *ngIf="!finished" 
+<mat-card class=" mr-4 ml-4 mt-4  mb-5  background-image text-center"  color="primary" *ngIf="!finished" 
 [ngClass]="{ glassy: !AnswerVisibility && (IsError || !IsError), error: AnswerVisibility && IsError, correct: AnswerVisibility && !IsError }" >
   <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx*this.Items.length)"></mat-progress-bar>
 
-  <!-- <div class="baby text-center mt-3 ">
-    <mat-label class="h3 row" *ngIf="!AnswerVisibility">Fill gaps below...</mat-label>
-  </div> -->
 
-  <mat-card-content class="ml-4 mt-4 text-center" >
+  <mat-card-content class="ml-4 mt-4 text-center full-height" >
 
     <div *ngIf="AnswerVisibility" class="text-center baby">
 
       <div *ngIf="!IsError" >
 
-        <!-- <i class="fa fa-smile-o fa-5x" aria-hidden="true" style="color: green;"></i> -->
+
         <h1><strong>Correct answer </strong> </h1>
       </div>
       <div *ngIf="IsError" >
 
-        <!-- <i class="fa fa-frown-o fa-5x" aria-hidden="true" style="color:orangered;"></i> -->
+
         <h1><strong>Incorrect answer</strong> </h1>
       </div>
       <br>

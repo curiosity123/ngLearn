@@ -1,12 +1,11 @@
-<div class="full-height">
+<div class="full-height" style="bottom: 0px;">
 
 
   <br>
 
   <h1 class="text-center ">Your courses:</h1>
 
-  <div class=" m-4">
-
+  <div class=" m-4 mb-5" >
 
     <mat-accordion class="example-headers-align">
       <div *ngIf="CoursesList.length>0">
@@ -36,16 +35,15 @@
           </mat-expansion-panel>
         </div>
       </div>
-      <div *ngIf="CoursesList.length==0" class="text-center">
-        <h1 class="mt-5">You don't have any courses in your collection, please go to </h1>
-        <a routerLink="/searchingModule-component" routerLinkActive="active"><h1>COURSES LIBRARY</h1></a>
-      <h1> and add some of them</h1>
-      </div>
+        <div *ngIf="CoursesList.length==0" class="text-center">
+          <h1 class="mt-5">You don't have any courses in your collection, please go to </h1>
+          <a routerLink="/searchingModule-component" routerLinkActive="active">
+            <h1>COURSES LIBRARY</h1> 
+          </a>
+          <h1> and add some of them</h1>
+        </div>
     </mat-accordion>
   </div>
-  <br>
-  <br>
-  <br>
-  <br>
+
 
 </div>
