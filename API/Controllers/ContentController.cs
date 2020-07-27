@@ -54,6 +54,19 @@ namespace api.Controllers
         }
 
 
+        [HttpGet("GetUserCoursesCollection")]
+
+        public async Task<IEnumerable<LearningSet>> GetUserCoursesCollection(long userId)
+        {
+            var result = await _repository.GetUserCoursesCollection(userId);
+
+            if (result != null)
+                return result;
+            else
+                return null;
+        }
+
+
         [HttpGet("{learningSetId}/GetProgress")]
 
         public async Task<Summary> GetProgress(long userId, long learningSetId)
@@ -79,6 +92,26 @@ namespace api.Controllers
                 return null;
         }
 
+        [HttpDelete("{courseId}/removeMyCourse")]
+
+        public async Task<IActionResult> removeMyCourse(long userId, long courseId)
+        {
+
+            try
+            {
+
+                var result = await _repository.RemoveCourse(userId, courseId);
+
+                if (result)
+                    return Ok();
+                else
+                    return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Ok(ex);
+            }
+        }
 
         [HttpDelete("{courseId}/RemoveCourseFromMyBoard")]
 
@@ -121,6 +154,18 @@ namespace api.Controllers
             else
                 return NoContent();
         }
+
+
+        [HttpPost("CreateCourse")]
+        public async Task<IActionResult> CreateCourse(long userId, LearningSet course)
+        {
+            var result = await _repository.CreateCourse(course, userId);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
 
         [HttpPost("{LearningSetId}/ResetProgress")]
         public async Task<IActionResult> ResetProgress(long userId, long LearningSetId)

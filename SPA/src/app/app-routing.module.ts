@@ -8,6 +8,7 @@ import { LessonSummaryComponent } from './lesson-summary/lesson-summary.componen
 import { LessonComponent } from './Lesson/Lesson.component';
 import { SearchingModuleComponent } from './searching-module/searching-module.component';
 import { CreateLearningSetComponent } from './Create-learning-set/Create-learning-set.component';
+import { ItemsEditorComponent } from './Items-editor/Items-editor.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'lesson-component/:id', component: LessonComponent },
   { path: 'searchingModule-component', component: SearchingModuleComponent },
   { path: 'create-learning-set-component', component: CreateLearningSetComponent },
+  { path: 'Items-editor/:id', component: ItemsEditorComponent },
 ];
 
 @NgModule({

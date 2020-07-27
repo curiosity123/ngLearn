@@ -49,14 +49,14 @@ namespace API.Data
 
                     var available = learningSet.LearningItems.Where(l => !memorizedIds.Contains(l.Id)).ToList();
                     List<LearningItem> rand = new List<LearningItem>();
-                    while (available.Count > 0 )
+                    while (available.Count > 0)
                     {
                         Random r = new Random();
                         int index = r.Next(0, available.Count - 1);
                         rand.Add(available[index]);
                         available.RemoveAt(index);
-                        if(rand.Count> maxItemPerLesson - 1)
-                        break;
+                        if (rand.Count > maxItemPerLesson - 1)
+                            break;
                     }
                     return rand;
                 }
@@ -71,12 +71,31 @@ namespace API.Data
             return usersSets;
         }
 
+
+        public async Task<ICollection<LearningSet>> GetUserCoursesCollection(long UserId)
+        {
+            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => x.Author.Id == UserId).ToListAsync();
+            return usersSets;
+        }
+
+
         public async Task<ICollection<LearningSet>> GetUserLearningSets(long UserId)
         {
             List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
             ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => usersSetsIds.Contains(x.Id)).ToListAsync();
             return usersSets;
         }
+
+
+        public async Task<bool> CreateCourse(LearningSet course, long UserId)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            await _context.LearningSets.AddAsync(new LearningSet() { Name = course.Name, Description = course.Description, Author = user, IsPrivate = false });
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
 
         public async Task<Summary> GetProgress(long UserId, long LearningSetId)
         {
@@ -143,6 +162,19 @@ namespace API.Data
             if (ls != null)
             {
                 _context.UserLearningSets.Remove(ls);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> RemoveCourse(long UserId, long LearningSetId)
+        {
+             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            var ls = await _context.LearningSets.Where(x => x.Author == user && x.Id == LearningSetId).FirstOrDefaultAsync();
+            if (ls != null)
+            {
+                _context.LearningSets.Remove(ls);
                 await _context.SaveChangesAsync();
                 return true;
             }

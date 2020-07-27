@@ -1,14 +1,13 @@
-.mat-stepper-vertical {
-    margin-top: 8px;
-  }
-  
-  .mat-form-field {
+.full-height {
+  height:100%;
+}
 
-    max-width: 300px;
-    width: 100%;
-  }
-
-  .baby
-{
-    display: inline-block;
+.cut-text { 
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  width: auto; 
+  white-space: nowrap;
+}
+.disabled-pointer {
+  pointer-events: none;
 }

@@ -12,6 +12,8 @@ import { Summary } from '@angular/compiler';
 import { Progress } from 'src/models/Progress';
 import { environment } from 'src/environments/environment';
 import { ContentService } from '../content.service';
+import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-stats',
@@ -26,7 +28,7 @@ export class StatsComponent implements OnInit {
   step = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-              private router: Router, private contentService: ContentService) { }
+              private router: Router, private contentService: ContentService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.GetCourses();
@@ -59,6 +61,32 @@ export class StatsComponent implements OnInit {
   }
 
   
+  openResetProgressDialog(setId: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: "Do you want to reset your progress?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result == true) {
+        this.ResetProgress(setId);
+      }
+    });
+  }
+
+
+  openDeleteCourseDialog(CourseId: number): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: "Do you want to delete this course?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result == true) {
+        this.DeleteThisCourse(CourseId);
+      }
+    });
+  }
 
   ResetProgress(setId: number) {
     this.contentService.ResetCourseProgress(setId.toString()).subscribe(

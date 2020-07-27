@@ -58,4 +58,18 @@ export class ContentService {
   GetAllCourses() {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetAllCourses');
   }
+
+
+  GetUserCoursesCollection() {
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetUserCoursesCollection');
+  }
+
+  AddNewCourse(Course: CoursesCollection) {
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/' + 'CreateCourse', Course);
+  }
+
+  RemoveMyCourse(CourseId: number) {
+    return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/removeMyCourse', {});
+  }
+
 }

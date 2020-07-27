@@ -1,67 +1,62 @@
-<br>
-<br>
-<mat-selection-list #shoes class="" >
-  <mat-list-option *ngFor="let shoe of typesOfShoes">
-    {{shoe}}
-  </mat-list-option>
-</mat-selection-list>
+<div class="full-height">
+  <br>
+  <h1 class="text-center ">Course creator:</h1>
+  <div class="mr-4 mb-4  ml-4 mt-4">
 
+    <mat-accordion class="example-headers-align " *ngIf="CoursesCollection.length!=0">
 
-<mat-card class="m-5 background-image text-center" color="primary">
+      <div *ngFor="let item of CoursesCollection; let i = index">
+        <mat-expansion-panel class="mt-2 glassy" [expanded]="false" (opened)="setStep(i)" >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <h2 class="cut-text mt-3 col-11">{{item.name}}</h2>
 
-  <div class="baby text-center mt-3 ">
-    <mat-label class="h3 row">Create new item</mat-label>
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+
+          <br>
+          <h4 class="ml-3 text-left">{{item.description}}</h4>
+          <br>
+          <h2 class="mt-3 ml-3">Author: root</h2>
+
+          <mat-action-row>
+            <button mat-raised-button color="primary" (click)="OpenEditor(item.id)">Modify</button>
+            <button mat-raised-button color="warn" (click)="openDialog(item.id)">Delete</button>
+
+          </mat-action-row>
+        </mat-expansion-panel>
+      </div>
+    </mat-accordion>
   </div>
 
-  <mat-card-content class="ml-4 mt-4 text-center">
+  <div class=" mr-4 mb-5  ml-4 mt-4">
+    <mat-accordion class="example-headers-align ">
+      <div>
+        <mat-expansion-panel class="mt-2 glassy " [expanded]="true" >
+          <mat-expansion-panel-header >
+            <mat-panel-title>
+              <h2 class="cut-text mt-3 ">Create new course</h2>
+ 
 
-    <div class="text-center baby">
+            </mat-panel-title>
 
-      <div class="baby text-center">
-        <p>
+          </mat-expansion-panel-header>
           <mat-form-field appearance="standard">
-            <mat-label>Missing word</mat-label>
-            <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+            <input matInput placeholder="Title" [(ngModel)]="newCourse.name" autocomplete="off" autofocus #gap>
           </mat-form-field>
-        </p>
-        <p>
+          <br>
           <mat-form-field appearance="standard">
-            <mat-label>Clue or synonyms: </mat-label>
-            <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
+            <textarea matInput placeholder="Short description" [(ngModel)]="newCourse.description"  autocomplete="off" autofocus #gap></textarea>
           </mat-form-field>
-        </p>
-        <p>
-          <mat-form-field appearance="standard">
-            <mat-label>Sentence with gaps (use _):</mat-label>
-            <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
-          </mat-form-field>
-        </p>
-        <p>
 
-          <mat-form-field appearance="standard">
-            <mat-label>Full sentence:</mat-label>
-            <input matInput placeholder="placeholder" autocomplete="off" autofocus #gap>
-          </mat-form-field>
-        </p>
+          <mat-action-row>
+            <button mat-raised-button color="primary" (click)="Create()">Create</button>
+          </mat-action-row>
+        </mat-expansion-panel>
       </div>
-
-      <br>
-      <div class="baby text-center row">
-        <mat-label class="h2 row" style="color: blue;">"test"</mat-label>
-      </div>
-
-      <br>
-      <br>
-
-    </div>
-    <br>
-    <div class="text-center">
-      <button mat-raised-button color="primary" class="mb-4 text-center">Save</button>
-    </div>
-
-    <br>
+    </mat-accordion>
+  </div>
 
 
-  </mat-card-content>
-
-</mat-card>
+</div>

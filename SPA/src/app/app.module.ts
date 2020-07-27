@@ -41,6 +41,8 @@ import { StatsComponent } from './Stats/Stats.component';
 import { SettingsComponent } from './Settings/Settings.component';
 import {HelpComponent} from './Help/Help.component';
 import { SearchingModuleComponent } from './searching-module/searching-module.component';
+import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component';
+import { ItemsEditorComponent } from './Items-editor/Items-editor.component';
  
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -59,7 +61,9 @@ export function tokenGetter() {
       CreateLearningSetComponent,
       LessonSummaryComponent,
       StatsComponent,
-      SearchingModuleComponent
+      SearchingModuleComponent,
+      ConfirmDialogComponent,
+      ItemsEditorComponent
    ],
    imports: [
       FormsModule,
