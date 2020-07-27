@@ -9,6 +9,8 @@ namespace API.Data
 
         Task<ICollection<LearningSet>> GetUserLearningSets(long UserId);
 
+        Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId);        
+
         Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId);
 
         Task<ICollection<LearningSet>> GetUserCoursesCollection(long UserId);

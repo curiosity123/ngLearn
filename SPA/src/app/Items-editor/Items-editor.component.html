@@ -1,3 +1,48 @@
-<p>
-  Items-editor works!
-</p>
+ <div class="m-4 text-center">
+   <h2>
+     Items editor
+   </h2>
+ </div> 
+<div class="ml-4 mr-4" *ngFor="let item of Items; let i = index">
+
+  <mat-accordion class="ml-4 mr-4" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{item.item}}
+        </mat-panel-title>
+        <!-- <mat-panel-description>
+              {{item.description}}
+            </mat-panel-description> -->
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <mat-label>Answer</mat-label>
+        <input matInput [(ngModel)]="item.item">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Clue</mat-label>
+        <input matInput [(ngModel)]="item.description">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Full sentence</mat-label>
+        <textarea matInput [(ngModel)]="item.correctSentence"></textarea>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Sentence with gaps</mat-label>
+        <textarea matInput [(ngModel)]="item.sentenceWithGaps"></textarea>
+      </mat-form-field>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+
+</div>
+
+
+<mat-action-row class="ml-4 mr-4">
+  <button mat-raised-button color="primary">Add new one</button>
+  <button mat-raised-button color="primary">Save changes</button>
+</mat-action-row>

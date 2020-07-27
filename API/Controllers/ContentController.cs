@@ -40,6 +40,19 @@ namespace api.Controllers
         }
 
 
+        
+
+        [HttpGet("{learningSetId}/GetItemsForCourse")]
+        public async Task<IEnumerable<LearningItem>> GetItemsForCourse(long userId, long learningSetId)
+        {
+            var result = await _repository.GetItemsForCourse(userId, learningSetId);
+
+            if (result != null)
+                return result;
+            else
+                return null;
+        }
+
 
         [HttpGet("GetMyCourses")]
 

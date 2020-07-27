@@ -64,6 +64,19 @@ namespace API.Data
             return null;
         }
 
+
+
+        public async Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId)
+        {
+            var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
+
+            if (learningSet != null)
+            {
+                return learningSet.LearningItems;
+            }
+            return new List<LearningItem>();
+        }
+
         public async Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId)
         {
             List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
@@ -170,7 +183,7 @@ namespace API.Data
 
         public async Task<bool> RemoveCourse(long UserId, long LearningSetId)
         {
-             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
             var ls = await _context.LearningSets.Where(x => x.Author == user && x.Id == LearningSetId).FirstOrDefaultAsync();
             if (ls != null)
             {

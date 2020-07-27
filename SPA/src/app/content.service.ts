@@ -29,6 +29,10 @@ export class ContentService {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetMyCourses');
   }
 
+  GetItemsForCourse(courseId: string) {
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse');
+  }
+
   UpdateProgress(courses: CoursesCollection[]) {
     var progresses = new Array<Progress>();
     for (let i = 0; i < courses.length; i++) {
