@@ -1,48 +1,51 @@
- <div class="m-4 text-center">
-   <h2>
-     Items editor
-   </h2>
- </div> 
+<div class="m-4 text-center">
+  <h2>
+    Items editor
+  </h2>
+</div>
 <div class="ml-4 mr-4" *ngFor="let item of Items; let i = index">
 
   <mat-accordion class="ml-4 mr-4" multi>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>
+        <mat-panel-title  class="col-5">
           {{item.item}}
         </mat-panel-title>
-        <!-- <mat-panel-description>
+        <mat-panel-description class="col-7">
               {{item.description}}
-            </mat-panel-description> -->
+            </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <mat-form-field>
+      <mat-form-field class="col-12">
         <mat-label>Answer</mat-label>
         <input matInput [(ngModel)]="item.item">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="col-12">
         <mat-label>Clue</mat-label>
         <input matInput [(ngModel)]="item.description">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="col-12">
         <mat-label>Full sentence</mat-label>
         <textarea matInput [(ngModel)]="item.correctSentence"></textarea>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="col-12">
         <mat-label>Sentence with gaps</mat-label>
         <textarea matInput [(ngModel)]="item.sentenceWithGaps"></textarea>
       </mat-form-field>
 
+      <mat-action-row class="ml-4 mr-4">
+        <button mat-raised-button color="primary" (click)="update(item)">Update</button>
+        <button mat-raised-button color="warn" (click)="remove(item)">Remove</button>
+      </mat-action-row>
+
     </mat-expansion-panel>
   </mat-accordion>
-
 </div>
 
 
 <mat-action-row class="ml-4 mr-4">
   <button mat-raised-button color="primary">Add new one</button>
-  <button mat-raised-button color="primary">Save changes</button>
 </mat-action-row>

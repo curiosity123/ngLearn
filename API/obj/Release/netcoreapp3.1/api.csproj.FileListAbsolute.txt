@@ -78,3 +78,4 @@ C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\staticwebassets\api.StaticWe
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.dll
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.pdb
 C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.genruntimeconfig.cache
+C:\NGProjects\NgLearn\API\obj\Release\netcoreapp3.1\api.csprojAssemblyReference.cache
