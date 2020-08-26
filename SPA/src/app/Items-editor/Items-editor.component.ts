@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContentService } from '../content.service';
 import { LearningItem } from 'src/models/LearningItem';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-Items-editor',
@@ -10,15 +11,14 @@ import { LearningItem } from 'src/models/LearningItem';
 })
 export class ItemsEditorComponent implements OnInit {
 
-Items: LearningItem[];
+  Items: LearningItem[];
 
-  constructor( private route: ActivatedRoute, private contentService: ContentService) { }
+  constructor(private route: ActivatedRoute, private contentService: ContentService, private itemService: ItemService) { }
 
   ngOnInit() {
     const sub = this.route.params.subscribe(params => {
       this.contentService.GetItemsForCourse(params.id.toString()).subscribe((response: LearningItem[]) => {
         this.Items = response;
-       
       });
 
       console.log("Editor run with param:" + params.id);
@@ -26,14 +26,17 @@ Items: LearningItem[];
   }
 
 
-  update(Item: LearningItem)
-  {
+  update(Item: LearningItem) {
 
+    this.itemService.UpdateItem(Item).subscribe(p => {
+      this.ngOnInit();
+    });
   }
 
-  remove(Item:LearningItem)
-  {
-
+  remove(Item: LearningItem) {
+    this.itemService.RemoveItem(Item).subscribe(p => {
+      this.ngOnInit();
+    });
   }
 
 }

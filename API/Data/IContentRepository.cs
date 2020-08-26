@@ -9,7 +9,7 @@ namespace API.Data
 
         Task<ICollection<LearningSet>> GetUserLearningSets(long UserId);
 
-        Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId);        
+        Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId);
 
         Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId);
 
@@ -30,6 +30,11 @@ namespace API.Data
         Task<bool> RemoveCourse(long UserId, long LearningSetId);
 
         Task<ICollection<LearningItem>> GetNewLessonItems(long UserId, long LearningSetId);
+
+        Task<bool> UpdateItem(long UserId, LearningItem Item);
+
+        Task<bool> RemoveItem(long UserId, long ItemId);
+
 
     }
 }

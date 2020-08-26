@@ -64,7 +64,47 @@ namespace API.Data
             return null;
         }
 
+        public async Task<bool> RemoveItem(long UserId, long ItemId)
+        {
+            var dbItem = await _context.LearningItems.Include(x => x.LearningSet).Where(x => x.Id == ItemId).FirstOrDefaultAsync();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            if (dbItem != null && user != null)
+            {
 
+                if (dbItem.LearningSet.Author == user)
+                {
+                    _context.LearningItems.Remove(dbItem);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateItem(long UserId, LearningItem Item)
+        {
+
+            var dbItem = await _context.LearningItems.Include(x => x.LearningSet).Where(x => x.Id == Item.Id).FirstOrDefaultAsync();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+            if (dbItem != null && user != null)
+            {
+
+                if (dbItem.LearningSet.Author == user)
+                {
+
+                    dbItem.CorrectSentence = Item.CorrectSentence;
+                    dbItem.Description = Item.Description;
+                    dbItem.SentenceWithGaps = Item.SentenceWithGaps;
+                    dbItem.Item = Item.Item;
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                else
+                    return false;
+            }
+
+            return false;
+        }
 
         public async Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId)
         {
@@ -140,6 +180,7 @@ namespace API.Data
 
             return false;
         }
+
 
         public async Task<bool> UpdateProgress(LearningProgressDto[] progresses)
         {

@@ -40,7 +40,7 @@ namespace api.Controllers
         }
 
 
-        
+
 
         [HttpGet("{learningSetId}/GetItemsForCourse")]
         public async Task<IEnumerable<LearningItem>> GetItemsForCourse(long userId, long learningSetId)
@@ -162,6 +162,26 @@ namespace api.Controllers
         public async Task<IActionResult> UpdateProgress(LearningProgressDto[] progresses)
         {
             var result = await _repository.UpdateProgress(progresses);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
+        [HttpPost("UpdateItem")]
+        public async Task<IActionResult> UpdateItem(long userId, LearningItem Item)
+        {
+            var result = await _repository.UpdateItem(userId, Item);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
+        [HttpDelete("{LearningSetId}/RemoveItem")]
+        public async Task<IActionResult> RemoveItem(long userId, long LearningSetId)
+        {
+            var result = await _repository.RemoveItem(userId, LearningSetId);
             if (result)
                 return Ok();
             else
