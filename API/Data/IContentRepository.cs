@@ -35,6 +35,7 @@ namespace API.Data
 
         Task<bool> RemoveItem(long UserId, long ItemId);
 
+        Task<bool> AddNewItem(long UserId, long LearningSetId, LearningItem Item);
 
     }
 }

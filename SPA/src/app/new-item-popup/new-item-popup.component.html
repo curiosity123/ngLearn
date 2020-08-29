@@ -1,0 +1,33 @@
+<div>
+  <h2 class="text-center">
+    Fill in the form to create new item
+  </h2>
+
+
+  <mat-form-field class="col-12">
+    <mat-label>Answer</mat-label>
+    <input matInput [(ngModel)]="item.item">
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Clue</mat-label>
+    <input matInput [(ngModel)]="item.description">
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Full sentence</mat-label>
+    <textarea matInput [(ngModel)]="item.correctSentence"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="col-12">
+    <mat-label>Sentence with gaps</mat-label>
+    <textarea matInput [(ngModel)]="item.sentenceWithGaps"></textarea>
+  </mat-form-field>
+
+  <mat-action-row class="ml-4 mr-4">
+    <button mat-raised-button color="primary" (click)="Save()">Save</button>
+    <button mat-raised-button color="warn" (click)="Abort()">Abort</button>
+  </mat-action-row>
+
+
+</div>

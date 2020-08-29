@@ -43,6 +43,7 @@ import {HelpComponent} from './Help/Help.component';
 import { SearchingModuleComponent } from './searching-module/searching-module.component';
 import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component';
 import { ItemsEditorComponent } from './Items-editor/Items-editor.component';
+import { NewItemPopupComponent } from './new-item-popup/new-item-popup.component';
  
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -50,7 +51,7 @@ export function tokenGetter() {
  }
 
 @NgModule({
-   declarations: [
+   declarations: [	
       AppComponent,
       HelpComponent,
       SettingsComponent,
@@ -63,7 +64,8 @@ export function tokenGetter() {
       StatsComponent,
       SearchingModuleComponent,
       ConfirmDialogComponent,
-      ItemsEditorComponent
+      ItemsEditorComponent,
+      NewItemPopupComponent
    ],
    imports: [
       FormsModule,

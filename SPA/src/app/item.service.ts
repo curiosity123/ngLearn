@@ -11,8 +11,8 @@ import { LearningItem } from 'src/models/LearningItem';
   providedIn: 'root'
 })
 export class ItemService {
-  
-  
+
+
   loggedUser: User;
   baseUrl: String
 
@@ -25,15 +25,20 @@ export class ItemService {
   }
 
 
-   UpdateItem(item: LearningItem) {
+  UpdateItem(item: LearningItem) {
 
-    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/updateItem', item );
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/updateItem', item);
   }
 
   RemoveItem(item: LearningItem) {
 
-   return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + item.id.toString() + '/removeItem', {} );
- }
+    return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + item.id.toString() + '/removeItem', {});
+  }
+
+  AddNewItem(item: LearningItem) {
+
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/addNewItem', item);
+  }
 
 
 }

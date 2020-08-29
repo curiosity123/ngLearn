@@ -178,6 +178,16 @@ namespace api.Controllers
                 return NoContent();
         }
 
+        [HttpPost("{learningSetId}/AddNewItem")]
+        public async Task<IActionResult> AddNewItem(long userId, long learningSetId, LearningItem Item)
+        {
+            var result = await _repository.AddNewItem(userId, learningSetId, Item);
+            if (result)
+                return Ok();
+            else
+                return NoContent();
+        }
+
         [HttpDelete("{LearningSetId}/RemoveItem")]
         public async Task<IActionResult> RemoveItem(long userId, long LearningSetId)
         {

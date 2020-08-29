@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ContentService } from '../content.service';
 import { LearningItem } from 'src/models/LearningItem';
 import { ItemService } from '../item.service';
+import { ADDRGETNETWORKPARAMS } from 'dns';
+import { MatDialog } from '@angular/material/dialog';
+import { NewItemPopupComponent } from '../new-item-popup/new-item-popup.component';
 
 @Component({
   selector: 'app-Items-editor',
@@ -13,7 +16,7 @@ export class ItemsEditorComponent implements OnInit {
 
   Items: LearningItem[];
 
-  constructor(private route: ActivatedRoute, private contentService: ContentService, private itemService: ItemService) { }
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private contentService: ContentService, private itemService: ItemService) { }
 
   ngOnInit() {
     const sub = this.route.params.subscribe(params => {
@@ -37,6 +40,10 @@ export class ItemsEditorComponent implements OnInit {
     this.itemService.RemoveItem(Item).subscribe(p => {
       this.ngOnInit();
     });
+  }
+
+  AddNew() {
+    this.dialog.open(NewItemPopupComponent);
   }
 
 }
