@@ -108,7 +108,7 @@ namespace API.Data
 
             var dbItem = await _context.LearningItems.Include(x => x.LearningSet).Where(x => x.Id == Item.Id).FirstOrDefaultAsync();
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-            if (dbItem != null && user != null)
+            if (dbItem != null && user != null && UserId == dbItem.LearningSet.Author.Id)
             {
 
                 if (dbItem.LearningSet.Author == user)
