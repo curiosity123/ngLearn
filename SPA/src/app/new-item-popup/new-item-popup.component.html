@@ -25,8 +25,8 @@
   </mat-form-field>
 
   <mat-action-row class="ml-4 mr-4">
-    <button mat-raised-button color="primary" (click)="Save()">Save</button>
-    <button mat-raised-button color="warn" (click)="Abort()">Abort</button>
+    <button mat-raised-button color="primary" [matDialogClose]="true" (click)="Save()">Save</button>
+    <button mat-raised-button color="warn" [matDialogClose]="false" (click)="Abort()">Abort</button>
   </mat-action-row>
 
 

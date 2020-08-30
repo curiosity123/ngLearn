@@ -17,13 +17,13 @@ export class ItemsEditorComponent implements OnInit {
   Items: LearningItem[];
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog, private contentService: ContentService, private itemService: ItemService) { }
-
+  learningSetId: number;
   ngOnInit() {
     const sub = this.route.params.subscribe(params => {
       this.contentService.GetItemsForCourse(params.id.toString()).subscribe((response: LearningItem[]) => {
         this.Items = response;
       });
-
+      this.learningSetId = params.id;
       console.log("Editor run with param:" + params.id);
     });
   }
@@ -43,7 +43,16 @@ export class ItemsEditorComponent implements OnInit {
   }
 
   AddNew() {
-    this.dialog.open(NewItemPopupComponent);
+    const dialogRef = this.dialog.open(NewItemPopupComponent, {
+      data: this.learningSetId
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+        this.ngOnInit();
+      }
+    });
   }
 
 }

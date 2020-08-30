@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LearningItem } from 'src/models/LearningItem';
 import { ItemService } from '../item.service';
@@ -12,9 +12,10 @@ export class NewItemPopupComponent implements OnInit {
 
   dialog: MatDialogRef<NewItemPopupComponent>;
   item: LearningItem;
-  constructor(dialogRef: MatDialogRef<NewItemPopupComponent>, private itemService: ItemService) {
+  setId: number;
+  constructor(dialogRef: MatDialogRef<NewItemPopupComponent>, @Inject(MAT_DIALOG_DATA) public data: number, private itemService: ItemService) {
     this.dialog = dialogRef;
-
+    this.setId = data;
   }
 
   ngOnInit() {
@@ -28,7 +29,8 @@ export class NewItemPopupComponent implements OnInit {
   }
 
   Save() {
-    this.itemService.AddNewItem(this.item).subscribe(result => {
+    console.log(this.setId);
+    this.itemService.AddNewItem(this.item, this.setId).subscribe(result => {
       this.dialog.close();
     });
 

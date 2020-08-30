@@ -85,19 +85,21 @@ namespace API.Data
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
             var lSet = await _context.LearningSets.FirstOrDefaultAsync(u => u.Id == LearningSetId);
-            if (user != null && lSet != null && Item.LearningSet.Author.Id == UserId)
+            if (user != null && lSet != null && lSet.Author.Id == UserId)
             {
                 var itm = new LearningItem()
                 {
-                    Item = "new item",
-                    SentenceWithGaps = "new sentence with gaps",
-                    CorrectSentence = "new correct sentence",
+                    Item = Item.Item,
+                    SentenceWithGaps = Item.SentenceWithGaps,
+                    CorrectSentence = Item.CorrectSentence,
+                    Description= Item.Description,
                     LearningSet = lSet
                 };
                 _context.LearningItems.Add(itm);
                 await _context.SaveChangesAsync();
+                return true;
             }
-            return true;
+            return false;
         }
 
 

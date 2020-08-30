@@ -35,9 +35,9 @@ export class ItemService {
     return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + item.id.toString() + '/removeItem', {});
   }
 
-  AddNewItem(item: LearningItem) {
+  AddNewItem(item: LearningItem, learningSetId: number) {
 
-    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/addNewItem', item);
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/' + learningSetId.toString() + '/addNewItem', item);
   }
 
 
