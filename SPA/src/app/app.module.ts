@@ -8,7 +8,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -44,6 +44,7 @@ import { SearchingModuleComponent } from './searching-module/searching-module.co
 import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component';
 import { ItemsEditorComponent } from './Items-editor/Items-editor.component';
 import { NewItemPopupComponent } from './new-item-popup/new-item-popup.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
  
 export function tokenGetter() {
    return localStorage.getItem('token');
@@ -79,6 +80,7 @@ export function tokenGetter() {
       BrowserAnimationsModule,
       ReactiveFormsModule,
       MatSidenavModule,
+      MatPaginatorModule,
       MatMenuModule,
       MatProgressBarModule,
       MatSliderModule,
@@ -104,6 +106,7 @@ export function tokenGetter() {
    ],
    providers: [
       AuthService,
+      { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
    ],
    bootstrap: [
       AppComponent

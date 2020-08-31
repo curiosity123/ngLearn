@@ -6,6 +6,8 @@ import { ItemService } from '../item.service';
 import { ADDRGETNETWORKPARAMS } from 'dns';
 import { MatDialog } from '@angular/material/dialog';
 import { NewItemPopupComponent } from '../new-item-popup/new-item-popup.component';
+import { PageEvent } from '@angular/material/paginator';
+import { Pagination } from 'src/models/Pagination';
 
 @Component({
   selector: 'app-Items-editor',
@@ -16,18 +18,56 @@ export class ItemsEditorComponent implements OnInit {
 
   Items: LearningItem[];
 
-  constructor(private route: ActivatedRoute, public dialog: MatDialog, private contentService: ContentService, private itemService: ItemService) { }
+
+  length = 0;
+  pageSize = 5;
+  pageSizeOptions: number[] = [5];
+  pageIndex = 0;
+  pageEvent: PageEvent;
+
+
+  constructor(private route: ActivatedRoute, public dialog: MatDialog, private contentService: ContentService, private itemService: ItemService) {
+
+
+  }
+
+  // setPageSizeOptions(setPageSizeOptionsInput: string) {
+  //   if (setPageSizeOptionsInput) {
+  //     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  //   }
+  // }
+
+
   learningSetId: number;
+  pagination: Pagination;
+
   ngOnInit() {
     const sub = this.route.params.subscribe(params => {
-      this.contentService.GetItemsForCourse(params.id.toString()).subscribe((response: LearningItem[]) => {
-        this.Items = response;
+      console.log("init");
+      this.pagination =
+      {
+        length: 0,
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize,
+        items: this.Items
+      };
+      console.log("init2");
+      this.contentService.GetItemsForCourse(params.id.toString(), this.pagination).subscribe((response: Pagination) => {
+        console.log(response);
+        this.Items = response.items;
+        this.length = response.length;
+        this.pageSize = response.pageSize;
+        this.pageIndex = response.pageIndex;
       });
       this.learningSetId = params.id;
       console.log("Editor run with param:" + params.id);
     });
   }
 
+  pageChanged(ev: PageEvent) {
+    this.pageIndex = ev.pageIndex;
+    this.ngOnInit();
+  }
 
   update(Item: LearningItem) {
 

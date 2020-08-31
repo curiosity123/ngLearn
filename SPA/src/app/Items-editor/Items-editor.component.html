@@ -8,12 +8,12 @@
   <mat-accordion class="ml-4 mr-4" multi>
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title  class="col-5">
+        <mat-panel-title class="col-5">
           {{item.item}}
         </mat-panel-title>
         <mat-panel-description class="col-7">
-              {{item.description}}
-            </mat-panel-description>
+          {{item.description}}
+        </mat-panel-description>
       </mat-expansion-panel-header>
 
       <mat-form-field class="col-12">
@@ -44,7 +44,10 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
-
+  
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
+(page)="pageChanged($event)">
+</mat-paginator>
 
 <mat-action-row class="ml-4 mr-4">
   <button mat-raised-button color="primary" (click)="AddNew()">Add new one</button>

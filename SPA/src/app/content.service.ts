@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/models/User';
 import { Progress } from 'src/models/Progress';
 import { CoursesCollection as CoursesCollection } from 'src/models/CoursesCollection';
+import { Pagination } from 'src/models/Pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -29,8 +30,15 @@ export class ContentService {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetMyCourses');
   }
 
-  GetItemsForCourse(courseId: string) {
-    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse');
+  GetItemsForCourse(courseId: string, pagination: Pagination) {
+
+    console.log(pagination);
+    const params = new HttpParams()
+    .append('pageIndex', pagination.pageIndex.toString())
+    .append('length', pagination.length.toString())
+    .append('pageSize', pagination.pageSize.toString());
+    console.log("request prepared");
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse', { params});
   }
 
   UpdateProgress(courses: CoursesCollection[]) {

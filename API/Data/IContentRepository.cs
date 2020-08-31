@@ -9,7 +9,7 @@ namespace API.Data
 
         Task<ICollection<LearningSet>> GetUserLearningSets(long UserId);
 
-        Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId);
+        Task<Pagination> GetItemsForCourse(long UserId, long LearningSetId, int pageSize, int pageIndex, int length);
 
         Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId);
 

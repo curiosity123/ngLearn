@@ -92,7 +92,7 @@ namespace API.Data
                     Item = Item.Item,
                     SentenceWithGaps = Item.SentenceWithGaps,
                     CorrectSentence = Item.CorrectSentence,
-                    Description= Item.Description,
+                    Description = Item.Description,
                     LearningSet = lSet
                 };
                 _context.LearningItems.Add(itm);
@@ -128,15 +128,31 @@ namespace API.Data
             return false;
         }
 
-        public async Task<ICollection<LearningItem>> GetItemsForCourse(long UserId, long LearningSetId)
+        public async Task<Pagination> GetItemsForCourse(long UserId, long LearningSetId, int pageSize, int pageIndex, int length)
         {
             var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
 
             if (learningSet != null)
             {
-                return learningSet.LearningItems;
+                var p = new Pagination()
+                {
+                    items = GetItemsForPage(learningSet.LearningItems, pageSize, pageIndex),
+                    length = learningSet.LearningItems.Count,
+                    pageIndex = pageIndex,
+                    pageSize = pageSize
+                };
+                return p;//learningSet.LearningItems;
             }
-            return new List<LearningItem>();
+
+
+            return new Pagination();
+        }
+        private ICollection<LearningItem> GetItemsForPage(ICollection<LearningItem> items, int pageSize, int pageIndex)
+        {
+            ICollection<LearningItem> res = items;
+            if ((pageIndex * pageSize) <= items.Count)
+                res = items.Skip(pageSize * pageIndex).Take(pageSize).ToList();
+            return res;
         }
 
         public async Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId)

@@ -43,9 +43,9 @@ namespace api.Controllers
 
 
         [HttpGet("{learningSetId}/GetItemsForCourse")]
-        public async Task<IEnumerable<LearningItem>> GetItemsForCourse(long userId, long learningSetId)
+        public async Task<Pagination> GetItemsForCourse(long userId, long learningSetId, [FromQuery] int pageSize, [FromQuery] int pageIndex, [FromQuery] int length)
         {
-            var result = await _repository.GetItemsForCourse(userId, learningSetId);
+            var result = await _repository.GetItemsForCourse(userId, learningSetId, pageSize, pageIndex, length);
 
             if (result != null)
                 return result;
