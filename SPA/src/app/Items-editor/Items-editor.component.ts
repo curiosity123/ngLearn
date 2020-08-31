@@ -21,7 +21,7 @@ export class ItemsEditorComponent implements OnInit {
 
   length = 0;
   pageSize = 5;
-  pageSizeOptions: number[] = [5];
+  pageSizeOptions: number[] = [2, 5, 10];
   pageIndex = 0;
   pageEvent: PageEvent;
 
@@ -66,6 +66,7 @@ export class ItemsEditorComponent implements OnInit {
 
   pageChanged(ev: PageEvent) {
     this.pageIndex = ev.pageIndex;
+    this.pageSize = ev.pageSize;
     this.ngOnInit();
   }
 

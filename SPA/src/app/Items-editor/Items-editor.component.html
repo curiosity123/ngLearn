@@ -3,10 +3,11 @@
     Items editor
   </h2>
 </div>
-<div class="ml-4 mr-4" *ngFor="let item of Items; let i = index">
+<mat-accordion class="example-headers-align " multi>
+  <div class="ml-4 mr-4" *ngFor="let item of Items; let i = index">
 
-  <mat-accordion class="ml-4 mr-4" multi>
-    <mat-expansion-panel>
+
+    <mat-expansion-panel class="mt-2 glassy">
       <mat-expansion-panel-header>
         <mat-panel-title class="col-5">
           {{item.item}}
@@ -42,13 +43,14 @@
       </mat-action-row>
 
     </mat-expansion-panel>
-  </mat-accordion>
-</div>
-  
-<mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="pageSizeOptions"
-(page)="pageChanged($event)">
-</mat-paginator>
 
-<mat-action-row class="ml-4 mr-4">
+  </div>
+</mat-accordion>
+
+<mat-action-row class="mt-2 ml-4 mr-4">
   <button mat-raised-button color="primary" (click)="AddNew()">Add new one</button>
 </mat-action-row>
+
+<mat-paginator class="mt-2 glassy ml-4 mr-4 footer" [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex"
+  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)">
+</mat-paginator>
