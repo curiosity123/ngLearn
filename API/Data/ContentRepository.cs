@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Dto;
 using API.Models;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -11,17 +13,12 @@ namespace API.Data
     {
         private const int maxItemPerLesson = 10;
         private readonly DataContext _context;
-        public ContentRepository(DataContext context) : base(context)
+        private readonly IMapper mapper;
+        public ContentRepository(DataContext context, IMapper mapper) : base(context)
         {
+            this.mapper = mapper;
             _context = context;
         }
-
-
-
-
-
-
-
 
         public async Task<bool> AddLearningSetToUser(long UserId, long LearningSetId)
         {
@@ -102,7 +99,6 @@ namespace API.Data
             return false;
         }
 
-
         public async Task<bool> UpdateItem(long UserId, LearningItem Item)
         {
 
@@ -141,9 +137,8 @@ namespace API.Data
                     pageIndex = pageIndex,
                     pageSize = pageSize
                 };
-                return p;//learningSet.LearningItems;
+                return p; //learningSet.LearningItems;
             }
-
 
             return new Pagination();
         }
@@ -155,28 +150,48 @@ namespace API.Data
             return res;
         }
 
-        public async Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId)
+        public async Task<ICollection<CourseDto>> GetOtherLearningSets(long UserId)
         {
             List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
-            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => !usersSetsIds.Contains(x.Id)).ToListAsync();
-            return usersSets;
+            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Include(x => x.Author).Where(x => !usersSetsIds.Contains(x.Id)).ToListAsync();
+            ICollection<CourseDto> collection = new List<CourseDto>();
+            foreach (var c in usersSets)
+            {
+                CourseDto course = mapper.Map<CourseDto>(c);
+                collection.Add(course);
+            }
+
+            return collection;
         }
 
-
-        public async Task<ICollection<LearningSet>> GetUserCoursesCollection(long UserId)
+        public async Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId)
         {
-            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => x.Author.Id == UserId).ToListAsync();
-            return usersSets;
+            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Include(x => x.Author).Where(x => x.Author.Id == UserId).ToListAsync();
+            
+             ICollection<CourseDto> collection = new List<CourseDto>();
+            foreach (var c in usersSets)
+            {
+                CourseDto course = mapper.Map<CourseDto>(c);
+                collection.Add(course);
+            }
+
+            return collection;
         }
 
-
-        public async Task<ICollection<LearningSet>> GetUserLearningSets(long UserId)
+        public async Task<ICollection<CourseDto>> GetUserLearningSets(long UserId)
         {
             List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
-            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Where(x => usersSetsIds.Contains(x.Id)).ToListAsync();
-            return usersSets;
-        }
+            ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Include(x => x.Author).Where(x => usersSetsIds.Contains(x.Id)).ToListAsync();
+            
+            ICollection<CourseDto> collection = new List<CourseDto>();
+            foreach (var c in usersSets)
+            {
+                CourseDto course = mapper.Map<CourseDto>(c);
+                collection.Add(course);
+            }
 
+            return collection;
+        }
 
         public async Task<bool> CreateCourse(LearningSet course, long UserId)
         {
@@ -186,7 +201,6 @@ namespace API.Data
 
             return true;
         }
-
 
         public async Task<Summary> GetProgress(long UserId, long LearningSetId)
         {
@@ -219,7 +233,6 @@ namespace API.Data
             return false;
         }
 
-
         public async Task<bool> UpdateProgress(LearningProgressDto[] progresses)
         {
             if (progresses.Length == 0)
@@ -244,7 +257,6 @@ namespace API.Data
             }
             await _context.SaveChangesAsync();
             return true;
-
 
         }
 

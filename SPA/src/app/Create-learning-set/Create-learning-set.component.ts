@@ -20,7 +20,7 @@ export class CreateLearningSetComponent implements OnInit {
   CoursesCollection: CoursessCollection[];
   step = 0;
   data: DialogData = { title: "Do you want to remove course?", confirmed: false };
-  newCourse: CoursesCollection = { id: 0, name: "Course name", description: "course description" };
+  newCourse: CoursesCollection = { id: 0, name: "Course name", author: "", description: "course description" };
 
 
   constructor(private router: Router, private _formBuilder: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private contentService: ContentService, public dialog: MatDialog) { }

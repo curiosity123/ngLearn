@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using API.Dto;
 using API.Models;
 
 namespace API.Data
@@ -7,13 +8,13 @@ namespace API.Data
     public interface IContentRepository : IGenericRepository
     {
 
-        Task<ICollection<LearningSet>> GetUserLearningSets(long UserId);
+        Task<ICollection<CourseDto>> GetUserLearningSets(long UserId);
 
         Task<Pagination> GetItemsForCourse(long UserId, long LearningSetId, int pageSize, int pageIndex, int length);
 
-        Task<ICollection<LearningSet>> GetOtherLearningSets(long UserId);
+        Task<ICollection<CourseDto>> GetOtherLearningSets(long UserId);
 
-        Task<ICollection<LearningSet>> GetUserCoursesCollection(long UserId);
+        Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId);
 
         Task<Summary> GetProgress(long UserId, long LearningSetId);
 

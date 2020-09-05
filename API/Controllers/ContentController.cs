@@ -11,6 +11,7 @@ using System.Security.Claims;
 using API.Data;
 using AutoMapper.Configuration;
 using AutoMapper;
+using API.Dto;
 
 namespace api.Controllers
 {
@@ -56,7 +57,7 @@ namespace api.Controllers
 
         [HttpGet("GetMyCourses")]
 
-        public async Task<IEnumerable<LearningSet>> GetMyCourses(long userId)
+        public async Task<IEnumerable<CourseDto>> GetMyCourses(long userId)
         {
             var result = await _repository.GetUserLearningSets(userId);
 
@@ -69,7 +70,7 @@ namespace api.Controllers
 
         [HttpGet("GetUserCoursesCollection")]
 
-        public async Task<IEnumerable<LearningSet>> GetUserCoursesCollection(long userId)
+        public async Task<IEnumerable<CourseDto>> GetUserCoursesCollection(long userId)
         {
             var result = await _repository.GetUserCoursesCollection(userId);
 
@@ -95,7 +96,7 @@ namespace api.Controllers
 
         [HttpGet("GetAllCourses")]
 
-        public async Task<IEnumerable<LearningSet>> GetAllCourses(long userId)
+        public async Task<IEnumerable<CourseDto>> GetAllCourses(long userId)
         {
             var result = await _repository.GetOtherLearningSets(userId);
 
