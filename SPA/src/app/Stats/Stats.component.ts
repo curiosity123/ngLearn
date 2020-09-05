@@ -28,7 +28,7 @@ export class StatsComponent implements OnInit {
   step = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
-              private router: Router, private contentService: ContentService, public dialog: MatDialog) { }
+    private router: Router, private contentService: ContentService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.GetCourses();
@@ -45,7 +45,7 @@ export class StatsComponent implements OnInit {
 
   DeleteThisCourse(CourseId: number) {
     this.contentService.RemoveFromUsersCollection(CourseId.toString()).subscribe((
-      response: string) => {     
+      response: string) => {
       this.GetCourses();
     });
 
@@ -57,10 +57,10 @@ export class StatsComponent implements OnInit {
         this.CoursesList = response;
         this.Summaries = this.contentService.UpdateProgress(this.CoursesList);
       })
-    
+
   }
 
-  
+
   openResetProgressDialog(setId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: "Do you want to reset your progress?"
