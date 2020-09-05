@@ -41,22 +41,8 @@ export class ContentService {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse', { params});
   }
 
-  UpdateProgress(courses: CoursesCollection[]) {
-    var progresses = new Array<Progress>();
-    for (let i = 0; i < courses.length; i++) {
-      this.GetCourseProgress(courses[i].id.toString()).subscribe((res: Progress) => {
-        progresses.push(res);
-      });
-      return progresses;
-    }
-  }
-
   ResetCourseProgress(setId: string) {
     return this.http.post(this.baseUrl + this.loggedUser.id + '/content/' + setId + '/resetProgress', {});
-  }
-
-  GetCourseProgress(courseId: string) {
-    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId + '/getProgress');
   }
 
   RemoveFromUsersCollection(courseId: string) {

@@ -217,20 +217,6 @@ namespace API.Data
             return true;
         }
 
-        public async Task<Summary> GetProgress(long UserId, long LearningSetId)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
-            var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
-            if (user != null && learningSet != null)
-            {
-                var prog = await _context.LearningProgresses.Where(p => p.Owner == user && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel).ToListAsync();
-                double percentage = (double)(((double)prog.Count / (double)learningSet.LearningItems.Count)) * 100;
-                if (double.IsNaN(percentage))
-                    percentage = 0;
-                return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = percentage };
-            }
-            return new Summary() { UserId = UserId, LearningSetId = LearningSetId, ProgressInPercentage = 0 };
-        }
         public async Task<bool> ResetProgress(long UserId, long LearningSetId)
         {
             var items = await _context.LearningProgresses.Where(u => u.Owner.Id == UserId && u.LearningItem.LearningSet.Id == LearningSetId).ToListAsync();

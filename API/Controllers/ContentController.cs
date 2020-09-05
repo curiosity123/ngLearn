@@ -81,19 +81,6 @@ namespace api.Controllers
         }
 
 
-        [HttpGet("{learningSetId}/GetProgress")]
-
-        public async Task<Summary> GetProgress(long userId, long learningSetId)
-        {
-            var result = await _repository.GetProgress(userId, learningSetId);
-
-            if (result != null)
-                return result;
-            else
-                return null;
-        }
-
-
         [HttpGet("GetAllCourses")]
 
         public async Task<IEnumerable<CourseDto>> GetAllCourses(long userId)

@@ -25,7 +25,6 @@ export class StatsComponent implements OnInit {
 
 
   CoursesList: CoursesCollectionWithProgress[];
-  //Summaries: Array<Progress>;
   step = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
@@ -56,7 +55,6 @@ export class StatsComponent implements OnInit {
     this.contentService.GetUsersCourses()
       .subscribe((response: CoursesCollectionWithProgress[]) => {
         this.CoursesList = response;
-       // this.Summaries = this.contentService.UpdateProgress(this.CoursesList);
       })
 
   }

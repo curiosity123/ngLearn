@@ -20,7 +20,7 @@ export class LessonService {
     this.baseUrl = environment.apiUrl;
   }
 
-
+ 
 
   PushProgressToServer(learningProgress: LearningProgress[]) {
     return this.http.post(this.baseUrl + this.loggedUser.id + '/content/UpdateProgress', learningProgress);
