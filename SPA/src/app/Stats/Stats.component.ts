@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 import { ContentService } from '../content.service';
 import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CoursesCollectionWithProgress } from 'src/models/CoursesCollectionWithProgress';
 
 @Component({
   selector: 'app-stats',
@@ -23,8 +24,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class StatsComponent implements OnInit {
 
 
-  CoursesList: CoursesCollection[];
-  Summaries: Array<Progress>;
+  CoursesList: CoursesCollectionWithProgress[];
+  //Summaries: Array<Progress>;
   step = 0;
 
   constructor(private http: HttpClient, private route: ActivatedRoute,
@@ -53,9 +54,9 @@ export class StatsComponent implements OnInit {
 
   GetCourses() {
     this.contentService.GetUsersCourses()
-      .subscribe((response: CoursesCollection[]) => {
+      .subscribe((response: CoursesCollectionWithProgress[]) => {
         this.CoursesList = response;
-        this.Summaries = this.contentService.UpdateProgress(this.CoursesList);
+       // this.Summaries = this.contentService.UpdateProgress(this.CoursesList);
       })
 
   }

@@ -8,7 +8,7 @@ namespace API.Data
     public interface IContentRepository : IGenericRepository
     {
 
-        Task<ICollection<CourseDto>> GetUserLearningSets(long UserId);
+        Task<ICollection<CourseWithProgressDto>> GetUserLearningSets(long UserId);
 
         Task<Pagination> GetItemsForCourse(long UserId, long LearningSetId, int pageSize, int pageIndex, int length);
 

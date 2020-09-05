@@ -12,6 +12,7 @@ namespace API.Helpers
             CreateMap<User, UserForDetailsDto>();
             CreateMap<User, UserForLoginDto>();
             CreateMap<LearningSet, CourseDto>().ForMember(x=>x.Author,y=>y.MapFrom(z=>z.Author.UserName));
+             CreateMap<LearningSet, CourseWithProgressDto>().ForMember(x=>x.Author,y=>y.MapFrom(z=>z.Author.UserName));
         }
     }
 }

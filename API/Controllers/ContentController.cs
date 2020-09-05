@@ -57,7 +57,7 @@ namespace api.Controllers
 
         [HttpGet("GetMyCourses")]
 
-        public async Task<IEnumerable<CourseDto>> GetMyCourses(long userId)
+        public async Task<IEnumerable<CourseWithProgressDto>> GetMyCourses(long userId)
         {
             var result = await _repository.GetUserLearningSets(userId);
 

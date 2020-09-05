@@ -167,8 +167,8 @@ namespace API.Data
         public async Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId)
         {
             ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Include(x => x.Author).Where(x => x.Author.Id == UserId).ToListAsync();
-            
-             ICollection<CourseDto> collection = new List<CourseDto>();
+
+            ICollection<CourseDto> collection = new List<CourseDto>();
             foreach (var c in usersSets)
             {
                 CourseDto course = mapper.Map<CourseDto>(c);
@@ -178,18 +178,33 @@ namespace API.Data
             return collection;
         }
 
-        public async Task<ICollection<CourseDto>> GetUserLearningSets(long UserId)
+        public async Task<ICollection<CourseWithProgressDto>> GetUserLearningSets(long UserId)
         {
             List<long> usersSetsIds = await _context.UserLearningSets.Where(l => l.UserId == UserId).Select(x => x.LearningSetId).ToListAsync();
             ICollection<LearningSet> usersSets = await _context.LearningSets.Include(x => x.LearningItems).Include(x => x.Author).Where(x => usersSetsIds.Contains(x.Id)).ToListAsync();
-            
-            ICollection<CourseDto> collection = new List<CourseDto>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);
+
+            ICollection<CourseWithProgressDto> collection = new List<CourseWithProgressDto>();
             foreach (var c in usersSets)
             {
-                CourseDto course = mapper.Map<CourseDto>(c);
-                collection.Add(course);
-            }
+                CourseWithProgressDto course = mapper.Map<CourseWithProgressDto>(c);
 
+
+                if (user != null && c != null)
+                {
+                    var prog = await _context.LearningProgresses.Where(p => p.Owner == user && p.LearningItem.LearningSet.Id == c.Id && p.MemorizedLevel).ToListAsync();
+                    double percentage = (double)(((double)prog.Count / (double)c.LearningItems.Count)) * 100;
+                    if (double.IsNaN(percentage))
+                        percentage = 0;
+
+
+                    course.Progress = percentage;
+                    collection.Add(course);
+
+                }
+                
+
+            }
             return collection;
         }
 
