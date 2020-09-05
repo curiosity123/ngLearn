@@ -6,21 +6,18 @@
 <mat-accordion class="example-headers-align " multi>
   <div class="ml-4 mr-4" *ngFor="let item of Items; let i = index">
 
-
     <mat-expansion-panel class="mt-2 glassy">
       <mat-expansion-panel-header>
         <mat-panel-title class="col-5">
-          {{item.item}}
+          {{item.item}} 
         </mat-panel-title>
-        <mat-panel-description class="col-7">
-          {{item.description}}
-        </mat-panel-description>
+
       </mat-expansion-panel-header>
 
       <mat-form-field class="col-12 mt-4">
         <mat-label>Answer</mat-label>
-        <input matInput [(ngModel)]="item.item">
-      </mat-form-field>
+        <input matInput [(ngModel)]="item.item"> 
+      </mat-form-field> 
 
       <mat-form-field class="col-12">
         <mat-label>Clue</mat-label>
