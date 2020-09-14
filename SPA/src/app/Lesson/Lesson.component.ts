@@ -27,13 +27,13 @@ export class LessonComponent implements OnInit {
   answers: string[];
   indexesOfGaps;
   IsError;
-  
+
   finished = false;
   words: string[];
   user: User;
   results: boolean[];
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute, private lessonService: LessonService) { 
+  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute, private lessonService: LessonService) {
     this.user = JSON.parse(localStorage.getItem('user'));
 
   }
@@ -101,17 +101,60 @@ export class LessonComponent implements OnInit {
     this.AnswerVisibility = false;;
   }
 
-
+  removeSpecialCharacters(s: string): string {
+    return s
+      .split('.').join('')
+      .split(',').join('')
+      .split('?').join('')
+      .split('!').join('')
+      .split('-').join('');
+  }
+ 
 
   checkAnswer() {
     this.AnswerVisibility = true;
     this.IsError = false;
-    const correctWords = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx - 1].correctSentence);
-    for (let i = 0; i < this.words.length; i++) {
-      if (this.answers[i] != null && (correctWords[i] !== this.answers[i])) {
-        this.IsError = true;
+
+    const userAnswer = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx - 1].sentenceWithGaps);
+    const gapIndex = 0;
+    let usersSentence = '';
+    let correctSentence = this.removeSpecialCharacters(this.Items[this.indx - 1].correctSentence);
+
+
+
+    for (let w of userAnswer) {
+
+
+      if (w === '') {
+        continue;
+      }
+
+      if (!w.includes('_')) {
+        usersSentence += w + ' ';
+      }
+      else {
+        for (let i = 0; i < this.answers.length; i++) {
+          if (this.answers[i] !== null) {
+            usersSentence.trimRight();
+            usersSentence += this.answers[i] + ' ';
+
+            this.answers[i] = null;
+
+            break;
+          }
+        }
       }
     }
+    usersSentence = usersSentence.trimRight().trimLeft();
+    correctSentence = correctSentence.trimRight().trimLeft();
+    console.log(correctSentence);
+    console.log(usersSentence);
+    const correctWords = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx - 1].correctSentence);
+
+    if (usersSentence !== correctSentence) {
+      this.IsError = true;
+    }
+
     this.results.push(!this.IsError);
   }
 
