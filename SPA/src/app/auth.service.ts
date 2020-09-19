@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LearningItem } from 'src/models/LearningItem';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.loggedUser = JSON.parse(localStorage.getItem('user'));
-   }
+  }
 
 
   login(model: User) {
@@ -31,7 +31,7 @@ export class AuthService {
         if (user) {
 
           localStorage.setItem('token', user.token);
-          localStorage.setItem('user', JSON.stringify(user.user)); 
+          localStorage.setItem('user', JSON.stringify(user.user));
           this.decodedToken = this.helper.decodeToken(user.token);
           console.log(this.decodedToken);
 
@@ -46,22 +46,28 @@ export class AuthService {
 
   }
 
-  register(model: any) {
-    return this.http.post(this.baseUrl + 'register', model);
-  }
+  changePassword(password: string) {
+    const params = new HttpParams()
+      .append('newPassword', password.toString());
+    return this.http.put(this.baseUrl + this.loggedUser.id.toString() + '/changePassword', {}, { params });
+}
 
-  removeAccount() {
-    return this.http.delete(this.baseUrl +  this.loggedUser.id.toString() +  '/removeAccount');
-  }
+register(model: any) {
+  return this.http.post(this.baseUrl + 'register', model);
+}
 
-  ifUserExist(model: any) {
-    return this.http.post(this.baseUrl + 'loginAvailable', model);
-  }
+removeAccount() {
+  return this.http.delete(this.baseUrl + this.loggedUser.id.toString() + '/removeAccount');
+}
 
-  loggedIn() {
-    const token = localStorage.getItem('token');
-    return !this.helper.isTokenExpired(token);
-  }
+ifUserExist(model: any) {
+  return this.http.post(this.baseUrl + 'loginAvailable', model);
+}
+
+loggedIn() {
+  const token = localStorage.getItem('token');
+  return !this.helper.isTokenExpired(token);
+}
 
 
   // getLearningItems()

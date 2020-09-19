@@ -44,8 +44,7 @@ export class RegisterComponent implements OnInit {
   checkIfPasswordCorrect(login, password) {
     if ((password as string).length > 4) {
       this.passwordCorrect = true;
-    }
-    else {
+    } else {
       this.passwordCorrect = false;
     }
   }

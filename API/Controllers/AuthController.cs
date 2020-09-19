@@ -113,11 +113,18 @@ namespace API.Controllers
                 await _contentRepository.RemoveAllItemsForCourse(userId, course.Id);
                 await _contentRepository.RemoveCourse(userId, course.Id);
             }
-            
-            
+
+
             return await _repository.RemoveAccount(userId);
 
 
+        }
+
+        [HttpPut("{userId}/changePassword")]
+        public async Task<bool> changePassword(long userId, [FromQuery] string newPassword)
+        {
+
+            return await _repository.ChangePassword(userId, newPassword);
         }
 
         [HttpPost("register")]

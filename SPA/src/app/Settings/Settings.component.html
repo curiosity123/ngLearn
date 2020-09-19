@@ -3,5 +3,12 @@
     <br>
 
     <button mat-raised-button color="error" (click)="removeAccount()">Remove account</button>
-
-</div> 
+    <br>
+    <br>
+    <button mat-raised-button color="warn" (click)="changePassword()">Change password</button>
+    <mat-form-field class="col-12">
+        <mat-label>New password</mat-label>
+        <input matInput [(ngModel)]="password">
+    </mat-form-field>
+</div>
+ 

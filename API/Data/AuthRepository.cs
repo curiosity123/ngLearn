@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using API.Models;
@@ -28,7 +29,21 @@ namespace API.Data
         }
 
 
+        public async Task<bool> ChangePassword(long userId, string password)
+        {
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHashSalt(password, out passwordHash, out passwordSalt);
 
+            var usr = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            if (usr != null)
+            {
+                usr.PasswordHash = passwordHash;
+                usr.PasswordSalt = passwordSalt;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
 
         public async Task<User> Register(User user, string password)
         {

@@ -15,6 +15,7 @@ export class SettingsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) { }
 
+  password: string;
   ngOnInit() {
   }
 
@@ -32,6 +33,13 @@ export class SettingsComponent implements OnInit {
           this.router.navigate(['/home-component']);
         });
       }
+    });
+  }
+
+  changePassword() {
+    this.authService.changePassword(this.password).subscribe(r=> {
+      this.authService.logout();
+      this.router.navigate(['/home-component']);
     });
   }
 

@@ -9,5 +9,6 @@ namespace API.Data
         Task<User> Register(User user, string password);
         Task<bool> UserExists(string username);
         Task<bool> RemoveAccount(long userId);
+        Task<bool> ChangePassword(long userId, string password);
     }
 }
