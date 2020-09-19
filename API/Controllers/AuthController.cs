@@ -19,14 +19,16 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repository;
+        private readonly IContentRepository _contentRepository;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repository, IConfiguration config, IMapper mapper)
+        public AuthController(IAuthRepository repository, IContentRepository contentRepository, IConfiguration config, IMapper mapper)
         {
             _mapper = mapper;
             _config = config;
             _repository = repository;
+            _contentRepository = contentRepository;
         }
 
 
@@ -83,6 +85,7 @@ namespace API.Controllers
 
 
 
+
         [HttpPost("loginAvailable")]
         public async Task<bool> loginAvailable(UserForLoginDto userForRegisterDto)
         {
@@ -90,6 +93,31 @@ namespace API.Controllers
                 return true;
             else
                 return false;
+        }
+
+
+        [HttpDelete("{userId}/removeAccount")]
+        public async Task<bool> removeAccount(long userId)
+        {
+
+            var courses = await _contentRepository.GetUserLearningSets(userId);
+            foreach (var course in courses)
+            {
+                await _contentRepository.ResetProgress(userId, course.Id);
+            }
+
+
+            var myCourses = await _contentRepository.GetUserCoursesCollection(userId);
+            foreach (var course in myCourses)
+            {
+                await _contentRepository.RemoveAllItemsForCourse(userId, course.Id);
+                await _contentRepository.RemoveCourse(userId, course.Id);
+            }
+            
+            
+            return await _repository.RemoveAccount(userId);
+
+
         }
 
         [HttpPost("register")]

@@ -33,6 +33,42 @@ namespace API.Data
             return false;
         }
 
+
+        public async Task<bool> RemoveAllItemsForCourse(long userId, long courseId)
+        {
+            try
+            {
+                var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(s => s.Id == courseId);
+                var items = learningSet.LearningItems.ToList();
+                if (learningSet != null)
+                    foreach (var c in items)
+                    {
+                        await RemoveItem(userId, c.Id);
+                    }
+                await _context.SaveChangesAsync();
+                return true;
+            }
+
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        public async Task<bool> ModifyCourseDetails(long UserId, long CourseId, string Title, string Description)
+        {
+            var learningSet = await _context.LearningSets.FirstOrDefaultAsync(s => s.Id == CourseId);
+            if (learningSet != null)
+            {
+                learningSet.Name = Title;
+                learningSet.Description = Description;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<ICollection<LearningItem>> GetNewLessonItems(long UserId, long LearningSetId)
         {
             var ls = await _context.UserLearningSets.Where(x => x.UserId == UserId && x.LearningSetId == LearningSetId).FirstOrDefaultAsync();
@@ -202,7 +238,7 @@ namespace API.Data
                     collection.Add(course);
 
                 }
-                
+
 
             }
             return collection;

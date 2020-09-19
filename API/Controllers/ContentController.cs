@@ -55,6 +55,15 @@ namespace api.Controllers
         }
 
 
+
+        [HttpPut("{learningSetId}/ModifyCourseDetails")]
+        public async Task<bool> ModifyCourseDetails(long userId, long learningSetId, [FromQuery] string title, [FromQuery] string description)
+        {
+            return await _repository.ModifyCourseDetails(userId, learningSetId, title, description);
+
+        }
+
+
         [HttpGet("GetMyCourses")]
 
         public async Task<IEnumerable<CourseWithProgressDto>> GetMyCourses(long userId)

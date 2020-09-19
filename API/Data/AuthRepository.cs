@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-  public class AuthRepository : IAuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
 
@@ -28,6 +28,8 @@ namespace API.Data
         }
 
 
+
+
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash, passwordSalt;
@@ -40,7 +42,17 @@ namespace API.Data
             return user;
         }
 
-
+        public async Task<bool> RemoveAccount(long userId)
+        {
+            var usr = await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+            if (usr != null)
+            {
+                _context.Users.Remove(usr);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            else return false;
+        }
 
         public async Task<bool> UserExists(string username)
         {

@@ -26,7 +26,7 @@ export class ContentService {
 
 
   GetUsersCourses() {
-    console.log("ID: " + this.loggedUser.id);
+    console.log('ID: ' + this.loggedUser.id);
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetMyCourses');
   }
 
@@ -34,11 +34,11 @@ export class ContentService {
 
     console.log(pagination);
     const params = new HttpParams()
-    .append('pageIndex', pagination.pageIndex.toString())
-    .append('length', pagination.length.toString())
-    .append('pageSize', pagination.pageSize.toString());
-    console.log("request prepared");
-    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse', { params});
+      .append('pageIndex', pagination.pageIndex.toString())
+      .append('length', pagination.length.toString())
+      .append('pageSize', pagination.pageSize.toString());
+    console.log('request prepared');
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/' + courseId.toString() + '/GetItemsForCourse', { params });
   }
 
   ResetCourseProgress(setId: string) {
@@ -68,6 +68,13 @@ export class ContentService {
 
   RemoveMyCourse(CourseId: number) {
     return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/removeMyCourse', {});
+  }
+
+  ModifyCourseDetails(courseId, title, description) {
+    const params = new HttpParams()
+      .append('title', title.toString())
+      .append('description', description.toString());
+    return this.http.put(this.baseUrl + this.loggedUser.id + '/content/' + courseId + '/ModifyCourseDetails', {}, { params });
   }
 
 }

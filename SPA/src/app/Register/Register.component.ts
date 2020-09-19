@@ -56,6 +56,7 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+
     const user = { userName: login, Password: "" } as User;
     this.authservice.ifUserExist(user).subscribe(next => {
       console.log(next.valueOf());

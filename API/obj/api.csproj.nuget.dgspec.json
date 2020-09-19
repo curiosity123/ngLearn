@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\NGProjects\\NgLearn\\api\\api.csproj": {}
+    "C:\\NGProjects\\NgLearn\\API\\api.csproj": {}
   },
   "projects": {
-    "C:\\NGProjects\\NgLearn\\api\\api.csproj": {
+    "C:\\NGProjects\\NgLearn\\API\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
+        "projectUniqueName": "C:\\NGProjects\\NgLearn\\API\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\NGProjects\\NgLearn\\api\\api.csproj",
+        "projectPath": "C:\\NGProjects\\NgLearn\\API\\api.csproj",
         "packagesPath": "C:\\Users\\Lukas\\.nuget\\packages\\",
-        "outputPath": "C:\\NGProjects\\NgLearn\\api\\obj\\",
+        "outputPath": "C:\\NGProjects\\NgLearn\\API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

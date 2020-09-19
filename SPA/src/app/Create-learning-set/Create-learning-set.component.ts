@@ -47,14 +47,20 @@ export class CreateLearningSetComponent implements OnInit {
     this.router.navigate(['/Items-editor', courseId]);
   }
 
+  UpdateCourseInfo(course: CoursesCollection) {
+
+    this.contentService.ModifyCourseDetails(course.id, course.name, course.description)
+      .subscribe(response => { this.GetUserCoursesCollection() });
+  }
+
   openDialog(courseId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: "Do you want to remove course?"
+      data: 'Do you want to remove course?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result == true) {
+      if (result === true) {
         this.contentService.RemoveMyCourse(courseId).subscribe(response => { this.GetUserCoursesCollection() });
       }
     });

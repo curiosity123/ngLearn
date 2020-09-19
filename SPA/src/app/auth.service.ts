@@ -16,8 +16,11 @@ export class AuthService {
   baseUrl = environment.apiUrl + 'auth/';
   helper = new JwtHelperService();
   decodedToken: any;
+  loggedUser: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.loggedUser = JSON.parse(localStorage.getItem('user'));
+   }
 
 
   login(model: User) {
@@ -45,6 +48,10 @@ export class AuthService {
 
   register(model: any) {
     return this.http.post(this.baseUrl + 'register', model);
+  }
+
+  removeAccount() {
+    return this.http.delete(this.baseUrl +  this.loggedUser.id.toString() +  '/removeAccount');
   }
 
   ifUserExist(model: any) {

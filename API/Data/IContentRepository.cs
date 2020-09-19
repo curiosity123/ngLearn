@@ -8,6 +8,7 @@ namespace API.Data
     public interface IContentRepository : IGenericRepository
     {
 
+        Task<bool> RemoveAllItemsForCourse(long userId, long courseId);
         Task<ICollection<CourseWithProgressDto>> GetUserLearningSets(long UserId);
 
         Task<Pagination> GetItemsForCourse(long UserId, long LearningSetId, int pageSize, int pageIndex, int length);
@@ -15,6 +16,7 @@ namespace API.Data
         Task<ICollection<CourseDto>> GetOtherLearningSets(long UserId);
 
         Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId);
+        Task<bool> ModifyCourseDetails(long UserId,long CourseId,string Title,string Description);
 
         Task<bool> UpdateProgress(LearningProgressDto[] progresses);
 
