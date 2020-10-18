@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit {
   password: string;
 
   constructor(private route: ActivatedRoute,
-              private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
+    private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
     this.user = JSON.parse(localStorage.getItem('user'));
     console.log(this.user.repetitions);
     if (this.user != null && this.user.userName != null) {
@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
   }
 
   formatLabel(value: number) {
-      return value;
+    return value;
   }
 
   removeAccount(): void {
@@ -54,8 +54,13 @@ export class SettingsComponent implements OnInit {
 
 
   saveSettings() {
-   this.contentService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => { });
-  }
+    this.contentService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => {
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.user.itemsPerLesson = this.itemsPerLesson;
+      this.user.repetitions = this.repetitions;
+      localStorage.setItem('user', JSON.stringify(this.user));
+    });
+  }  
 
   changePassword() {
 

@@ -3,7 +3,7 @@
   <br>
 <mat-card class=" mr-4 ml-4 mt-4  mb-5  background-image text-center"  color="primary" *ngIf="!finished" 
 [ngClass]="{ glassy: !AnswerVisibility && (IsError || !IsError), error: AnswerVisibility && IsError, correct: AnswerVisibility && !IsError }" >
-  <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx*this.Items.length)"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx/this.Items.length)*100"></mat-progress-bar>
 
 
   <mat-card-content class="ml-4 mt-4 text-center full-height" >
@@ -56,7 +56,7 @@
         </div>
       </ng-container>
 
-
+ 
       <div class="ml-0">
         <div class="row">
           <div class="col">

@@ -84,27 +84,57 @@ namespace API.Data
 
         public async Task<ICollection<LearningItem>> GetNewLessonItems(long UserId, long LearningSetId)
         {
-            var ls = await _context.UserLearningSets.Where(x => x.UserId == UserId && x.LearningSetId == LearningSetId).FirstOrDefaultAsync();
-            if (ls != null)
+            var user = await _context.Users.FirstOrDefaultAsync(s => s.Id == UserId);
+            if (user != null)
             {
-                var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
-
-                if (learningSet != null)
+                var ls = await _context.UserLearningSets.Where(x => x.UserId == UserId && x.LearningSetId == LearningSetId).FirstOrDefaultAsync();
+                if (ls != null)
                 {
-                    var memorizedIds = await _context.LearningProgresses.Where(p => p.Owner.Id == UserId && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel == true).Select(x => x.LearningItem.Id).ToListAsync();
-
-                    var available = learningSet.LearningItems.Where(l => !memorizedIds.Contains(l.Id)).ToList();
-                    List<LearningItem> rand = new List<LearningItem>();
-                    while (available.Count > 0)
+                    var learningSet = await _context.LearningSets.Include(x => x.LearningItems).FirstOrDefaultAsync(u => u.Id == LearningSetId);
+                    List<LearningItem> newItems = new List<LearningItem>();
+                    if (learningSet != null)
                     {
-                        Random r = new Random();
-                        int index = r.Next(0, available.Count - 1);
-                        rand.Add(available[index]);
-                        available.RemoveAt(index);
-                        if (rand.Count > maxItemPerLesson - 1)
-                            break;
+                        var memorizedIds = await _context.LearningProgresses.Where(p => p.Owner.Id == UserId && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel == true).Select(x => x.LearningItem.Id).ToListAsync();
+
+                        var available = learningSet.LearningItems.Where(l => !memorizedIds.Contains(l.Id)).ToList();
+
+                        while (available.Count > 0)
+                        {
+                            Random r = new Random();
+                            int index = r.Next(0, available.Count - 1);
+                            newItems.Add(available[index]);
+                            available.RemoveAt(index);
+                            if (newItems.Count > user.ItemsPerLesson - 1)
+                                break;
+                        }
                     }
-                    return rand;
+
+                    List<LearningItem> repetitionItems = new List<LearningItem>();
+                    if (learningSet != null)
+                    {
+                        var memorizedIds = await _context.LearningProgresses.Where(p => p.Owner.Id == UserId && p.LearningItem.LearningSet.Id == LearningSetId && p.MemorizedLevel == false).Select(x => x.LearningItem.Id).ToListAsync();
+
+                        var available = learningSet.LearningItems.Where(l => !memorizedIds.Contains(l.Id)).ToList();
+
+                        while (available.Count > 0)
+                        {
+                            Random r = new Random();
+                            int index = r.Next(0, available.Count - 1);
+                            repetitionItems.Add(available[index]);
+                            available.RemoveAt(index);
+                            if (repetitionItems.Count > user.Repetitions - 1)
+                                break;
+                        }
+                    }
+
+
+                    List<LearningItem> items = new List<LearningItem>();
+                    items.AddRange(newItems);
+                    items.AddRange(repetitionItems);
+
+                    return items;
+
+
                 }
             }
             return null;
