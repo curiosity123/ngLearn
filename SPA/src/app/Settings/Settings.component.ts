@@ -37,10 +37,19 @@ export class SettingsComponent implements OnInit {
   }
 
   changePassword() {
-    this.authService.changePassword(this.password).subscribe(r=> {
-      this.authService.logout();
-      this.router.navigate(['/home-component']);
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: "Do you want to your password?"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if (result === true) {
+        this.authService.changePassword(this.password).subscribe(r => {
+          this.authService.logout();
+          this.router.navigate(['/home-component']);
+        });
+      }
     });
   }
-
 }

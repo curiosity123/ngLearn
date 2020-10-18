@@ -1,14 +1,57 @@
-<div class="full-height">
-    <br>
+<div class="full-height" style="bottom: 0px;">
+
+
     <br>
 
-    <button mat-raised-button color="error" (click)="removeAccount()">Remove account</button>
-    <br>
-    <br>
-    <button mat-raised-button color="warn" (click)="changePassword()">Change password</button>
-    <mat-form-field class="col-12">
-        <mat-label>New password</mat-label>
-        <input matInput [(ngModel)]="password">
-    </mat-form-field>
-</div>
- 
+    <h1 class="text-center ">Settings</h1>
+
+    <div class=" m-4 mb-5">
+
+
+        <mat-card class="mt-2 glassy ">
+            <mat-card-header>
+                <mat-card-title>Account settings</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <br>
+                <button mat-raised-button class="mb-3" color="error" (click)="removeAccount()">Remove account</button>
+
+
+                <mat-form-field appearance="standard">
+                    <mat-label>New password</mat-label>
+                    <input matInput [(ngModel)]="password">
+                </mat-form-field>                
+                
+                <br>
+                <button mat-raised-button class="mb-3" color="warn" (click)="changePassword()">Change password</button>
+                <br>
+            </mat-card-content>
+        </mat-card>
+        <br>
+
+
+        <mat-card class="mt-2 glassy ">
+            <mat-card-header>
+                <mat-card-title>Learning settings</mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+                <br>
+                <mat-label>How many items per lesson?</mat-label> 
+                <mat-slider class="mr-3 ml-3" min="10" max="40" step="1" value="8"></mat-slider>
+                <mat-label>8</mat-label>
+                <br>
+             
+                <br>
+                <mat-label>How many repetitions?</mat-label>
+                <mat-slider class="mr-3 ml-3" min="2" max="8" step="1" value="2"></mat-slider>
+                <mat-label>2</mat-label>
+                <br>
+
+               </mat-card-content>
+        </mat-card>
+        <br>
+
+
+    </div>
