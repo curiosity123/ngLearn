@@ -137,10 +137,7 @@ namespace API.Controllers
 
             var userToCreate = new User() { UserName = userForRegisterDto.UserName };
             var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
-            //var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
-
             return Ok();
-            //return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
         }
     }
 }

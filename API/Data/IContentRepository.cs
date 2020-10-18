@@ -18,6 +18,9 @@ namespace API.Data
         Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId);
         Task<bool> ModifyCourseDetails(long UserId,long CourseId,string Title,string Description);
 
+        Task<bool> SaveUserSettings(long UserId,int Repetitions,int ItemsPerLesson);
+
+
         Task<bool> UpdateProgress(LearningProgressDto[] progresses);
 
         Task<bool> CreateCourse(LearningSet course, long UserId);

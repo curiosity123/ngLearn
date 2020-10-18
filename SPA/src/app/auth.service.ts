@@ -43,7 +43,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
   }
 
   changePassword(password: string) {

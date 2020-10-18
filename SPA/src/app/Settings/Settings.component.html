@@ -30,7 +30,6 @@
         </mat-card>
         <br>
 
-
         <mat-card class="mt-2 glassy ">
             <mat-card-header>
                 <mat-card-title>Learning settings</mat-card-title>
@@ -39,16 +38,21 @@
             <mat-card-content>
                 <br>
                 <mat-label>How many items per lesson?</mat-label> 
-                <mat-slider class="mr-3 ml-3" min="10" max="40" step="1" value="8"></mat-slider>
-                <mat-label>8</mat-label>
+                <mat-slider class="mr-3 ml-3" min="10" max="40" step="1" thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1000" [(ngModel)]="itemsPerLesson" ></mat-slider>
+                <mat-label>{{itemsPerLesson}}</mat-label>
                 <br>
-             
+   
                 <br>
                 <mat-label>How many repetitions?</mat-label>
-                <mat-slider class="mr-3 ml-3" min="2" max="8" step="1" value="2"></mat-slider>
-                <mat-label>2</mat-label>
+                <mat-slider class="mr-3 ml-3" min="1" max="8" step="1" thumbLabel
+                [displayWith]="formatLabel"
+                tickInterval="1000"  [(ngModel)]="repetitions" ></mat-slider>
+                <mat-label>{{repetitions}}</mat-label>
                 <br>
-
+                <br>
+                <button mat-raised-button class="mb-3" color="primary" (click)="saveSettings()">Save</button> 
                </mat-card-content>
         </mat-card>
         <br>

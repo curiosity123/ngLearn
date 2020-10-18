@@ -60,8 +60,16 @@ namespace api.Controllers
         public async Task<bool> ModifyCourseDetails(long userId, long learningSetId, [FromQuery] string title, [FromQuery] string description)
         {
             return await _repository.ModifyCourseDetails(userId, learningSetId, title, description);
-
         }
+
+
+       [HttpPut("SaveUserSettings")]
+        public async Task<bool> SaveUserSettings(long userId, [FromQuery] int repetitions, [FromQuery] int itemsPerLesson)
+        {
+            return await _repository.SaveUserSettings(userId, repetitions, itemsPerLesson);
+        }
+
+        
 
 
         [HttpGet("GetMyCourses")]

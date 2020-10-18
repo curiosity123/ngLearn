@@ -56,6 +56,19 @@ namespace API.Data
         }
 
 
+        public async Task<bool> SaveUserSettings(long UserId, int Repetitions, int ItemsPerLesson)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(s => s.Id == UserId);
+            if (user != null)
+            {
+                user.Repetitions = Repetitions;
+                user.ItemsPerLesson = ItemsPerLesson;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> ModifyCourseDetails(long UserId, long CourseId, string Title, string Description)
         {
             var learningSet = await _context.LearningSets.FirstOrDefaultAsync(s => s.Id == CourseId);

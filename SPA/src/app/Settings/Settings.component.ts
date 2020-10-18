@@ -4,6 +4,7 @@ import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component
 import { AuthService } from '../auth.service';
 import { ContentService } from '../content.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/models/User';
 
 @Component({
   selector: 'app-settings',
@@ -11,12 +12,30 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./Settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  user: User;
+  repetitions = 5;
+  itemsPerLesson = 5;
 
   constructor(private route: ActivatedRoute,
-    private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) { }
+    private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user.repetitions);
+    if (this.user != null && this.user.userName != null) {
+      this.repetitions = this.user.repetitions;
+      this.itemsPerLesson = this.user.itemsPerLesson;
+      console.log(this.user.repetitions);
+    }
+
+  }
+
+  formatLabel(value: number) {
+      return value;
+  }
 
   password: string;
   ngOnInit() {
+
+
   }
 
 
@@ -34,6 +53,11 @@ export class SettingsComponent implements OnInit {
         });
       }
     });
+  }
+
+
+  saveSettings() {
+   this.contentService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => { });
   }
 
   changePassword() {

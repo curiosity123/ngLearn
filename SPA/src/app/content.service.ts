@@ -70,6 +70,14 @@ export class ContentService {
     return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/removeMyCourse', {});
   }
 
+  SaveUserSettings(repetitions: number, itemsPerLesson: number)
+  {
+    const params = new HttpParams()
+      .append('repetitions', repetitions.toString())
+      .append('itemsPerLesson', itemsPerLesson.toString());
+    return this.http.put(this.baseUrl + this.loggedUser.id + '/content/SaveUserSettings', {}, { params });
+  }
+
   ModifyCourseDetails(courseId, title, description) {
     const params = new HttpParams()
       .append('title', title.toString())
