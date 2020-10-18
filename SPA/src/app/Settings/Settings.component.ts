@@ -15,9 +15,10 @@ export class SettingsComponent implements OnInit {
   user: User;
   repetitions = 5;
   itemsPerLesson = 5;
+  password: string;
 
   constructor(private route: ActivatedRoute,
-    private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
+              private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
     this.user = JSON.parse(localStorage.getItem('user'));
     console.log(this.user.repetitions);
     if (this.user != null && this.user.userName != null) {
@@ -28,20 +29,16 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+  }
+
   formatLabel(value: number) {
       return value;
   }
 
-  password: string;
-  ngOnInit() {
-
-
-  }
-
-
   removeAccount(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: "Do you want to remove your account? It will also clear your results"
+      data: 'Do you want to remove your account? It will also clear your results'
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -63,7 +60,7 @@ export class SettingsComponent implements OnInit {
   changePassword() {
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: "Do you want to your password?"
+      data: 'Do you want to your password?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
