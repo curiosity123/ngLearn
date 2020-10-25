@@ -3,11 +3,11 @@
   <br>
   <br>
   <br>
-  <h1>Welcome!</h1>
+  <h1>Hey!</h1>
   <br>
-  <h2 class="m-4">If you want to use my app please register your account or sign-in...</h2>
+  <h2 class="m-5">
+    We've been expecting you...<br> <br> Please register your account if you don't have it or sign-in to continue.</h2>
   <br>
-
   <button mat-raised-button color="primary" class="m-4" selected (click)="openRegisterDialog()" *ngIf="!authService.loggedIn()"   >Register</button>
   <button mat-raised-button color="primary" class="m-4"  (click)="openLoginDialog()" *ngIf="!authService.loggedIn()"  >Sign in</button>
 </div>

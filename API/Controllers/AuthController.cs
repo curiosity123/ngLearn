@@ -32,22 +32,6 @@ namespace API.Controllers
         }
 
 
-        // [HttpPost("register")]
-        // public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
-        // {
-        //     userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-
-        //     if (await _repository.UserExists(userForRegisterDto.UserName))
-        //         return BadRequest("Użytkownik o takiej nazwie już istnieje");
-
-        //     var userToCreate = _mapper.Map<User>(userForRegisterDto);
-        //     var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);
-        //     var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
-
-
-        //     return CreatedAtRoute("GetUser",  new {controller = "Users", id =createdUser.Id},userToReturn);
-        // }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
@@ -83,9 +67,6 @@ namespace API.Controllers
 
         }
 
-
-
-
         [HttpPost("loginAvailable")]
         public async Task<bool> loginAvailable(UserForLoginDto userForRegisterDto)
         {
@@ -94,7 +75,6 @@ namespace API.Controllers
             else
                 return false;
         }
-
 
         [HttpDelete("{userId}/removeAccount")]
         public async Task<bool> removeAccount(long userId)
@@ -114,16 +94,12 @@ namespace API.Controllers
                 await _contentRepository.RemoveCourse(userId, course.Id);
             }
 
-
             return await _repository.RemoveAccount(userId);
-
-
         }
 
         [HttpPut("{userId}/changePassword")]
         public async Task<bool> changePassword(long userId, [FromQuery] string newPassword)
         {
-
             return await _repository.ChangePassword(userId, newPassword);
         }
 
@@ -133,7 +109,7 @@ namespace API.Controllers
             userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
 
             if (await _repository.UserExists(userForRegisterDto.UserName))
-                return BadRequest("Użytkownik o takiej nazwie już istnieje");
+                return BadRequest("user not available");
 
             var userToCreate = new User() { UserName = userForRegisterDto.UserName };
             var createdUser = await _repository.Register(userToCreate, userForRegisterDto.Password);

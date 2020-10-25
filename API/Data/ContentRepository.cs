@@ -9,12 +9,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
 {
-    public class ContentRepository : GenericRepository, IContentRepository
+    public class ContentRepository : IContentRepository
     {
-        private const int maxItemPerLesson = 10;
         private readonly DataContext _context;
         private readonly IMapper mapper;
-        public ContentRepository(DataContext context, IMapper mapper) : base(context)
+        public ContentRepository(DataContext context, IMapper mapper) 
         {
             this.mapper = mapper;
             _context = context;

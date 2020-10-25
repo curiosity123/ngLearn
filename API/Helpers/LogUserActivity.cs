@@ -13,7 +13,7 @@ namespace API.Helpers
             var result = await next();
 
             IUserRepository repo = result.HttpContext.RequestServices.GetService(typeof(IUserRepository)) as IUserRepository;
-            var userId =int.Parse(result.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = int.Parse(result.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var user = await repo.GetUser(userId);
             await repo.SaveAll();
         }

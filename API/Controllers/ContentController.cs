@@ -40,9 +40,6 @@ namespace api.Controllers
                 return null;
         }
 
-
-
-
         [HttpGet("{learningSetId}/GetItemsForCourse")]
         public async Task<Pagination> GetItemsForCourse(long userId, long learningSetId, [FromQuery] int pageSize, [FromQuery] int pageIndex, [FromQuery] int length)
         {
@@ -54,26 +51,19 @@ namespace api.Controllers
                 return null;
         }
 
-
-
         [HttpPut("{learningSetId}/ModifyCourseDetails")]
         public async Task<bool> ModifyCourseDetails(long userId, long learningSetId, [FromQuery] string title, [FromQuery] string description)
         {
             return await _repository.ModifyCourseDetails(userId, learningSetId, title, description);
         }
 
-
-       [HttpPut("SaveUserSettings")]
+        [HttpPut("SaveUserSettings")]
         public async Task<bool> SaveUserSettings(long userId, [FromQuery] int repetitions, [FromQuery] int itemsPerLesson)
         {
             return await _repository.SaveUserSettings(userId, repetitions, itemsPerLesson);
         }
 
-        
-
-
         [HttpGet("GetMyCourses")]
-
         public async Task<IEnumerable<CourseWithProgressDto>> GetMyCourses(long userId)
         {
             var result = await _repository.GetUserLearningSets(userId);
@@ -84,9 +74,7 @@ namespace api.Controllers
                 return null;
         }
 
-
         [HttpGet("GetUserCoursesCollection")]
-
         public async Task<IEnumerable<CourseDto>> GetUserCoursesCollection(long userId)
         {
             var result = await _repository.GetUserCoursesCollection(userId);
@@ -97,9 +85,7 @@ namespace api.Controllers
                 return null;
         }
 
-
         [HttpGet("GetAllCourses")]
-
         public async Task<IEnumerable<CourseDto>> GetAllCourses(long userId)
         {
             var result = await _repository.GetOtherLearningSets(userId);
@@ -111,13 +97,10 @@ namespace api.Controllers
         }
 
         [HttpDelete("{courseId}/removeMyCourse")]
-
         public async Task<IActionResult> removeMyCourse(long userId, long courseId)
         {
-
             try
             {
-
                 var result = await _repository.RemoveCourse(userId, courseId);
 
                 if (result)
@@ -132,13 +115,10 @@ namespace api.Controllers
         }
 
         [HttpDelete("{courseId}/RemoveCourseFromMyBoard")]
-
         public async Task<IActionResult> RemoveCourseFromMyBoard(long userId, long courseId)
         {
-
             try
             {
-
                 var result = await _repository.RemoveLearningSetToUser(userId, courseId);
 
                 if (result)
@@ -151,7 +131,6 @@ namespace api.Controllers
                 return Ok(ex);
             }
         }
-
 
         [HttpPost("{LearningSetId}/AddCourseToBoard")]
         public async Task<IActionResult> AddCourseToBoard(long userId, long LearningSetId)
@@ -203,7 +182,6 @@ namespace api.Controllers
                 return NoContent();
         }
 
-
         [HttpPost("CreateCourse")]
         public async Task<IActionResult> CreateCourse(long userId, LearningSet course)
         {
@@ -213,7 +191,6 @@ namespace api.Controllers
             else
                 return NoContent();
         }
-
 
         [HttpPost("{LearningSetId}/ResetProgress")]
         public async Task<IActionResult> ResetProgress(long userId, long LearningSetId)
@@ -226,7 +203,6 @@ namespace api.Controllers
         }
         private LearningItem getItems()
         {
-
             string data = System.IO.File.ReadAllText("data.txt");
             List<string> rec = data.Split('\r').ToList();
 

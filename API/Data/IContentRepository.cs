@@ -5,7 +5,7 @@ using API.Models;
 
 namespace API.Data
 {
-    public interface IContentRepository : IGenericRepository
+    public interface IContentRepository 
     {
 
         Task<bool> RemoveAllItemsForCourse(long userId, long courseId);

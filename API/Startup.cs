@@ -46,7 +46,6 @@ namespace api
             services.AddControllers();
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<LogUserActivity>();
