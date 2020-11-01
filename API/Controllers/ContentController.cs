@@ -15,6 +15,7 @@ using API.Dto;
 using System.IO;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.AspNetCore.Cors;
+using System.Text.Json;
 
 namespace api.Controllers
 {
@@ -34,11 +35,13 @@ namespace api.Controllers
         public async Task<FileStreamResult> Export(long userId)
         {
 
-            this.ControllerContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            //this.ControllerContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            string courses = await _repository.BackupAllCourses(userId);
+
             var ms = new MemoryStream();
 
             TextWriter tw = new StreamWriter(ms);
-            tw.Write("blabla");
+            tw.Write(courses);
             tw.Flush();
             ms.Position = 0;
 

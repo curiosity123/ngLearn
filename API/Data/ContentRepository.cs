@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using API.Dto;
 using API.Models;
@@ -13,10 +14,36 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper mapper;
-        public ContentRepository(DataContext context, IMapper mapper) 
+        public ContentRepository(DataContext context, IMapper mapper)
         {
             this.mapper = mapper;
             _context = context;
+        }
+
+
+        public async Task<string> BackupAllCourses(long userId)
+        {
+            var courses = new List<LearningSet>();
+            var usersLearningSets = await GetUserLearningSets(userId);
+
+            foreach (var c in usersLearningSets)
+            {
+                var itms = await GetItemsForCourse(userId, c.Id, 10000, 0, 10000);
+                var set = new LearningSet() { Name = c.Name, Description = c.Description };
+                set.LearningItems = new List<LearningItem>();
+                foreach (var i in itms.items)
+                    set.LearningItems.Add(new LearningItem()
+                    {
+                        CorrectSentence = i.CorrectSentence,
+                        SentenceWithGaps = i.SentenceWithGaps,
+                        Item = i.Item,
+                        Description = i.Description
+                    });
+
+                courses.Add(set);
+            }
+
+            return JsonSerializer.Serialize(courses);
         }
 
         public async Task<bool> AddLearningSetToUser(long UserId, long LearningSetId)

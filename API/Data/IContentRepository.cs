@@ -5,9 +5,10 @@ using API.Models;
 
 namespace API.Data
 {
-    public interface IContentRepository 
+    public interface IContentRepository
     {
 
+        Task<string> BackupAllCourses(long userId);
         Task<bool> RemoveAllItemsForCourse(long userId, long courseId);
         Task<ICollection<CourseWithProgressDto>> GetUserLearningSets(long UserId);
 
@@ -16,9 +17,9 @@ namespace API.Data
         Task<ICollection<CourseDto>> GetOtherLearningSets(long UserId);
 
         Task<ICollection<CourseDto>> GetUserCoursesCollection(long UserId);
-        Task<bool> ModifyCourseDetails(long UserId,long CourseId,string Title,string Description);
+        Task<bool> ModifyCourseDetails(long UserId, long CourseId, string Title, string Description);
 
-        Task<bool> SaveUserSettings(long UserId,int Repetitions,int ItemsPerLesson);
+        Task<bool> SaveUserSettings(long UserId, int Repetitions, int ItemsPerLesson);
 
 
         Task<bool> UpdateProgress(LearningProgressDto[] progresses);
