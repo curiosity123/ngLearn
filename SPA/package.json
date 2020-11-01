@@ -30,6 +30,7 @@
     "angular-material": "^1.1.22",
     "auth0": "^2.25.1",
     "bootstrap": "^4.5.0",
+    "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "jquery": "^1.12.4",
     "ngx-bootstrap": "^5.6.1",

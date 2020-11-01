@@ -12,6 +12,9 @@ using API.Data;
 using AutoMapper.Configuration;
 using AutoMapper;
 using API.Dto;
+using System.IO;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.Cors;
 
 namespace api.Controllers
 {
@@ -27,6 +30,24 @@ namespace api.Controllers
             _repository = repository;
         }
 
+        [HttpGet("Export")]
+        public async Task<FileStreamResult> Export(long userId)
+        {
+
+            this.ControllerContext.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            var ms = new MemoryStream();
+
+            TextWriter tw = new StreamWriter(ms);
+            tw.Write("blabla");
+            tw.Flush();
+            ms.Position = 0;
+
+
+            return new FileStreamResult(ms, "application/octet-stream")
+            {
+                FileDownloadName = "test.txt"
+            };
+        }
 
 
         [HttpGet("{learningSetId}/GetItems")]

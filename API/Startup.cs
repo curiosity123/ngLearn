@@ -38,6 +38,7 @@ namespace api
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                        .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
@@ -69,6 +70,7 @@ namespace api
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddMvc(option => option.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
                        .AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
@@ -77,7 +79,6 @@ namespace api
             services.AddControllers();
             services.AddTransient<Seed>();
             services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<IGenericRepository, GenericRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<LogUserActivity>();
@@ -103,14 +104,15 @@ namespace api
 
             seeder.SeedLearningSet();
             seeder.SeedUsers();
-
-            app.UseCors(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true));
+  
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc();
-            app.UseRouting();
+            app.UseRouting();          
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

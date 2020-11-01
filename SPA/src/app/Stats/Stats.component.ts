@@ -16,6 +16,7 @@ import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesCollectionWithProgress } from 'src/models/CoursesCollectionWithProgress';
 
+
 @Component({
   selector: 'app-stats',
   templateUrl: './Stats.component.html',
@@ -33,6 +34,8 @@ export class StatsComponent implements OnInit {
   ngOnInit() {
     this.GetCourses();
   }
+
+
 
 
   SetStep(index: number) {

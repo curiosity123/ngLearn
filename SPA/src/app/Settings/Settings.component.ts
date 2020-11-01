@@ -5,6 +5,7 @@ import { AuthService } from '../auth.service';
 import { ContentService } from '../content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/models/User';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-settings',
@@ -52,6 +53,13 @@ export class SettingsComponent implements OnInit {
     });
   }
 
+  
+  Backup()
+  {
+    this.contentService.Backup().subscribe(blob => {
+      saveAs(blob,'backup.json'); 
+   });
+  }
 
   saveSettings() {
     this.contentService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => {

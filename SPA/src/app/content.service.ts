@@ -57,6 +57,10 @@ export class ContentService {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetAllCourses');
   }
 
+  Backup()
+  { 
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/Export',   { responseType: 'blob' });
+  }
 
   GetUserCoursesCollection() {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetUserCoursesCollection');
