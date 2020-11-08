@@ -53,6 +53,30 @@ namespace api.Controllers
         }
 
 
+        [HttpPost("Import")]
+        public async Task<IActionResult> AddCourseToBoard(long userId, [FromForm] IFormFile Backup)
+        {
+            string fileContent = null;
+            using (var reader = new StreamReader(Backup.OpenReadStream()))
+            {
+                fileContent = reader.ReadToEnd();
+            }
+
+            try
+            {
+                List<LearningSet> courses = JsonSerializer.Deserialize<List<LearningSet>>(fileContent);
+                bool result = await _repository.ImportAllCourses(userId, courses);
+                if (result)
+                    return Ok();
+            }
+            catch (Exception ex)
+            {
+                return NotFound();
+            }
+            return Ok();
+        }
+
+
         [HttpGet("{learningSetId}/GetItems")]
         public async Task<IEnumerable<LearningItem>> GetItems(long userId, long learningSetId)
         {

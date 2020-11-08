@@ -9,6 +9,8 @@ namespace API.Data
     {
 
         Task<string> BackupAllCourses(long userId);
+
+        Task<bool> ImportAllCourses(long userId, List<LearningSet> courses);
         Task<bool> RemoveAllItemsForCourse(long userId, long courseId);
         Task<ICollection<CourseWithProgressDto>> GetUserLearningSets(long UserId);
 

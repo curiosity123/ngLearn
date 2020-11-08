@@ -46,6 +46,20 @@ namespace API.Data
             return JsonSerializer.Serialize(courses);
         }
 
+        public async Task<bool> ImportAllCourses(long userId, List<LearningSet> courses)
+        {
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+            foreach (var c in courses)
+            {
+                var set = new LearningSet() { Name = c.Name + "test", Description = c.Description, LearningItems = c.LearningItems.ToList(), Author = user };
+                _context.LearningSets.Add(set);
+                _context.SaveChanges();
+            }
+
+            return true;
+        }
+
         public async Task<bool> AddLearningSetToUser(long UserId, long LearningSetId)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == UserId);

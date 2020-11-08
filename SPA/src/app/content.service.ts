@@ -57,9 +57,13 @@ export class ContentService {
     return this.http.get(this.baseUrl + this.loggedUser.id + '/content/GetAllCourses');
   }
 
-  Backup()
-  { 
-    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/Export',   { responseType: 'blob' });
+  Backup() {
+    return this.http.get(this.baseUrl + this.loggedUser.id + '/content/Export', { responseType: 'blob' });
+  }
+
+  Import(formData) {
+    console.log(formData);
+    return this.http.post(this.baseUrl + this.loggedUser.id + '/content/Import', formData);
   }
 
   GetUserCoursesCollection() {
@@ -74,8 +78,7 @@ export class ContentService {
     return this.http.delete(this.baseUrl + this.loggedUser.id + '/content/' + CourseId + '/removeMyCourse', {});
   }
 
-  SaveUserSettings(repetitions: number, itemsPerLesson: number)
-  {
+  SaveUserSettings(repetitions: number, itemsPerLesson: number) {
     const params = new HttpParams()
       .append('repetitions', repetitions.toString())
       .append('itemsPerLesson', itemsPerLesson.toString());
