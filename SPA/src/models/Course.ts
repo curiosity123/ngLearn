@@ -1,7 +1,8 @@
-export class CoursesCollectionWithProgress {
+export interface Course {
+
     id: number;
     name: string;
     description: string;
     author: string;
-    progress: number;
+
 }

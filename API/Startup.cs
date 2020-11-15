@@ -49,6 +49,7 @@ namespace api
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -63,9 +64,9 @@ namespace api
         }
 
 
-         public void ConfigureDevelopmentServices(IServiceCollection services)
-         {
-              JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
@@ -81,6 +82,7 @@ namespace api
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContentRepository, ContentRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<LogUserActivity>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
@@ -92,7 +94,7 @@ namespace api
                     ValidateAudience = false
                 };
             });
-         }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
@@ -105,13 +107,13 @@ namespace api
             seeder.SeedLearningSet();
             seeder.SeedUsers();
             app.UseCors(o => o.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().SetIsOriginAllowed((host) => true));
-  
+
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc();
-            app.UseRouting();          
+            app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {

@@ -24,12 +24,12 @@ import { LessonComponent } from './Lesson/Lesson.component';
 import 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './Login/Login.component';
-import { AuthService } from './auth.service';
+import { AuthService } from '../services/auth.service';
 import { HomeComponent } from './Home/Home.component';
 import { registerLocaleData } from '@angular/common';
 import { RegisterComponent } from './Register/Register.component';
 import { CreateLearningSetComponent } from './Create-learning-set/Create-learning-set.component';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 import {MatStepperModule} from '@angular/material/stepper';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
@@ -45,14 +45,14 @@ import { ConfirmDialogComponent } from './ConfirmDialog/ConfirmDialog.component'
 import { ItemsEditorComponent } from './Items-editor/Items-editor.component';
 import { NewItemPopupComponent } from './new-item-popup/new-item-popup.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
- 
+
 export function tokenGetter() {
    return localStorage.getItem('token');
    console.log('got token');
  }
 
 @NgModule({
-   declarations: [	
+   declarations: [
       AppComponent,
       HelpComponent,
       SettingsComponent,
@@ -101,8 +101,8 @@ export function tokenGetter() {
            whitelistedDomains: ['localhost:5000'],
            blacklistedRoutes: ['localhost:5000']
          }
-}), 
- 
+}),
+
    ],
    providers: [
       AuthService,

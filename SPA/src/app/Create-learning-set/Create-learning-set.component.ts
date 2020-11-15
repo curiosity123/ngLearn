@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { CoursesCollection as CoursessCollection, CoursesCollection } from 'src/models/CoursesCollection';
-import { ContentService } from '../content.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DialogData } from 'src/models/DialogData';
 import { Console } from 'console';
+import { ContentService } from 'src/services/content.service';
+import { Course } from 'src/models/Course';
+import { DialogData } from 'src/models/DialogData';
 
 
 @Component({
@@ -17,13 +17,17 @@ import { Console } from 'console';
 })
 export class CreateLearningSetComponent implements OnInit {
 
-  CoursesCollection: CoursessCollection[];
+  Courses: Course[];
   step = 0;
-  data: DialogData = { title: "Do you want to remove course?", confirmed: false };
-  newCourse: CoursesCollection = { id: 0, name: "Course name", author: "", description: "course description" };
+  data: DialogData = { title: 'Do you want to remove course?', confirmed: false };
+  newCourse: Course = { id: 0, name: 'Course name', author: '', description: 'course description' };
 
 
-  constructor(private router: Router, private _formBuilder: FormBuilder, private http: HttpClient, private route: ActivatedRoute, private contentService: ContentService, public dialog: MatDialog) { }
+  constructor(private router: Router,
+              private http: HttpClient,
+              private route: ActivatedRoute,
+              private contentService: ContentService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.GetUserCoursesCollection();
@@ -38,8 +42,8 @@ export class CreateLearningSetComponent implements OnInit {
   }
 
   GetUserCoursesCollection() {
-    this.contentService.GetUserCoursesCollection().subscribe((response: CoursessCollection[]) => {
-      this.CoursesCollection = response;
+    this.contentService.GetUserCourses().subscribe((response: Course[]) => {
+      this.Courses = response;
     });
   }
 
@@ -47,10 +51,10 @@ export class CreateLearningSetComponent implements OnInit {
     this.router.navigate(['/Items-editor', courseId]);
   }
 
-  UpdateCourseInfo(course: CoursesCollection) {
+  UpdateCourseInfo(course: Course) {
 
     this.contentService.ModifyCourseDetails(course.id, course.name, course.description)
-      .subscribe(response => { this.GetUserCoursesCollection() });
+      .subscribe(response => { this.GetUserCoursesCollection(); });
   }
 
   openDialog(courseId: number): void {
@@ -61,15 +65,14 @@ export class CreateLearningSetComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
 
       if (result === true) {
-        this.contentService.RemoveMyCourse(courseId).subscribe(response => { this.GetUserCoursesCollection() });
+        this.contentService.RemoveCourse(courseId).subscribe(response => { this.GetUserCoursesCollection(); });
       }
     });
   }
 
 
   Create() {
-    this.contentService.AddNewCourse(this.newCourse).subscribe(response => {
-      //this.CoursesCollection = response;
+    this.contentService.CreateCourse(this.newCourse).subscribe(response => {
       console.log(response);
       this.GetUserCoursesCollection();
     });

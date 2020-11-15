@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { LearningItem } from 'src/models/LearningItem';
-import { ItemService } from '../item.service';
+import { Item } from 'src/models/Item';
+import { ContentService } from 'src/services/content.service';
 
 @Component({
   selector: 'app-new-item-popup',
@@ -11,26 +11,29 @@ import { ItemService } from '../item.service';
 export class NewItemPopupComponent implements OnInit {
 
   dialog: MatDialogRef<NewItemPopupComponent>;
-  item: LearningItem;
+  item: Item;
   setId: number;
-  constructor(dialogRef: MatDialogRef<NewItemPopupComponent>, @Inject(MAT_DIALOG_DATA) public data: number, private itemService: ItemService) {
+  constructor(dialogRef: MatDialogRef<NewItemPopupComponent>,
+              @Inject(MAT_DIALOG_DATA)
+              public data: number,
+              private contentService: ContentService) {
     this.dialog = dialogRef;
     this.setId = data;
   }
 
   ngOnInit() {
     this.item = {
-      sentenceWithGaps: "Tom p_ football every day.",
+      sentenceWithGaps: 'Tom p_ football every day.',
       id: 0,
-      correctSentence: "Tom plays football every day.",
-      item: "Plays",
-      description: "play but in correct tense"
+      correctSentence: 'Tom plays football every day.',
+      item: 'Plays',
+      description: 'play but in correct tense'
     };
   }
 
   Save() {
     console.log(this.setId);
-    this.itemService.AddNewItem(this.item, this.setId).subscribe(result => {
+    this.contentService.AddNewItem(this.item, this.setId).subscribe(result => {
       this.dialog.close();
     });
 

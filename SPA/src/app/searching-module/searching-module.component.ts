@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/models/User';
-import { CoursesCollection as CoursessCollection } from 'src/models/CoursesCollection';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ContentService } from '../content.service';
+import { ContentService } from 'src/services/content.service';
+import { AccountService } from 'src/services/account.service';
+import { Course } from 'src/models/Course';
 
 @Component({
   selector: 'app-searching-module',
@@ -14,10 +14,13 @@ import { ContentService } from '../content.service';
 })
 export class SearchingModuleComponent implements OnInit {
 
-  CoursesCollection: CoursessCollection[];
+  Courses: Course[];
   step = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private contentService: ContentService) { }
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute,
+              private accountService: AccountService,
+              private contentService: ContentService) { }
 
   ngOnInit() {
     this.GetAllCourses();
@@ -28,14 +31,14 @@ export class SearchingModuleComponent implements OnInit {
   }
 
   GetAllCourses() {
-    this.contentService.GetAllCourses().subscribe((response: CoursessCollection[]) => {
-      this.CoursesCollection = response;
+    this.contentService.GetAllCourses().subscribe((response: Course[]) => {
+      this.Courses = response;
     });
   }
 
 
   AddToUsersCollection(courseId: string) {
-    this.contentService.AddToUsersCollection(courseId).subscribe(
+    this.accountService.AddCourseToUsersCollection(courseId).subscribe(
       x => {
         this.GetAllCourses();
       },

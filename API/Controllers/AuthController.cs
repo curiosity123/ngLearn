@@ -19,15 +19,17 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthRepository _repository;
+        private readonly IAccountRepository _accountRepository;
         private readonly IContentRepository _contentRepository;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepository repository, IContentRepository contentRepository, IConfiguration config, IMapper mapper)
+        public AuthController(IAuthRepository repository, IAccountRepository accountRepository, IContentRepository contentRepository, IConfiguration config, IMapper mapper)
         {
             _mapper = mapper;
             _config = config;
             _repository = repository;
+            _accountRepository = accountRepository;
             _contentRepository = contentRepository;
         }
 
@@ -80,10 +82,10 @@ namespace API.Controllers
         public async Task<bool> removeAccount(long userId)
         {
 
-            var courses = await _contentRepository.GetUserLearningSets(userId);
+            var courses = await _accountRepository.GetUserLearningSets(userId);
             foreach (var course in courses)
             {
-                await _contentRepository.ResetProgress(userId, course.Id);
+                await _accountRepository.ResetProgress(userId, course.Id);
             }
 
 

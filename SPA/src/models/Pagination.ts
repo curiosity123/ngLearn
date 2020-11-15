@@ -1,8 +1,8 @@
-import { LearningItem } from './LearningItem';
+import { Item } from './Item';
 
 export class Pagination {
     pageIndex: number;
     pageSize: number;
     length: number;
-    items: LearningItem[];
+    items: Item[];
 }

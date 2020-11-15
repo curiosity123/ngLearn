@@ -3,9 +3,9 @@
   <h1 class="text-center ">Course creator:</h1>
   <div class="mr-4 mb-4  ml-4 mt-4">
 
-    <mat-accordion class="example-headers-align " *ngIf="CoursesCollection.length!=0">
+    <mat-accordion class="example-headers-align " *ngIf="Courses.length!=0">
 
-      <div *ngFor="let item of CoursesCollection; let i = index">
+      <div *ngFor="let item of Courses; let i = index">
         <mat-expansion-panel class="mt-2 glassy" [expanded]="false" (opened)="setStep(i)" >
           <mat-expansion-panel-header>
             <mat-panel-title>

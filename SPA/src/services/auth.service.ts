@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LearningItem } from 'src/models/LearningItem';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from 'src/models/User';
+
 
 
 
@@ -68,13 +68,4 @@ loggedIn() {
   return !this.helper.isTokenExpired(token);
 }
 
-
-  // getLearningItems()
-  // {
-  //   this.http.push('http://localhost:5000/api/content')
-  //   .subscribe((response: LearningItem[]) => {
-  //     this.Items = response;
-  //     this.Item = this.Items[0];
-  //   })
-  // }
 }

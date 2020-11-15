@@ -1,20 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/models/User';
 import { CreateLearningSetComponent } from '../Create-learning-set/Create-learning-set.component';
-import { LearningItem } from 'src/models/LearningItem';
-import { CoursesCollection } from 'src/models/CoursesCollection';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Summary } from '@angular/compiler';
-import { Progress } from 'src/models/Progress';
 import { environment } from 'src/environments/environment';
-import { ContentService } from '../content.service';
 import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { CoursesCollectionWithProgress } from 'src/models/CoursesCollectionWithProgress';
+import { CourseWithProgress } from 'src/models/CourseWithProgress';
+import { ContentService } from 'src/services/content.service';
+import { AccountService } from 'src/services/account.service';
+
 
 
 @Component({
@@ -25,11 +22,15 @@ import { CoursesCollectionWithProgress } from 'src/models/CoursesCollectionWithP
 export class StatsComponent implements OnInit {
 
 
-  CoursesList: CoursesCollectionWithProgress[];
+  Courses: CourseWithProgress[];
   step = 0;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute,
-    private router: Router, private contentService: ContentService, public dialog: MatDialog) { }
+  constructor(private http: HttpClient,
+              private route: ActivatedRoute,
+              private router: Router,
+              private contentService: ContentService,
+              private accountService: AccountService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.GetCourses();
@@ -47,7 +48,7 @@ export class StatsComponent implements OnInit {
   }
 
   DeleteThisCourse(CourseId: number) {
-    this.contentService.RemoveFromUsersCollection(CourseId.toString()).subscribe((
+    this.accountService.RemoveCourseFromUsersCollection(CourseId.toString()).subscribe((
       response: string) => {
       this.GetCourses();
     });
@@ -55,22 +56,22 @@ export class StatsComponent implements OnInit {
   }
 
   GetCourses() {
-    this.contentService.GetUsersCourses()
-      .subscribe((response: CoursesCollectionWithProgress[]) => {
-        this.CoursesList = response;
-      })
+    this.accountService.GetUsersCourses()
+      .subscribe((response: CourseWithProgress[]) => {
+        this.Courses = response;
+      });
 
   }
 
 
   openResetProgressDialog(setId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: "Do you want to reset your progress?"
+      data: 'Do you want to reset your progress?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result == true) {
+      if (result === true) {
         this.ResetProgress(setId);
       }
     });
@@ -79,19 +80,19 @@ export class StatsComponent implements OnInit {
 
   openDeleteCourseDialog(CourseId: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: "Do you want to delete this course?"
+      data: 'Do you want to delete this course?'
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-      if (result == true) {
+      if (result === true) {
         this.DeleteThisCourse(CourseId);
       }
     });
   }
 
   ResetProgress(setId: number) {
-    this.contentService.ResetCourseProgress(setId.toString()).subscribe(
+    this.accountService.ResetCourseProgress(setId.toString()).subscribe(
       x => {
         console.log(x);
         this.GetCourses();

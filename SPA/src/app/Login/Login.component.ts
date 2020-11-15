@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { User } from 'src/models/User';
+import { AuthService } from '../../services/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { User } from 'src/models/User';
 
 
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit  {
 
     }, error => {
       this.loginCorrect = true;
-      console.log("errrr");
+      console.log('errrr');
     });
 
   }

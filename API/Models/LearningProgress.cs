@@ -6,9 +6,7 @@ namespace API.Models
     {
         public long Id { get; set; }
         public User Owner { get; set; }
-
         public bool MemorizedLevel { get; set; }
-
         public LearningItem LearningItem { get; set; }
 
     }

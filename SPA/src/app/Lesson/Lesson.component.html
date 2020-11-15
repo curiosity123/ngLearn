@@ -3,7 +3,7 @@
   <br>
 <mat-card class=" mr-4 ml-4 mt-4  mb-5  background-image text-center"  color="primary" *ngIf="!finished" 
 [ngClass]="{ glassy: !AnswerVisibility && (IsError || !IsError), error: AnswerVisibility && IsError, correct: AnswerVisibility && !IsError }" >
-  <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx/this.Items.length)*100"></mat-progress-bar>
+  <mat-progress-bar mode="determinate" class="row ml-2 mr-5" [value]="(indx/this.items.length)*100"></mat-progress-bar>
 
 
   <mat-card-content class="ml-4 mt-4 text-center full-height" >
@@ -22,11 +22,11 @@
       </div>
       <br>
       <mat-label class="h6">Correct answer was... </mat-label>
-      <h1><strong>{{Item?.item}}</strong> </h1>
+      <h1><strong>{{item?.item}}</strong> </h1>
       <br>
       <mat-label class="h6">Full sentence:</mat-label>
       <div class=" m-3" *ngIf="AnswerVisibility">
-        <h1 class="h2 text-center"> {{Item?.correctSentence}}</h1>
+        <h1 class="h2 text-center"> {{item?.correctSentence}}</h1>
       </div>
       <button mat-raised-button color="primary" class="mb-4 row"  *ngIf="AnswerVisibility"
          #nextBtn autofocus cdkFocusInitial  (click)="nextQuestion()">Next
@@ -40,7 +40,7 @@
       </div>
       <br>
       <div class="baby text-center row">
-        <h1 class="h4 row mr-3" style="color: blue;">"{{Item?.description}}"</h1>
+        <h1 class="h4 row mr-3" style="color: blue;">"{{item?.description}}"</h1>
       </div>
       <br>
       <br>

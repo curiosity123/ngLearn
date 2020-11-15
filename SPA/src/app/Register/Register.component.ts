@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/models/User';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { User } from 'src/models/User';
 
 @Component({
   selector: 'app-Register',
@@ -10,15 +10,17 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class RegisterComponent implements OnInit {
 
+
+  error = false;
+  loginAvailable = false;
+  passwordCorrect = false;
+
   constructor(private authservice: AuthService, dialogRef: MatDialogRef<RegisterComponent>) {
     this.dialog = dialogRef;
   }
   dialog: MatDialogRef<RegisterComponent>;
   ngOnInit() {
   }
-  error = false;
-  loginAvailable = false;
-  passwordCorrect = false;
 
   register(login, pass) {
 
@@ -28,9 +30,9 @@ export class RegisterComponent implements OnInit {
       this.authservice.register(user).subscribe(next => {
         console.log();
 
-        const user = { userName: login, Password: pass } as User;
+        const usr = { userName: login, Password: pass } as User;
 
-        this.authservice.login(user).subscribe(next => {
+        this.authservice.login(usr).subscribe(() => {
           this.dialog.close();
           window.location.reload();
         });
@@ -50,13 +52,13 @@ export class RegisterComponent implements OnInit {
   }
 
   checkIfExist(login, password) {
-    if (login == "") {
+    if (login === '') {
       this.loginAvailable = false;
       return;
     }
 
 
-    const user = { userName: login, Password: "" } as User;
+    const user = { userName: login, Password: '' } as User;
     this.authservice.ifUserExist(user).subscribe(next => {
       console.log(next.valueOf());
       this.loginAvailable = next.valueOf() as boolean;

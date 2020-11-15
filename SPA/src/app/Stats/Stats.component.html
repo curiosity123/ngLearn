@@ -9,8 +9,8 @@
   <div class=" m-4 mb-5" >
 
     <mat-accordion class="example-headers-align">
-      <div *ngIf="CoursesList.length>0">
-        <div *ngFor="let set of CoursesList; let i = index">
+      <div *ngIf="Courses.length>0">
+        <div *ngFor="let set of Courses; let i = index">
 
           <mat-expansion-panel class="mt-2 glassy " [expanded]="step === i" (opened)="SetStep(i)" hideToggle>
 
@@ -36,7 +36,7 @@
           </mat-expansion-panel>
         </div>
       </div>
-        <div *ngIf="CoursesList.length==0" class="text-center">
+        <div *ngIf="Courses.length==0" class="text-center">
           <h1 class="mt-5">You don't have any courses in your collection, please go to </h1>
           <a routerLink="/searchingModule-component" routerLinkActive="active">
             <h1>COURSES LIBRARY</h1> 

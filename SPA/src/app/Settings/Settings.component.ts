@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../ConfirmDialog/ConfirmDialog.component';
-import { AuthService } from '../auth.service';
-import { ContentService } from '../content.service';
+import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from 'src/models/User';
 import { saveAs } from 'file-saver';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from 'src/models/User';
+import { ContentService } from 'src/services/content.service';
+import { AccountService } from 'src/services/account.service';
 
 @Component({
   selector: 'app-settings',
@@ -20,7 +21,11 @@ export class SettingsComponent implements OnInit {
   password: string;
   selectedFile: File = null;
   constructor(private route: ActivatedRoute,
-    private router: Router, public dialog: MatDialog, private contentService: ContentService, private authService: AuthService) {
+              private router: Router,
+              public dialog: MatDialog,
+              private contentService: ContentService,
+              private accountService: AccountService,
+              private authService: AuthService) {
     this.user = JSON.parse(localStorage.getItem('user'));
     console.log(this.user.repetitions);
     if (this.user != null && this.user.userName != null) {
@@ -56,25 +61,10 @@ export class SettingsComponent implements OnInit {
 
 
   Backup() {
-    this.contentService.Backup().subscribe(blob => {
+    this.accountService.Backup().subscribe(blob => {
       saveAs(blob, 'backup.json');
     });
   }
-
-  // Import(files) {
-  //   var fileData = <File>files[0];
-  //   var FileName = fileData.name;
-  //   let reader = new FileReader();
-  //   var selectedFile = <File>files[0];
-
-  //   reader.onload = function (readerEvt: any) {
-  //     var arrayBuffer = readerEvt.target.result.toString().split('base64,')[1];
-  //     document.querySelector('#hidden_upload_item').innerHTML = arrayBuffer;
-  //     this.Proceed();
-  //   }.bind(this);
-  //   reader.readAsDataURL(selectedFile);
-
-  // }
 
   Restore() {
     console.log(this.selectedFile);
@@ -88,7 +78,7 @@ export class SettingsComponent implements OnInit {
     const formData = new FormData();
     formData.append('Backup', file);
 
-    this.contentService.Import(formData).subscribe(r => console.log(r));
+    this.accountService.Import(formData).subscribe(r => console.log(r));
   }
 
 
@@ -98,7 +88,7 @@ export class SettingsComponent implements OnInit {
 
 
   saveSettings() {
-    this.contentService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => {
+    this.accountService.SaveUserSettings(this.repetitions, this.itemsPerLesson).subscribe((response: string) => {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.user.itemsPerLesson = this.itemsPerLesson;
       this.user.repetitions = this.repetitions;

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/operators';
-import { LearningItem } from 'src/models/LearningItem';
 import { LessonSummaryComponent } from '../lesson-summary/lesson-summary.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { Item } from 'src/models/Item';
 import { User } from 'src/models/User';
+import { ContentService } from 'src/services/content.service';
+import { AccountService } from 'src/services/account.service';
 import { LearningProgress } from 'src/models/LearningProgress';
-import { LessonService } from '../lesson.service';
-
 
 
 
@@ -20,9 +20,9 @@ import { LessonService } from '../lesson.service';
 export class LessonComponent implements OnInit {
 
 
-  Item: LearningItem = null;
+  item: Item = null;
   indx = 0;
-  Items: LearningItem[];
+  items: Item[];
   AnswerVisibility = false;
   answers: string[];
   indexesOfGaps;
@@ -33,7 +33,11 @@ export class LessonComponent implements OnInit {
   user: User;
   results: boolean[];
 
-  constructor(private http: HttpClient, public dialog: MatDialog, private route: ActivatedRoute, private lessonService: LessonService) {
+  constructor(private http: HttpClient,
+              public dialog: MatDialog,
+              private route: ActivatedRoute,
+              private contentService: ContentService,
+              private accountService: AccountService) {
     this.user = JSON.parse(localStorage.getItem('user'));
 
   }
@@ -50,18 +54,18 @@ export class LessonComponent implements OnInit {
   getLearningItems(courseId: number) {
 
     this.results = new Array();
-    this.lessonService.GetLessonItems(courseId.toString()).subscribe((response: LearningItem[]) => {
-      this.Items = response;
+    this.contentService.GetLessonItems(courseId.toString()).subscribe((response: Item[]) => {
+      this.items = response;
       this.showNewItem();
     });
   }
 
   showNewItem() {
 
-    if (this.indx < this.Items.length) {
-      this.Item = this.Items[this.indx];
-      this.words = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx].sentenceWithGaps);
-      this.answers = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx].sentenceWithGaps);
+    if (this.indx < this.items.length) {
+      this.item = this.items[this.indx];
+      this.words = this.contentService.SplitSentence(this.contentService.Separators, this.items[this.indx].sentenceWithGaps);
+      this.answers = this.contentService.SplitSentence(this.contentService.Separators, this.items[this.indx].sentenceWithGaps);
 
       for (let i = 0; i < this.words.length; i++) {
         if (!this.words[i].includes('_')) {
@@ -77,17 +81,17 @@ export class LessonComponent implements OnInit {
       let learningProgress = new Array<LearningProgress>();
       console.log(this.results);
 
-      for (let i = 0; i < this.Items.length; i++) {
+      for (let i = 0; i < this.items.length; i++) {
         const lp = {
           ownerId: Number.parseInt(this.user.id),
-          learningItemId: this.Items[i].id,
+          learningItemId: this.items[i].id,
           memorizedLevel: this.results[i]
         } as LearningProgress;
         learningProgress.push(lp);
       }
 
       console.log('Progressy:' + learningProgress);
-      this.lessonService.PushProgressToServer(learningProgress).subscribe(
+      this.accountService.UpdateCourseProgress(learningProgress).subscribe(
         x => { },
         error => console.log(error)
       );
@@ -115,10 +119,10 @@ export class LessonComponent implements OnInit {
     this.AnswerVisibility = true;
     this.IsError = false;
 
-    const userAnswer = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx - 1].sentenceWithGaps);
+    const userAnswer = this.contentService.SplitSentence(this.contentService.Separators, this.items[this.indx - 1].sentenceWithGaps);
     const gapIndex = 0;
     let usersSentence = '';
-    let correctSentence = this.removeSpecialCharacters(this.Items[this.indx - 1].correctSentence);
+    let correctSentence = this.removeSpecialCharacters(this.items[this.indx - 1].correctSentence);
 
 
 
@@ -131,8 +135,7 @@ export class LessonComponent implements OnInit {
 
       if (!w.includes('_')) {
         usersSentence += w + ' ';
-      }
-      else {
+      } else {
         for (let i = 0; i < this.answers.length; i++) {
           if (this.answers[i] !== null) {
             usersSentence.trimRight();
@@ -149,7 +152,7 @@ export class LessonComponent implements OnInit {
     correctSentence = correctSentence.trimRight().trimLeft();
     console.log(correctSentence);
     console.log(usersSentence);
-    const correctWords = this.lessonService.SplitSentence(this.lessonService.Separators, this.Items[this.indx - 1].correctSentence);
+    const correctWords = this.contentService.SplitSentence(this.contentService.Separators, this.items[this.indx - 1].correctSentence);
 
     if (usersSentence !== correctSentence) {
       this.IsError = true;
